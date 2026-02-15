@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:Controls="clr-namespace:Meal_Card.Controls"
+             xmlns:m="clr-namespace:UraniumUI.Icons.MaterialIcons;assembly=UraniumUI.Icons.MaterialIcons"
+             xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
+             x:Class="Meal_Card.Pages.AlterarSenha"
+             Shell.ForegroundColor="Black"
+             Shell.NavBarIsVisible="False"
+             Shell.TabBarIsVisible="False"
+             Shell.TitleColor="Black"
+             Shell.BackgroundColor="White"
+             BackgroundColor="{DynamicResource White}">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="Titulo" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="FontSize" Value="Title"/>
+                <Setter Property="FontFamily" Value="PoppinsRegular"/>
+                <Setter Property="TextColor" Value="{StaticResource Gray600}"/>
+                <Setter Property="Margin" Value="10,10,0,0"/>
+            </Style>
+            <Style x:Key="Subtitulo" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="FontSize" Value="18"/>
+                <Setter Property="FontFamily" Value="PoppinsRegular"/>
+                <Setter Property="TextColor" Value="{StaticResource Gray600}"/>
+                <Setter Property="Margin" Value="10,10,0,2"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <RefreshView x:Name="refreshView"
+                 VerticalOptions="Fill"
+                 HorizontalOptions="Fill"
+                 RefreshColor="Blue"
+                 Refreshing="Refreshing">
+
+        <Grid RowDefinitions="auto,auto,auto,auto,auto" RowSpacing="10" Margin="0,0,0,0">
+
+            <ImageButton  Grid.Row="0" Source="left.png" HorizontalOptions="Start" WidthRequest="20" HeightRequest="20" Padding="8" Margin="10,10" Clicked="BtnVoltar_Clicked" />
+            <Label Grid.Row="1" Style="{StaticResource Subtitulo}" Text="Redifinir Senha" VerticalOptions="Center" Margin="0,-20,0,-0" HorizontalOptions="Center"/>
+            <Border Grid.Row="2" Grid.Column="4" Stroke="Gray" Background="Gray" Padding="1"  HorizontalOptions="Fill" Margin="5,0,5,20" StrokeShape="RoundRectangle 400"  HeightRequest="1" />
+
+            <ScrollView Grid.Row="3" >
+                <Grid Grid.Row="3"  RowDefinitions="auto,auto" Margin="10,20,10,20" >
+                    <Image  Source="security.png"
+                   WidthRequest="400"
+                   HeightRequest="250"
+                   Opacity=".2"/>
+
+                    <Grid VerticalOptions="Center" Margin="10,90,10,0" Padding="10" >
+                        <Label Text="Alterar senha" TextColor="Black" FontSize="16" FontAttributes="Bold" Margin="0,-12,0,0"/>
+                        <Label Margin="0,20,0,20" >
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="Preencha os campos vazios corretamente para alterar a sua senha. " FontSize="14" TextColor="Black" FontFamily="PoppinsRegular"/>
+                                    <Span Text="Importante: " FontSize="14" FontAttributes="Bold" TextColor="Black" FontFamily="PoppinsRegular"/>
+                                    <Span Text="memorizar ou guardar a sua senha para não esquecer!" FontSize="14" TextColor="Black" FontFamily="PoppinsRegular"/>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                    </Grid>
+
+
+                    <Grid Grid.Row="1" Margin="0,-25,0,20" >
+                        <VerticalStackLayout>
+
+                            <material:TextField Grid.Row="1" Title="Senha atual" Icon="{FontImageSource FontFamily=MaterialRegular, Glyph={x:Static m:MaterialRegular.Password}, Color={StaticResource Gray900}}"
+                                    x:Name="txt_SenhaAtual" HorizontalOptions="Fill" TextColor="Black" Margin="10,10,10,0"  FontSize="15" BorderColor="{StaticResource Gray100Brush}" CornerRadius="15" TitleColor="{StaticResource Gray600}" AccentColor="Gray" FontFamily="PoppinsRegular" />
+
+                            <material:TextField Title="Nova senha" Icon="{FontImageSource FontFamily=MaterialRegular, Glyph={x:Static m:MaterialRegular.Password}, Color={StaticResource Gray900}}" x:Name="txt_NovaSenha" HorizontalOptions="Fill" TextColor="Black" Margin="10,10,10,0"  FontSize="15" BorderColor="{StaticResource Gray100Brush}" CornerRadius="15" TitleColor="{StaticResource Gray600}" AccentColor="Gray" FontFamily="PoppinsRegular" />
+
+                            <material:TextField Title="Confirmar senha" Icon="{FontImageSource FontFamily=MaterialRegular, Glyph={x:Static m:MaterialRegular.Password}, Color={StaticResource Gray900}}" x:Name="txt_ConfirmarSenha" HorizontalOptions="Fill" TextColor="Black" Margin="10,10,10,0"  FontSize="15" BorderColor="{StaticResource Gray100Brush}" CornerRadius="15" TitleColor="{StaticResource Gray600}" AccentColor="Gray" FontFamily="PoppinsRegular" />
+
+                  <Grid ColumnDefinitions="50*, 50*">
+                    <Controls:ButtonControl
+                    Text="Cancelar"
+                    TextColor="White"
+                    FontAttributes="Bold"
+                    BackgroundColor="Transparent"
+                    Background="Gray"
+                    Margin="10,20"
+                    Stroke="Transparent"
+                    HeightRequest="50"
+                    Opacity=".8"
+                    x:Name="Cancelar"
+                    Clicked="Cancelar_Clicked"
+                        />
+                      
+                    <Controls:ButtonControl
+                    Grid.Column="1"
+                    Text="Alterar Senha"
+                    TextColor="White"
+                    FontAttributes="Bold"
+                    BackgroundColor="Transparent"
+                    Background="Green"
+                    Margin="10,20"
+                    Stroke="Transparent"
+                    HeightRequest="50"
+                    Opacity=".8"
+                    x:Name="Alterar"  
+                    Clicked="Alterar_Clicked"/>
+                      
+                   </Grid>
+
+                        </VerticalStackLayout>
+                    </Grid>
+                </Grid>
+            </ScrollView>
+        </Grid>
+    </RefreshView>
+</ContentPage>

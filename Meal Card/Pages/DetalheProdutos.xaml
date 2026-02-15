@@ -1,0 +1,162 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:Meal_Card.Controls"
+             x:Class="Meal_Card.Pages.DetalhesProdutos"
+             xmlns:mode="clr-namespace:Meal_Card.ViewModels"
+             x:DataType="mode:DetalhesViewModel"
+             NavigationPage.HasNavigationBar="False"
+             BackgroundColor="{StaticResource White}"
+             Title="Detalhes Produtos" Shell.NavBarIsVisible="False">
+
+    <ContentPage.Resources>
+        <!--<converters:ConverterIcon x:Key="ConverterIcon"/>-->
+        <ResourceDictionary>
+            <Style x:Key="Titulo" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="FontSize" Value="Title"/>
+                <Setter Property="FontFamily" Value="PoppinsRegular"/>
+                <Setter Property="TextColor" Value="{StaticResource Gray600}"/>
+                <Setter Property="Margin" Value="10,10,0,0"/>
+            </Style>
+            <Style x:Key="Subtitulo" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="FontSize" Value="Subtitle"/>
+                <Setter Property="FontFamily" Value="PoppinsRegular"/>
+                <Setter Property="TextColor" Value="{StaticResource Gray600}"/>
+                <Setter Property="Margin" Value="10,10,0,2"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <RefreshView x:Name="refreshView"
+                 VerticalOptions="Fill"
+                 HorizontalOptions="Fill"
+                 IsRefreshing="{Binding IsRefreshing}"
+                 RefreshColor="Blue"
+                 Refreshing="Refreshing">
+
+
+        <Grid RowDefinitions="auto,auto,auto,*">
+            <ImageButton Grid.Row="0" Source="left.png" HorizontalOptions="Start" WidthRequest="20" HeightRequest="20" Padding="8" Margin="10,10" x:Name="ImagemProduto"  Clicked="BtnVoltar_Clicked" />
+            <ImageButton Grid.Row="0" ZIndex="2" Source="{Binding Btn_favorito}" WidthRequest="40" HeightRequest="40" HorizontalOptions="End" VerticalOptions="Start" Margin="10" Padding="8" BackgroundColor="Transparent" BorderColor="White" x:Name="SelectFavorito" Clicked="SelectFavorito_Clicked"/>
+            <Label Grid.Row="1" Style="{StaticResource Subtitulo}" x:Name="TitlePage" VerticalOptions="Center" Margin="0,0,0,10" HorizontalOptions="Center" />
+
+            <Border Grid.Row="2"  Margin="-4,10" MinimumWidthRequest="360" HeightRequest="260" Stroke="Transparent" VerticalOptions="Center" HorizontalOptions="Center">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="10"/>
+                </Border.StrokeShape>
+                <Grid >
+                    <Image ZIndex="1"  Source="{Binding Imagem}"  Aspect="AspectFit"  />
+                </Grid>
+            </Border>
+
+
+            <ScrollView Grid.Row="3" HorizontalScrollBarVisibility="Never" VerticalScrollBarVisibility="Never">
+                
+                <Grid Grid.Row="3" RowDefinitions="auto, auto,auto, *">
+                    
+                    <HorizontalStackLayout Grid.Row="0" Spacing="20" Margin="20" HorizontalOptions="Center" VerticalOptions="Center">
+                        <Button HeightRequest="30"
+                            WidthRequest="30"
+                            CornerRadius="60"
+                            BackgroundColor="Goldenrod"
+                            TextColor="White"
+                            Text="-"
+                            Padding="5"
+                            FontSize="30"
+                            FontAttributes="Bold"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center"
+                            x:Name="BtnRemove"
+                            Clicked="BtnRemove_Clicked"/>
+
+                        <Label Text="{Binding Quantidade}"
+                           FontSize="Title"
+                           TextColor="Black"
+                           VerticalTextAlignment="Center"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"/>
+
+                        <Button HeightRequest="30"
+                            WidthRequest="30"
+                            CornerRadius="60"
+                            BackgroundColor="Goldenrod"
+                            TextColor="White"
+                            Text="+"
+                            Padding="5"
+                            FontSize="30"
+                            FontAttributes="Bold"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center"
+                            x:Name="BtnAdicionar"
+                            Clicked="BtnAdicionar_Clicked"/>
+                    </HorizontalStackLayout>
+
+
+                    <Grid ColumnDefinitions="8*,2*"
+                      Grid.Row="1" 
+                      Margin="20,25">
+
+                        <Label 
+                           Text="{Binding Nome}"
+                           Grid.Column="0"
+                           VerticalOptions="Center"
+                           TextColor="Black"
+                           FontSize="Medium"/>
+
+                        <Label Grid.Column="1"
+                           FontSize="Medium"
+                           FontAttributes="Bold"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Center">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <FormattedString.Spans>
+                                        <Span Text="{Binding Preco}" FontSize="Medium" FontAttributes="Bold" TextColor="Black"/>
+                                        <Span Text=" €" FontSize="Medium" FontAttributes="Bold" TextColor="Black"/>
+                                    </FormattedString.Spans>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                    </Grid >
+
+                    <Label Margin="15,0" Grid.Row="2"
+                        Text="{Binding Descricao}"
+                        FontSize="Default"
+                        TextColor="Black"
+                        HorizontalTextAlignment="Start"
+                        VerticalTextAlignment="Center"
+                        />
+                    
+                    <Grid Grid.Row="3" ColumnDefinitions="5*,5*" ColumnSpacing="0"  VerticalOptions="End" >
+                        <VerticalStackLayout Grid.Column="0" VerticalOptions="Center" Background="Goldenrod" HeightRequest="50" >
+                            <Label Text="Total" TextColor="White" FontAttributes="Bold" FontSize="14" Margin="0,5,0,0" FontFamily="PoppinsRegular" HorizontalOptions="Center" VerticalOptions="Center"/>
+                            <Label  HorizontalOptions="Center" VerticalOptions="Center">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span  Text="{Binding PrecoTotal}" TextColor="White" FontSize="14" FontFamily="PoppinsRegular"/>
+                                        <Span Text=" €"  TextColor="White" FontSize="14" FontFamily="PoppinsRegular"/>
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                        </VerticalStackLayout>
+                        <Button Text="Adicionar ao carrinho"
+                            HeightRequest="50"
+                            Grid.Column="1"
+                            CornerRadius="0"
+                            Padding="2"
+                            Margin="0"
+                            BackgroundColor="Green"
+                            FontSize="15"
+                            FontFamily="PoppinsRegular"
+                            TextColor="White"
+                            VerticalOptions="Center"
+                            x:Name="AdicionarCarrinho"
+                            Clicked="AdicionarCarrinho_Clicked"/>
+                    </Grid>
+                </Grid>
+            </ScrollView>
+        </Grid>
+    </RefreshView>
+</ContentPage>

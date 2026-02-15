@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Meal_Card.Pages.Bar"
+             NavigationPage.HasNavigationBar="False"
+             Shell.NavBarIsVisible="False" 
+             Shell.TitleColor="Black"
+             BackgroundColor="{StaticResource White}"             
+             Title="Bar">
+    
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="Titulo" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="FontSize" Value="Title"/>
+                <Setter Property="FontFamily" Value="PoppinsRegular"/>
+                <Setter Property="TextColor" Value="{StaticResource Gray600}"/>
+                <Setter Property="Margin" Value="10,10,0,0"/>
+            </Style>
+            <Style x:Key="Subtitulo" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="FontSize" Value="Subtitle"/>
+                <Setter Property="FontFamily" Value="PoppinsRegular"/>
+                <Setter Property="TextColor" Value="{StaticResource Gray600}"/>
+                <Setter Property="Margin" Value="10,10,0,2"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+ <ScrollView>
+    <Grid RowDefinitions="Auto,Auto,Auto,Auto,3*,Auto,4*" RowSpacing="10" Margin="10">    
+
+        <VerticalStackLayout Grid.Row="0" Margin="15,20,0,20">
+            <Label>
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Aqui podes ver as informações e os produtos disponiveis na cantina" FontFamily="PoppinsRegular" FontSize="16" TextColor="Black"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+        </VerticalStackLayout>
+
+        <Label Grid.Row="1" Text="Categoria dos produtos" Style="{StaticResource Subtitulo}"/>
+        
+        <CollectionView Grid.Row="2"  x:Name="CV_Categorias" SelectionMode="Single">
+            <CollectionView.EmptyView>
+                    <Image Source="notfound.png" VerticalOptions="Center"  HeightRequest="150" WidthRequest="150" HorizontalOptions="Center" Margin="0,0,0,10" />
+                   <!-- <Label Text="Sem Registros" HorizontalTextAlignment="Center" TextColor="Black" FontSize="18" FontAttributes="Bold" VerticalOptions="Center" Margin="0,0,0,0" x:Name="txt_Categorias"/> -->
+            </CollectionView.EmptyView>
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Horizontal" ItemSpacing="15"/>
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <VerticalStackLayout>
+                            <Image HeightRequest="80" WidthRequest="120" Source="{Binding CaminhoImagem}" Aspect="AspectFill" BackgroundColor="{StaticResource Gray100}" />
+                            <Label Text="{Binding Nome}" HorizontalOptions="Center" FontFamily="PoppinsRegular" TextColor="Black"/>
+                    </VerticalStackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <Label Grid.Row="3" Text="Mais Vendidos" Style="{StaticResource Subtitulo}"/>
+        
+        <CollectionView Grid.Row="4"  x:Name="CV_MaisVendidos" SelectionMode="Single">
+            <CollectionView.EmptyView>
+                <Image Source="product_not_found.png" VerticalOptions="Center" HeightRequest="150" WidthRequest="150" HorizontalOptions="Center" Margin="0,0,0,10"/>
+                <!-- <Label Text="Sem Registros" HorizontalTextAlignment="Center" TextColor="Black" FontSize="18" FontAttributes="Bold" VerticalOptions="Center" Margin="0,0,0,0" x:Name="txt_MaisVendidos"/>  -->
+            </CollectionView.EmptyView>
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Horizontal" ItemSpacing="15"/>
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <VerticalStackLayout>
+                            <Image HeightRequest="80" WidthRequest="120" Source="{Binding CaminhoImagem}" Aspect="AspectFill" BackgroundColor="{StaticResource Gray100}"/>
+                        <Label Text="{Binding Nome}" HorizontalOptions="Center" FontFamily="PoppinsRegular" TextColor="Black"/>
+                    </VerticalStackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <Label Grid.Row="5" Text="Produtos Populares" Style="{StaticResource Subtitulo}"/>
+
+        <CollectionView Grid.Row="6"  x:Name="CV_Populares" SelectionMode="Single">
+            <CollectionView.EmptyView>
+                <Image Source="product_not_found.png" VerticalOptions="Center" HeightRequest="150" WidthRequest="150" HorizontalOptions="Center" Margin="0,0,0,10"/>
+               <!--<Label Text="Sem Registros" HorizontalTextAlignment="Center" TextColor="Black" FontSize="18" FontAttributes="Bold" VerticalOptions="Center" Margin="0,0,0,0" x:Name="txt_Populares"/>--> 
+            </CollectionView.EmptyView>
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Horizontal" ItemSpacing="15"/>
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <VerticalStackLayout>
+                            <Image HeightRequest="80" WidthRequest="120" Source="{Binding CaminhoImagem}" Aspect="AspectFill" BackgroundColor="{StaticResource Gray100}"/>
+                            <Label Text="{Binding Nome}" HorizontalOptions="Center" FontFamily="PoppinsRegular" TextColor="Black"/>
+                        <Label Text="{Binding Preco, StringFormat='Preço: {0:C} '}" HorizontalOptions="Center" FontFamily="PoppinsRegular" TextColor="Black"/>
+                    </VerticalStackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+        </ScrollView>
+</ContentPage>

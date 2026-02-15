@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="Meal_Card.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:Meal_Card"
+    xmlns:pages="clr-namespace:Meal_Card.Pages"
+    Shell.FlyoutBehavior="Disabled"
+    Shell.BackgroundColor="#E5E5E5"
+    Shell.TabBarBackgroundColor="#E5E5E5"
+    Shell.TabBarUnselectedColor="Black"
+    Shell.TitleColor="Black"
+    Shell.TabBarForegroundColor="Green"
+    Shell.TabBarTitleColor="Green">
+
+
+    <!--     
+    <ShellContent Title="Home" Route="LoadingPage" 
+                  Shell.NavBarIsVisible="False" 
+                  ContentTemplate="{DataTemplate pages:LoadingPage}"/>
+    
+    <TabBar>
+        <Tab Title="Home" Icon="home.png" Route="Home" Shell.NavBarIsVisible="False">
+            <ShellContent ContentTemplate="{DataTemplate pages:Inicio}"/>
+        </Tab>
+
+        <Tab Title="Carteira" Icon="carteira.png" Route="Carteira">
+            <ShellContent ContentTemplate="{DataTemplate pages:Carteira}"/>
+        </Tab>
+
+        <Tab Title="Menu" Icon="menu.png" Route="Menu">
+            <ShellContent ContentTemplate="{DataTemplate pages:Menu}"/>
+        </Tab>
+
+    </TabBar> -->
+
+</Shell>

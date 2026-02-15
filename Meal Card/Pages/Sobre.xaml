@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Meal_Card.Pages.Sobre"
+             Shell.TitleColor="Black"
+             Shell.TabBarIsVisible="False"
+             Shell.NavBarIsVisible="False"
+             Shell.ForegroundColor="Black"
+             Shell.BackgroundColor="White"
+             BackgroundColor="{DynamicResource White}">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="Titulo" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="FontSize" Value="Title"/>
+                <Setter Property="FontFamily" Value="PoppinsRegular"/>
+                <Setter Property="TextColor" Value="{StaticResource Gray600}"/>
+                <Setter Property="Margin" Value="10,10,0,0"/>
+            </Style>
+            <Style x:Key="Subtitulo" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="FontSize" Value="18"/>
+                <Setter Property="FontFamily" Value="PoppinsRegular"/>
+                <Setter Property="TextColor" Value="{StaticResource Gray600}"/>
+                <Setter Property="Margin" Value="10,10,0,2"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <RefreshView x:Name="refreshView"
+                 VerticalOptions="Fill"
+                 HorizontalOptions="Fill"
+                 RefreshColor="Blue"
+                 Refreshing="Refreshing">
+
+        <Grid RowDefinitions="auto,auto,auto,*,1*" Padding="10" RowSpacing="10" Margin="10">
+            <ImageButton  Grid.Row="0" Source="left.png" HorizontalOptions="Start" WidthRequest="20" HeightRequest="20" Padding="8" Margin="10,10" Clicked="BtnVoltar_Clicked" />
+            <Label Grid.Row="1" Style="{StaticResource Subtitulo}" Text="Sobre a App" VerticalOptions="Center" Margin="0,-20,0,-0" HorizontalOptions="Center"/>
+            <Border Grid.Row="2" Grid.Column="4" Stroke="Gray" Background="Gray" Padding="1"  HorizontalOptions="Fill" Margin="5,0,5,20" StrokeShape="RoundRectangle 400"  HeightRequest="1" />
+            
+            <ScrollView Grid.Row="3" >
+                <VerticalStackLayout Grid.Row="0" VerticalOptions="Start" HorizontalOptions="Center" Margin="0,10,0,30">
+                    <Label VerticalOptions="Center" HorizontalOptions="Center" >
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span FontFamily="PoppinsRegular" Text="Meal Card " FontSize="18"  TextColor="Black"  FontAttributes="Bold"/>
+                                <!--<Span Text="{Binding version}" FontSize="18" FontAttributes="Bold"/>-->
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <Label Margin="5" Text="mealcard@gmail.com" FontSize="15" TextColor="Black" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
+                    <Border Margin="10" MinimumWidthRequest="300" HeightRequest="1"  Stroke="{DynamicResource Gray100Brush}" StrokeThickness="1" Opacity="0.6"/>
+
+                    <Label>
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span FontFamily="PoppinsRegular" Text="Meal Card" TextColor="Black" FontAttributes="Bold" FontSize="Small"/>
+                                <Span FontFamily="PoppinsRegular" Text=" é um aplicativo que permite que os usuários gerenciem seus cartões de refeição escolar de forma prática e eficiente."  TextColor="Black"
+                              FontSize="14"/>
+
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                </VerticalStackLayout>
+            </ScrollView>
+        </Grid>
+    </RefreshView>
+</ContentPage>

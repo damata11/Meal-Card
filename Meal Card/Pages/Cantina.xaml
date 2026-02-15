@@ -1,0 +1,257 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Meal_Card.Pages.Cantina"
+             xmlns:model="clr-namespace:Meal_Card.ViewModels"
+             NavigationPage.HasNavigationBar="False"
+             Shell.NavBarIsVisible="False"
+             Shell.TitleColor="Black"
+             BackgroundColor="{StaticResource White}"
+             Title="Cantina">
+
+
+        <ContentPage.Resources>
+                <ResourceDictionary>
+                        <Style x:Key="Titulo"
+                                        TargetType="Label">
+                                <Setter Property="FontAttributes"
+                                                Value="Bold"/>
+                                <Setter Property="FontSize"
+                                                Value="Title"/>
+                                <Setter Property="FontFamily"
+                                                Value="PoppinsRegular"/>
+                                <Setter Property="TextColor"
+                                                Value="Black"/>
+                                <Setter Property="Margin"
+                                                Value="10,10,0,0"/>
+                        </Style>
+                        <Style x:Key="Subtitulo"
+                                        TargetType="Label">
+                                <Setter Property="FontAttributes"
+                                                Value="Bold"/>
+                                <Setter Property="FontSize"
+                                                Value="18"/>
+                                <Setter Property="FontFamily"
+                                                Value="PoppinsRegular"/>
+                                <Setter Property="TextColor"
+                                                Value="{StaticResource Gray600}"/>
+                                <Setter Property="Margin"
+                                                Value="10,10,0,2"/>
+                        </Style>
+                </ResourceDictionary>
+        </ContentPage.Resources>
+
+
+        <RefreshView x:Name="refreshView"
+                     VerticalOptions="Fill"
+                     HorizontalOptions="Fill"
+                     IsRefreshing="{Binding IsRefreshing}"
+                     Refreshing="Refreshing">
+
+                <Grid RowDefinitions="auto, auto, *"
+                                Margin="10">
+                        <Grid Grid.Row="0"
+                                        RowDefinitions="auto, *"
+                                        ColumnDefinitions="4*,3*,2*">
+                                <Label Grid.Row="0"
+                                                Grid.Column="0"
+                                                Style="{StaticResource Subtitulo}"
+                                                Text="Refeições"
+                                                VerticalOptions="Center"
+                                                HorizontalOptions="Start"
+                                                Margin="20,20,20,10"/>
+                                <ImageButton  Grid.Row="0"
+                                                Grid.Column="2"
+                                                Source="historico.png"
+                                                WidthRequest="20"
+                                                VerticalOptions="Center"
+                                                HeightRequest="10"
+                                                Padding="8"
+                                                Margin="0,18,-40,0"
+                                                x:Name="Btnhistorico"
+                                                Clicked="Btnhistorico_Clicked"/>
+                        </Grid>
+                        <Grid Grid.Row="1">
+                                <Border Grid.Row="1"
+                                                Grid.Column="4"
+                                                Stroke="Gray"
+                                                Background="Gray"
+                                                Padding="1"
+                                                HorizontalOptions="Fill"
+                                                Margin="5,2,5,20"
+                                                StrokeShape="RoundRectangle 400"
+                                                HeightRequest="1"/>
+                        </Grid>
+                        <ScrollView Grid.Row="2">
+
+
+                                <Grid
+                                        RowDefinitions="Auto, Auto, *, Auto"
+                                        ColumnDefinitions="*"
+                                        RowSpacing="0"
+                                        Padding="0">
+
+                                        <!-- ===== CABEÇALHO DA PÁGINA ===== -->
+                                        <Grid
+                                                Grid.Row="0"
+                                                HeightRequest="56"
+                                                ColumnDefinitions="Auto, *, Auto"
+                                                ColumnSpacing="8"
+                                                Padding="16, 8">
+
+                                                <!-- Botão Home -->
+                                                <ImageButton
+                                                        Grid.Column="0"
+                                                        Source="home.png"
+                                                        Style="{StaticResource HeaderIconStyle}"
+                                                        Command="{Binding NavigateHomeCommand}"/>
+
+                                                <!-- Logo Central (Ícone de Garfo e Faca) -->
+                                                <Border
+                                                        Grid.Column="1"
+                                                        Style="{StaticResource LogoCircleStyle}"
+                                                        HorizontalOptions="Center"
+                                                        VerticalOptions="Center">
+                                                        <Image
+                                                                Source="restaurant.png"
+                                                                WidthRequest="24"
+                                                                HeightRequest="24"
+                                                                HorizontalOptions="Center"
+                                                                VerticalOptions="Center"/>
+                                                </Border>
+
+                                                <!-- Botão Menu Hambúrguer -->
+                                                <ImageButton
+                                                        Grid.Column="2"
+                                                        Source="menu.png"
+                                                        Style="{StaticResource HeaderIconStyle}"
+                                                        Command="{Binding OpenMenuCommand}"/>
+
+                                        </Grid>
+
+                                        <!-- ===== BARRA DE TÍTULO DO MÊS ===== -->
+                                        <Label
+                                                Grid.Row="1"
+                                                Text="{Binding MonthYearDisplay}"
+                                                FontFamily="OpenSansBold"
+                                                FontSize="24"
+                                                TextColor="{StaticResource TextPrimary}"
+                                                HorizontalOptions="Center"
+                                                VerticalOptions="Center"
+                                                Padding="0, 16"/>
+
+                                        <!-- ===== CARTÃO PRINCIPAL DO CALENDÁRIO ===== -->
+                                        <Border
+                                                Grid.Row="2"
+                                                Style="{StaticResource MainCardStyle}"
+                                                Margin="0, 0"
+                                                Padding="0">
+
+                                                <Grid
+                                                        RowDefinitions="Auto, Auto, *"
+                                                        ColumnDefinitions="*"
+                                                        RowSpacing="0">
+
+                                                        <!-- Borda Superior Verde -->
+                                                        <BoxView
+                                                                Grid.Row="0"
+                                                                HeightRequest="3"
+                                                                BackgroundColor="{StaticResource PrimaryGreen}"/>
+
+                                                        <!-- Cabeçalho dos Dias da Semana -->
+                                                        <Grid
+                                                                Grid.Row="1"
+                                                                ColumnDefinitions="*,*,*,*,*,*,*"
+                                                                RowDefinitions="32"
+                                                                ColumnSpacing="0"
+                                                                RowSpacing="0"
+                                                                BackgroundColor="{StaticResource BackgroundWhite}">
+
+                                                                <Label
+                                                                        Grid.Column="0"
+                                                                        Text="SEG"
+                                                                        Style="{StaticResource WeekDayHeaderStyle}"/>
+
+                                                                <Label
+                                                                        Grid.Column="1"
+                                                                        Text="TER"
+                                                                        Style="{StaticResource WeekDayHeaderStyle}"/>
+
+                                                                <Label
+                                                                        Grid.Column="2"
+                                                                        Text="QUA"
+                                                                        Style="{StaticResource WeekDayHeaderStyle}"/>
+
+                                                                <Label
+                                                                        Grid.Column="3"
+                                                                        Text="QUI"
+                                                                        Style="{StaticResource WeekDayHeaderStyle}"/>
+
+                                                                <Label
+                                                                        Grid.Column="4"
+                                                                        Text="SEX"
+                                                                        Style="{StaticResource WeekDayHeaderStyle}"/>
+
+                                                                <Label
+                                                                        Grid.Column="5"
+                                                                        Text="SÁB"
+                                                                        Style="{StaticResource WeekDayHeaderStyle}"/>
+
+                                                                <Label
+                                                                        Grid.Column="6"
+                                                                        Text="DOM"
+                                                                        Style="{StaticResource WeekDayHeaderStyle}"/>
+
+                                                        </Grid>
+
+                                                        <!-- Linha Separadora Horizontal -->
+                                                        <BoxView
+                                                                Grid.Row="1"
+                                                                HeightRequest="1"
+                                                                BackgroundColor="{StaticResource GridLineColor}"
+                                                                VerticalOptions="End"/>
+
+                                                        <!-- Grade do Calendário (6 semanas x 7 dias) -->
+                                                        <Grid
+                                                                x:Name="CalendarGrid"
+                                                                Grid.Row="2"
+                                                                RowDefinitions="*,*,*,*,*,*"
+                                                                ColumnDefinitions="*,*,*,*,*,*,*"
+                                                                ColumnSpacing="0"
+                                                                RowSpacing="0"
+                                                                BackgroundColor="{StaticResource BackgroundWhite}">
+                                                                <!-- As células serão geradas dinamicamente via código -->
+                                                        </Grid>
+
+                                                        <!-- Botão Flutuante Adicionar (+) -->
+                                                        <ImageButton
+                                                                Grid.Row="2"
+                                                                Source="add.png"
+                                                                Style="{StaticResource FloatingActionButtonStyle}"
+                                                                HorizontalOptions="End"
+                                                                VerticalOptions="Start"
+                                                                Margin="0, 8, 16, 0"
+                                                                Command="{Binding AddMealCommand}"
+                                                                AnchorY="0"/>
+
+                                                </Grid>
+
+                                        </Border>
+
+                                        <!-- ===== BOTÃO VOLTAR AO TOPO ===== -->
+                                        <ImageButton
+                                                Grid.Row="3"
+                                                Source="arrow_up.png"
+                                                Style="{StaticResource ScrollToTopButtonStyle}"
+                                                HorizontalOptions="End"
+                                                VerticalOptions="Center"
+                                                Margin="0, 0, 16, 16"
+                                                Command="{Binding ScrollToTopCommand}"/>
+
+                                </Grid>
+
+                        </ScrollView>
+
+                </Grid>
+        </RefreshView>
+</ContentPage>

@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
+             xmlns:Controls="clr-namespace:Meal_Card.Controls"
+             xmlns:m="clr-namespace:UraniumUI.Icons.MaterialIcons;assembly=UraniumUI.Icons.MaterialIcons"
+             x:Class="Meal_Card.Pages.Login"
+             Shell.NavBarIsVisible="False"
+             Shell.TabBarIsVisible="False"
+             BackgroundColor="Green">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="appName" TargetType="Label">
+                <Setter Property="FontSize" Value="28" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+            </Style>
+
+            <Style x:Key="appImage" TargetType="Image">
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="VerticalOptions" Value="Center" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid RowDefinitions="Auto,Auto,Auto,Auto,*,Auto"
+          HeightRequest="1112"
+          VerticalOptions="Start" >
+
+        <VerticalStackLayout Grid.Row="0"  Margin="0,20,0,0" Background="Transparent" VerticalOptions="Start">
+
+            <Image Style="{StaticResource appImage}" Source="food_login.png"
+                   Aspect="AspectFit" Margin="0,-10,0,-20"
+                   WidthRequest="250" VerticalOptions="Center"
+                   HorizontalOptions="Center" />
+
+            <Label Style="{StaticResource appName}" Text=" Login "
+                   Margin="0,20,20,0" />
+
+            <Label
+                Text="...  Tenha seu cartão na sua mão  ..."
+                FontSize="16"
+                Margin="0,0,20,0"
+                CharacterSpacing="0.5"
+                HorizontalOptions="Center"
+                TextColor="White" />
+
+        </VerticalStackLayout>
+        <Border Grid.Row="2" Margin="0,20,0,0" HeightRequest="600" WidthRequest="420" Background="White" VerticalOptions="End">
+            <Border.StrokeShape>
+                <RoundRectangle  CornerRadius="65,65,0,0"/>
+            </Border.StrokeShape>
+
+            <VerticalStackLayout Grid.Row="0" Margin="10,65,10,0">
+
+                <Label Text="Número de Cartão ou email"
+                       CharacterSpacing="0.5"
+                       Margin="38,0,0,10"
+                       Padding="0"
+                       FontSize="16"
+                       FontAttributes="Bold"
+                       TextColor="Black" />
+
+
+                <material:TextField Title=" Número de Cartão ou E-mail" Icon="{FontImageSource FontFamily=MaterialRegular, Glyph={x:Static m:MaterialRegular.Email},Color={StaticResource Gray900}}" 
+                                    x:Name="txt_utilizador" HorizontalOptions="Fill" TextColor="Black" Margin="30,0,30,20"  FontSize="15" BorderColor="Black" TitleColor="Black" AccentColor="Black" FontFamily="PoppinsRegular" SelectionHighlightColor="LightBlue" Keyboard="Email" IsTextPredictionEnabled="True" TextChanged="Txt_utilizador_TextChanged">
+
+                </material:TextField>
+
+                <Label Text="Senha"
+                       CharacterSpacing="0.5"
+                       Margin="38,0,0,10"
+                       FontSize="16"
+                       FontAttributes="Bold"
+                       TextColor="Black" />
+
+                <material:TextField Title=" Sua Senha" Icon="{FontImageSource FontFamily=MaterialRegular,
+                                    Glyph={x:Static m:MaterialRegular.Password},Color={StaticResource Gray900}}" x:Name="txt_senha"
+                                    HorizontalOptions="Fill" TextColor="Black" Margin="30,0,30,20"  FontSize="15"
+                                    BorderColor="Black" TitleColor="Black" AccentColor="Black" FontFamily="PoppinsRegular" IsPassword="True" SelectionHighlightColor="#0C40A9" Keyboard="Text" IsTextPredictionEnabled="True" TextChanged="Txt_senha_TextChanged">
+                    
+                    <material:TextField.Attachments >
+                        <material:TextFieldPasswordShowHideAttachment  />
+                    </material:TextField.Attachments>
+                </material:TextField>
+
+                <Label VerticalOptions="Center" HorizontalOptions="End" Margin="0,0,40,20" >
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="Esqueceste a senha ?" TextColor="Blue" FontSize="15" FontFamily="PoppinsRegular">
+                                <Span.GestureRecognizers>
+                                    <TapGestureRecognizer NumberOfTapsRequired="1" x:Name="TapRecuperar" Tapped="TapRecuperar_Tapped" />
+                                </Span.GestureRecognizers>
+                            </Span>
+                        </FormattedString>
+                    </Label.FormattedText>
+
+                </Label>
+
+                <Controls:ButtonControl
+                    Margin="30,0"
+                    Text="Entrar"
+                    x:Name="lbl_login"
+                    TextColor="White"
+                    CharacterSpacing="1"
+                    BackgroundColor="Transparent"
+                    Background="Green"
+                    Padding="10"
+                    FontAttributes="Bold"
+                    StrokeThickness="1"
+                    Stroke="Gray"
+                    Clicked="BtnLogin_Clicked"
+                    HeightRequest="50"
+                    />
+
+            </VerticalStackLayout>
+        </Border>
+    </Grid>
+</ContentPage>

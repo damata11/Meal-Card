@@ -1,0 +1,674 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Meal Card</name>
+    </assembly>
+    <members>
+        <member name="T:Meal_Card.Models.CarteiraModel">
+            <summary>
+            Defines the <see cref="T:Meal_Card.Models.CarteiraModel" />
+            </summary>
+        </member>
+        <member name="P:Meal_Card.Models.CarteiraModel.Id_carteira">
+            <summary>
+            Gets or sets the Id_carteira
+            </summary>
+        </member>
+        <member name="P:Meal_Card.Models.CarteiraModel.Id_utilizador">
+            <summary>
+            Gets or sets the Id_utilizador
+            </summary>
+        </member>
+        <member name="P:Meal_Card.Models.CarteiraModel.Saldo_disponivel">
+            <summary>
+            Gets or sets the Saldo_disponivel
+            </summary>
+        </member>
+        <member name="P:Meal_Card.Models.CarteiraModel.Limite_diario">
+            <summary>
+            Gets or sets the Limite_diario
+            </summary>
+        </member>
+        <member name="T:Meal_Card.Models.Enums.Pedido">
+            <summary>
+            Defines the <see cref="T:Meal_Card.Models.Enums.Pedido" />
+            </summary>
+        </member>
+        <member name="T:Meal_Card.Models.Enums.StatusMarcacao">
+            <summary>
+            Defines the StatusMarcacao
+            </summary>
+        </member>
+        <member name="F:Meal_Card.Models.Enums.StatusMarcacao.Pendente">
+            <summary>
+            Defines the Pendente
+            </summary>
+        </member>
+        <member name="F:Meal_Card.Models.Enums.StatusMarcacao.Confirmado">
+            <summary>
+            Defines the Confirmado
+            </summary>
+        </member>
+        <member name="F:Meal_Card.Models.Enums.StatusMarcacao.Cancelado">
+            <summary>
+            Defines the Cancelado
+            </summary>
+        </member>
+        <member name="F:Meal_Card.Models.Enums.StatusMarcacao.Concluido">
+            <summary>
+            Defines the Concluido
+            </summary>
+        </member>
+        <member name="F:Meal_Card.Models.Enums.StatusMarcacao.Expirado">
+            <summary>
+            Defines the Expirado
+            </summary>
+        </member>
+        <member name="T:Meal_Card.Models.Enums.StatusTransacao">
+            <summary>
+            Defines the StatusTransacao
+            </summary>
+        </member>
+        <member name="F:Meal_Card.Models.Enums.StatusTransacao.pendente">
+            <summary>
+            Defines the pendente
+            </summary>
+        </member>
+        <member name="F:Meal_Card.Models.Enums.StatusTransacao.aprovada">
+            <summary>
+            Defines the aprovada
+            </summary>
+        </member>
+        <member name="F:Meal_Card.Models.Enums.StatusTransacao.recusada">
+            <summary>
+            Defines the recusada
+            </summary>
+        </member>
+        <member name="F:Meal_Card.Models.Enums.StatusTransacao.estornada">
+            <summary>
+            Defines the estornada
+            </summary>
+        </member>
+        <member name="T:Meal_Card.Models.Enums.TipoAlmoco">
+            <summary>
+            Defines the TipoAlmoco
+            </summary>
+        </member>
+        <member name="F:Meal_Card.Models.Enums.TipoAlmoco.gratuito">
+            <summary>
+            Defines the gratuito
+            </summary>
+        </member>
+        <member name="F:Meal_Card.Models.Enums.TipoAlmoco.pago">
+            <summary>
+            Defines the pago
+            </summary>
+        </member>
+        <member name="T:Meal_Card.Models.Enums.TipoTransacao">
+            <summary>
+            Defines the TipoTransacao
+            </summary>
+        </member>
+        <member name="F:Meal_Card.Models.Enums.TipoTransacao.debito">
+            <summary>
+            Defines the debito
+            </summary>
+        </member>
+        <member name="F:Meal_Card.Models.Enums.TipoTransacao.credito">
+            <summary>
+            Defines the credito
+            </summary>
+        </member>
+        <member name="F:Meal_Card.Models.Enums.TipoTransacao.recarga">
+            <summary>
+            Defines the recarga
+            </summary>
+        </member>
+        <member name="F:Meal_Card.Models.Enums.TipoTransacao.estorno">
+            <summary>
+            Defines the estorno
+            </summary>
+        </member>
+        <member name="T:Meal_Card.Models.InicioCarosselList">
+            <summary>
+            Defines the <see cref="T:Meal_Card.Models.InicioCarosselList" />
+            </summary>
+        </member>
+        <member name="P:Meal_Card.Models.InicioCarosselList.Titulo">
+            <summary>
+            Gets or sets the Titulo
+            </summary>
+        </member>
+        <member name="P:Meal_Card.Models.InicioCarosselList.Descrição">
+            <summary>
+            Gets or sets the Descrição
+            </summary>
+        </member>
+        <member name="P:Meal_Card.Models.InicioCarosselList.Imagem">
+            <summary>
+            Gets or sets the Imagem
+            </summary>
+        </member>
+        <member name="T:Meal_Card.Models.LoginSend">
+            <summary>
+            Defines the <see cref="T:Meal_Card.Models.LoginSend" />
+            </summary>
+        </member>
+        <member name="P:Meal_Card.Models.LoginSend.Card">
+            <summary>
+            Gets or sets the Card
+            </summary>
+        </member>
+        <member name="P:Meal_Card.Models.LoginSend.Email">
+            <summary>
+            Gets or sets the Email
+            </summary>
+        </member>
+        <member name="P:Meal_Card.Models.LoginSend.Senha">
+            <summary>
+            Gets or sets the Senha
+            </summary>
+        </member>
+        <member name="T:Meal_Card.Models.MarcarAlmoço">
+            <summary>
+            Defines the <see cref="T:Meal_Card.Models.MarcarAlmoço" />
+            </summary>
+        </member>
+        <member name="P:Meal_Card.Models.MarcarAlmoço.Id_marca_almoco">
+            <summary>
+            Gets or sets the Id_marca_almoco
+            </summary>
+        </member>
+        <member name="P:Meal_Card.Models.MarcarAlmoço.Id_utilizador">
+            <summary>
+            Gets or sets the Id_utilizador
+            </summary>
+        </member>
+        <member name="P:Meal_Card.Models.MarcarAlmoço.Data_marcacao">
+            <summary>
+            Gets or sets the Data_marcacao
+            </summary>
+        </member>
+        <member name="P:Meal_Card.Models.MarcarAlmoço.Tipo_refeicao">
+            <summary>
+            Gets or sets the Tipo_refeicao
+            </summary>
+        </member>
+        <member name="P:Meal_Card.Models.MarcarAlmoço.Valor">
+            <summary>
+            Gets or sets the Valor
+            </summary>
+        </member>
+        <member name="P:Meal_Card.Models.MarcarAlmoço.Status">
+            <summary>
+            Gets or sets the Status
+            </summary>
+        </member>
+        <member name="P:Meal_Card.Models.MarcarAlmoço.Data_atualizacao">
+            <summary>
+            Gets or sets the Data_atualizacao
+            </summary>
+        </member>
+        <member name="P:Meal_Card.Models.MarcarAlmoço.Data_expiracao">
+            <summary>
+            Gets or sets the Data_expiracao
+            </summary>
+        </member>
+        <member name="T:Meal_Card.Models.Produtos_Bar">
+            <summary>
+            Defines the <see cref="T:Meal_Card.Models.Produtos_Bar" />
+            </summary>
+        </member>
+        <member name="P:Meal_Card.Models.Produtos_Bar.Id_produto">
+            <summary>
+            Gets or sets the Id_produto
+            </summary>
+        </member>
+        <member name="P:Meal_Card.Models.Produtos_Bar.Id_estabelecimento">
+            <summary>
+            Gets or sets the Id_estabelecimento
+            </summary>
+        </member>
+        <member name="P:Meal_Card.Models.Produtos_Bar.Id_categoria">
+            <summary>
+            Gets or sets the Id_categoria
+            </summary>
+        </member>
+        <member name="P:Meal_Card.Models.Produtos_Bar.Nome">
+            <summary>
+            Gets or sets the Nome
+            </summary>
+        </member>
+        <member name="P:Meal_Card.Models.Produtos_Bar.Descricao">
+            <summary>
+            Gets or sets the Descricao
+            </summary>
+        </member>
+        <member name="P:Meal_Card.Models.Produtos_Bar.Preco">
+            <summary>
+            Gets or sets the Preco
+            </summary>
+        </member>
+        <member name="P:Meal_Card.Models.Produtos_Bar.Disponivel">
+            <summary>
+            Gets or sets a value indicating whether Disponivel
+            </summary>
+        </member>
+        <member name="P:Meal_Card.Models.Produtos_Bar.Url_imagem">
+            <summary>
+            Gets or sets the Url_imagem
+            </summary>
+        </member>
+        <member name="P:Meal_Card.Models.Produtos_Bar.CaminhoImagem">
+            <summary>
+            Gets the CaminhoImagem
+            </summary>
+        </member>
+        <member name="P:Meal_Card.Models.Produtos_Bar.Categorias">
+            <summary>
+            Gets or sets the Categorias
+            </summary>
+        </member>
+        <member name="T:Meal_Card.Models.Token">
+            <summary>
+            Defines the <see cref="T:Meal_Card.Models.Token" />
+            </summary>
+        </member>
+        <member name="P:Meal_Card.Models.Token.AccessToken">
+            <summary>
+            Gets or sets the AccessToken
+            </summary>
+        </member>
+        <member name="P:Meal_Card.Models.Token.TokenType">
+            <summary>
+            Gets or sets the TokenType
+            </summary>
+        </member>
+        <member name="P:Meal_Card.Models.Token.Expires_in">
+            <summary>
+            Gets or sets the Expires_in
+            </summary>
+        </member>
+        <member name="P:Meal_Card.Models.Token.Utilizador">
+            <summary>
+            Gets or sets the Utilizador
+            </summary>
+        </member>
+        <member name="T:Meal_Card.Models.UtilizadorResponse">
+            <summary>
+            Defines the <see cref="T:Meal_Card.Models.UtilizadorResponse" />
+            </summary>
+        </member>
+        <member name="P:Meal_Card.Models.UtilizadorResponse.Id">
+            <summary>
+            Gets or sets the Id
+            </summary>
+        </member>
+        <member name="P:Meal_Card.Models.UtilizadorResponse.Id_escola">
+            <summary>
+            Gets or sets the Id_escola
+            </summary>
+        </member>
+        <member name="P:Meal_Card.Models.UtilizadorResponse.Nome">
+            <summary>
+            Gets or sets the Nome
+            </summary>
+        </member>
+        <member name="P:Meal_Card.Models.UtilizadorResponse.Sobrenome">
+            <summary>
+            Gets or sets the Sobrenome
+            </summary>
+        </member>
+        <member name="P:Meal_Card.Models.UtilizadorResponse.Email">
+            <summary>
+            Gets or sets the Email
+            </summary>
+        </member>
+        <member name="P:Meal_Card.Models.UtilizadorResponse.Card">
+            <summary>
+            Gets or sets the Card
+            </summary>
+        </member>
+        <member name="P:Meal_Card.Models.UtilizadorResponse.Tipo">
+            <summary>
+            Gets or sets the Tipo
+            </summary>
+        </member>
+        <member name="T:Meal_Card.Models.Transacoes">
+            <summary>
+            Defines the <see cref="T:Meal_Card.Models.Transacoes" />
+            </summary>
+        </member>
+        <member name="P:Meal_Card.Models.Transacoes.Id_transacao">
+            <summary>
+            Gets or sets the Id_transacao
+            </summary>
+        </member>
+        <member name="P:Meal_Card.Models.Transacoes.Id_utilizador">
+            <summary>
+            Gets or sets the Id_utilizador
+            </summary>
+        </member>
+        <member name="P:Meal_Card.Models.Transacoes.Id_estabelecimento">
+            <summary>
+            Gets or sets the Id_estabelecimento
+            </summary>
+        </member>
+        <member name="P:Meal_Card.Models.Transacoes.Id_pedido">
+            <summary>
+            Gets or sets the Id_pedido
+            </summary>
+        </member>
+        <member name="P:Meal_Card.Models.Transacoes.Tipo">
+            <summary>
+            Gets or sets the Tipo
+            </summary>
+        </member>
+        <member name="P:Meal_Card.Models.Transacoes.Valor">
+            <summary>
+            Gets or sets the Valor
+            </summary>
+        </member>
+        <member name="P:Meal_Card.Models.Transacoes.Saldo_anterior">
+            <summary>
+            Gets or sets the Saldo_anterior
+            </summary>
+        </member>
+        <member name="P:Meal_Card.Models.Transacoes.Saldo_posterior">
+            <summary>
+            Gets or sets the Saldo_posterior
+            </summary>
+        </member>
+        <member name="P:Meal_Card.Models.Transacoes.Descricao">
+            <summary>
+            Gets or sets the Descricao
+            </summary>
+        </member>
+        <member name="P:Meal_Card.Models.Transacoes.Codigo_seguranca">
+            <summary>
+            Gets or sets the Codigo_seguranca
+            </summary>
+        </member>
+        <member name="P:Meal_Card.Models.Transacoes.Status">
+            <summary>
+            Gets or sets the Status
+            </summary>
+        </member>
+        <member name="P:Meal_Card.Models.Transacoes.Data_transacao">
+            <summary>
+            Gets or sets the Data_transacao
+            </summary>
+        </member>
+        <member name="T:Meal_Card.Models.UploadPerfil">
+            <summary>
+            Defines the <see cref="T:Meal_Card.Models.UploadPerfil" />
+            </summary>
+        </member>
+        <member name="P:Meal_Card.Models.UploadPerfil.Id">
+            <summary>
+            Gets or sets the Id
+            </summary>
+        </member>
+        <member name="P:Meal_Card.ViewModels.CalendarioViewModel.CurrentDate">
+            Data atual sendo exibida no calendário.
+        </member>
+        <member name="P:Meal_Card.ViewModels.CalendarioViewModel.MonthYearDisplay">
+            Texto de exibição do mês e ano (ex: "Outubro 2024").
+        </member>
+        <member name="P:Meal_Card.ViewModels.CalendarioViewModel.Days">
+            Lista de dias do mês para exibição no calendário.
+        </member>
+        <member name="P:Meal_Card.ViewModels.CalendarioViewModel.WeekDays">
+            Abreviações dos dias da semana em português.
+            
+        </member>
+        <member name="M:Meal_Card.ViewModels.CalendarioViewModel.UpdateMonthYearDisplay">
+            Atualiza o texto de exibição do mês e ano.
+        </member>
+        <member name="M:Meal_Card.ViewModels.CalendarioViewModel.GenerateCalendarDays">
+            Gera os dias do mês para exibição no calendário.
+        </member>
+        <member name="M:Meal_Card.ViewModels.CalendarioViewModel.NextMonth">
+            Avança para o próximo mês.
+        </member>
+        <member name="M:Meal_Card.ViewModels.CalendarioViewModel.PreviousMonth">
+            Retrocede para o mês anterior.
+        </member>
+        <member name="T:Meal_Card.ViewModels.InicioViewModel">
+            <inheritdoc/>
+            <inheritdoc/>
+            <inheritdoc/>
+        </member>
+        <member name="P:Meal_Card.ViewModels.InicioViewModel.CarosselItems">
+            <inheritdoc cref="F:Meal_Card.ViewModels.InicioViewModel._carosselItems"/>
+        </member>
+        <member name="P:Meal_Card.ViewModels.InicioViewModel.Categorias">
+            <inheritdoc cref="F:Meal_Card.ViewModels.InicioViewModel._categorias"/>
+        </member>
+        <member name="P:Meal_Card.ViewModels.InicioViewModel.ProdutosPlus">
+            <inheritdoc cref="F:Meal_Card.ViewModels.InicioViewModel._produtosPlus"/>
+        </member>
+        <member name="P:Meal_Card.ViewModels.InicioViewModel.ProdutosPopulares">
+            <inheritdoc cref="F:Meal_Card.ViewModels.InicioViewModel._produtosPopulares"/>
+        </member>
+        <member name="P:Meal_Card.ViewModels.InicioViewModel.CurrentPosition">
+            <inheritdoc cref="F:Meal_Card.ViewModels.InicioViewModel._currentPosition"/>
+        </member>
+        <member name="P:Meal_Card.ViewModels.InicioViewModel.IsAutoSlideEnabled">
+            <inheritdoc cref="F:Meal_Card.ViewModels.InicioViewModel._isAutoSlideEnabled"/>
+        </member>
+        <member name="P:Meal_Card.ViewModels.InicioViewModel.IsRefreshing">
+            <inheritdoc cref="F:Meal_Card.ViewModels.InicioViewModel._isRefreshing"/>
+        </member>
+        <member name="P:Meal_Card.ViewModels.InicioViewModel.IsLoading">
+            <inheritdoc cref="F:Meal_Card.ViewModels.InicioViewModel._isLoading"/>
+        </member>
+        <member name="P:Meal_Card.ViewModels.InicioViewModel.IsVisible">
+            <inheritdoc cref="F:Meal_Card.ViewModels.InicioViewModel._isVisible"/>
+        </member>
+        <member name="F:Meal_Card.ViewModels.InicioViewModel.verificarECarregarDadosCommand">
+            <summary>The backing field for <see cref="P:Meal_Card.ViewModels.InicioViewModel.VerificarECarregarDadosCommand"/>.</summary>
+        </member>
+        <member name="P:Meal_Card.ViewModels.InicioViewModel.VerificarECarregarDadosCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IAsyncRelayCommand"/> instance wrapping <see cref="M:Meal_Card.ViewModels.InicioViewModel.VerificarECarregarDadosAsync"/>.</summary>
+        </member>
+        <member name="F:Meal_Card.ViewModels.InicioViewModel.refreshDataCommand">
+            <summary>The backing field for <see cref="P:Meal_Card.ViewModels.InicioViewModel.RefreshDataCommand"/>.</summary>
+        </member>
+        <member name="P:Meal_Card.ViewModels.InicioViewModel.RefreshDataCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IAsyncRelayCommand"/> instance wrapping <see cref="M:Meal_Card.ViewModels.InicioViewModel.RefreshDataAsync"/>.</summary>
+        </member>
+        <member name="T:Meal_Card.Resource">
+            <summary>
+            Android Resource Designer class.
+            Exposes the Android Resource designer assembly into the project Namespace.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Maui.Controls.ColorAnimationExtensions_Button.TextColorTo(Microsoft.Maui.Controls.Button,Microsoft.Maui.Graphics.Color,System.UInt32,System.UInt32,Microsoft.Maui.Easing,System.Threading.CancellationToken)">
+            <summary>
+            Animates the TextColor of an <see cref = "T:Microsoft.Maui.ITextStyle"/> to the given color
+            </summary>
+            <param name = "element"></param>
+            <param name = "color">The target color to animate the <see cref = "P:Microsoft.Maui.ITextStyle.TextColor"/> to</param>
+            <param name = "rate">The time, in milliseconds, between the frames of the animation</param>
+            <param name = "length">The duration, in milliseconds, of the animation</param>
+            <param name = "easing">The easing function to be used in the animation</param>
+            <param name = "token"><see cref = "T:System.Threading.CancellationToken"/></param>
+            <returns>Value indicating if the animation completed successfully or not</returns>
+        </member>
+        <member name="M:Microsoft.Maui.Controls.ColorAnimationExtensions_DatePicker.TextColorTo(Microsoft.Maui.Controls.DatePicker,Microsoft.Maui.Graphics.Color,System.UInt32,System.UInt32,Microsoft.Maui.Easing,System.Threading.CancellationToken)">
+            <summary>
+            Animates the TextColor of an <see cref = "T:Microsoft.Maui.ITextStyle"/> to the given color
+            </summary>
+            <param name = "element"></param>
+            <param name = "color">The target color to animate the <see cref = "P:Microsoft.Maui.ITextStyle.TextColor"/> to</param>
+            <param name = "rate">The time, in milliseconds, between the frames of the animation</param>
+            <param name = "length">The duration, in milliseconds, of the animation</param>
+            <param name = "easing">The easing function to be used in the animation</param>
+            <param name = "token"><see cref = "T:System.Threading.CancellationToken"/></param>
+            <returns>Value indicating if the animation completed successfully or not</returns>
+        </member>
+        <member name="M:Microsoft.Maui.Controls.ColorAnimationExtensions_Editor.TextColorTo(Microsoft.Maui.Controls.Editor,Microsoft.Maui.Graphics.Color,System.UInt32,System.UInt32,Microsoft.Maui.Easing,System.Threading.CancellationToken)">
+            <summary>
+            Animates the TextColor of an <see cref = "T:Microsoft.Maui.ITextStyle"/> to the given color
+            </summary>
+            <param name = "element"></param>
+            <param name = "color">The target color to animate the <see cref = "P:Microsoft.Maui.ITextStyle.TextColor"/> to</param>
+            <param name = "rate">The time, in milliseconds, between the frames of the animation</param>
+            <param name = "length">The duration, in milliseconds, of the animation</param>
+            <param name = "easing">The easing function to be used in the animation</param>
+            <param name = "token"><see cref = "T:System.Threading.CancellationToken"/></param>
+            <returns>Value indicating if the animation completed successfully or not</returns>
+        </member>
+        <member name="M:Microsoft.Maui.Controls.ColorAnimationExtensions_Entry.TextColorTo(Microsoft.Maui.Controls.Entry,Microsoft.Maui.Graphics.Color,System.UInt32,System.UInt32,Microsoft.Maui.Easing,System.Threading.CancellationToken)">
+            <summary>
+            Animates the TextColor of an <see cref = "T:Microsoft.Maui.ITextStyle"/> to the given color
+            </summary>
+            <param name = "element"></param>
+            <param name = "color">The target color to animate the <see cref = "P:Microsoft.Maui.ITextStyle.TextColor"/> to</param>
+            <param name = "rate">The time, in milliseconds, between the frames of the animation</param>
+            <param name = "length">The duration, in milliseconds, of the animation</param>
+            <param name = "easing">The easing function to be used in the animation</param>
+            <param name = "token"><see cref = "T:System.Threading.CancellationToken"/></param>
+            <returns>Value indicating if the animation completed successfully or not</returns>
+        </member>
+        <member name="M:Microsoft.Maui.Controls.ColorAnimationExtensions_InputView.TextColorTo(Microsoft.Maui.Controls.InputView,Microsoft.Maui.Graphics.Color,System.UInt32,System.UInt32,Microsoft.Maui.Easing,System.Threading.CancellationToken)">
+            <summary>
+            Animates the TextColor of an <see cref = "T:Microsoft.Maui.ITextStyle"/> to the given color
+            </summary>
+            <param name = "element"></param>
+            <param name = "color">The target color to animate the <see cref = "P:Microsoft.Maui.ITextStyle.TextColor"/> to</param>
+            <param name = "rate">The time, in milliseconds, between the frames of the animation</param>
+            <param name = "length">The duration, in milliseconds, of the animation</param>
+            <param name = "easing">The easing function to be used in the animation</param>
+            <param name = "token"><see cref = "T:System.Threading.CancellationToken"/></param>
+            <returns>Value indicating if the animation completed successfully or not</returns>
+        </member>
+        <member name="M:Microsoft.Maui.Controls.ColorAnimationExtensions_Label.TextColorTo(Microsoft.Maui.Controls.Label,Microsoft.Maui.Graphics.Color,System.UInt32,System.UInt32,Microsoft.Maui.Easing,System.Threading.CancellationToken)">
+            <summary>
+            Animates the TextColor of an <see cref = "T:Microsoft.Maui.ITextStyle"/> to the given color
+            </summary>
+            <param name = "element"></param>
+            <param name = "color">The target color to animate the <see cref = "P:Microsoft.Maui.ITextStyle.TextColor"/> to</param>
+            <param name = "rate">The time, in milliseconds, between the frames of the animation</param>
+            <param name = "length">The duration, in milliseconds, of the animation</param>
+            <param name = "easing">The easing function to be used in the animation</param>
+            <param name = "token"><see cref = "T:System.Threading.CancellationToken"/></param>
+            <returns>Value indicating if the animation completed successfully or not</returns>
+        </member>
+        <member name="M:Microsoft.Maui.Controls.ColorAnimationExtensions_Picker.TextColorTo(Microsoft.Maui.Controls.Picker,Microsoft.Maui.Graphics.Color,System.UInt32,System.UInt32,Microsoft.Maui.Easing,System.Threading.CancellationToken)">
+            <summary>
+            Animates the TextColor of an <see cref = "T:Microsoft.Maui.ITextStyle"/> to the given color
+            </summary>
+            <param name = "element"></param>
+            <param name = "color">The target color to animate the <see cref = "P:Microsoft.Maui.ITextStyle.TextColor"/> to</param>
+            <param name = "rate">The time, in milliseconds, between the frames of the animation</param>
+            <param name = "length">The duration, in milliseconds, of the animation</param>
+            <param name = "easing">The easing function to be used in the animation</param>
+            <param name = "token"><see cref = "T:System.Threading.CancellationToken"/></param>
+            <returns>Value indicating if the animation completed successfully or not</returns>
+        </member>
+        <member name="M:Microsoft.Maui.Controls.ColorAnimationExtensions_RadioButton.TextColorTo(Microsoft.Maui.Controls.RadioButton,Microsoft.Maui.Graphics.Color,System.UInt32,System.UInt32,Microsoft.Maui.Easing,System.Threading.CancellationToken)">
+            <summary>
+            Animates the TextColor of an <see cref = "T:Microsoft.Maui.ITextStyle"/> to the given color
+            </summary>
+            <param name = "element"></param>
+            <param name = "color">The target color to animate the <see cref = "P:Microsoft.Maui.ITextStyle.TextColor"/> to</param>
+            <param name = "rate">The time, in milliseconds, between the frames of the animation</param>
+            <param name = "length">The duration, in milliseconds, of the animation</param>
+            <param name = "easing">The easing function to be used in the animation</param>
+            <param name = "token"><see cref = "T:System.Threading.CancellationToken"/></param>
+            <returns>Value indicating if the animation completed successfully or not</returns>
+        </member>
+        <member name="M:Microsoft.Maui.Controls.ColorAnimationExtensions_SearchBar.TextColorTo(Microsoft.Maui.Controls.SearchBar,Microsoft.Maui.Graphics.Color,System.UInt32,System.UInt32,Microsoft.Maui.Easing,System.Threading.CancellationToken)">
+            <summary>
+            Animates the TextColor of an <see cref = "T:Microsoft.Maui.ITextStyle"/> to the given color
+            </summary>
+            <param name = "element"></param>
+            <param name = "color">The target color to animate the <see cref = "P:Microsoft.Maui.ITextStyle.TextColor"/> to</param>
+            <param name = "rate">The time, in milliseconds, between the frames of the animation</param>
+            <param name = "length">The duration, in milliseconds, of the animation</param>
+            <param name = "easing">The easing function to be used in the animation</param>
+            <param name = "token"><see cref = "T:System.Threading.CancellationToken"/></param>
+            <returns>Value indicating if the animation completed successfully or not</returns>
+        </member>
+        <member name="M:Microsoft.Maui.Controls.ColorAnimationExtensions_TimePicker.TextColorTo(Microsoft.Maui.Controls.TimePicker,Microsoft.Maui.Graphics.Color,System.UInt32,System.UInt32,Microsoft.Maui.Easing,System.Threading.CancellationToken)">
+            <summary>
+            Animates the TextColor of an <see cref = "T:Microsoft.Maui.ITextStyle"/> to the given color
+            </summary>
+            <param name = "element"></param>
+            <param name = "color">The target color to animate the <see cref = "P:Microsoft.Maui.ITextStyle.TextColor"/> to</param>
+            <param name = "rate">The time, in milliseconds, between the frames of the animation</param>
+            <param name = "length">The duration, in milliseconds, of the animation</param>
+            <param name = "easing">The easing function to be used in the animation</param>
+            <param name = "token"><see cref = "T:System.Threading.CancellationToken"/></param>
+            <returns>Value indicating if the animation completed successfully or not</returns>
+        </member>
+        <member name="T:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs">
+            <summary>
+            A helper type providing cached, reusable <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instances
+            for all properties generated with <see cref="T:CommunityToolkit.Mvvm.ComponentModel.ObservablePropertyAttribute"/>.
+            </summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.CarosselItems">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "CarosselItems" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.Categorias">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "Categorias" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.ProdutosPlus">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "ProdutosPlus" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.ProdutosPopulares">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "ProdutosPopulares" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.CurrentPosition">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "CurrentPosition" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.IsAutoSlideEnabled">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "IsAutoSlideEnabled" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.IsRefreshing">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "IsRefreshing" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.IsLoading">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "IsLoading" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.IsVisible">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "IsVisible" generated properties.</summary>
+        </member>
+        <member name="T:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs">
+            <summary>
+            A helper type providing cached, reusable <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instances
+            for all properties generated with <see cref="T:CommunityToolkit.Mvvm.ComponentModel.ObservablePropertyAttribute"/>.
+            </summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.CarosselItems">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "CarosselItems" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.Categorias">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "Categorias" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.ProdutosPlus">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "ProdutosPlus" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.ProdutosPopulares">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "ProdutosPopulares" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.CurrentPosition">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "CurrentPosition" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.IsAutoSlideEnabled">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "IsAutoSlideEnabled" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.IsRefreshing">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "IsRefreshing" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.IsLoading">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "IsLoading" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.IsVisible">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "IsVisible" generated properties.</summary>
+        </member>
+    </members>
+</doc>

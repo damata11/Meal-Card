@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Meal_Card.Pages.Calendario"
+             Shell.NavBarIsVisible="True"
+             Shell.TabBarIsVisible="False"             
+             Shell.TitleColor="Black"
+             Shell.BackgroundColor="White"
+             BackgroundColor="{DynamicResource White}">
+
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsEnabled="False" IsVisible="False" />
+    </Shell.BackButtonBehavior>
+
+    <Shell.TitleView>
+        <Grid ColumnDefinitions="Auto,*,Auto" HeightRequest="40" WidthRequest="418" Margin="-20,10,0,10" VerticalOptions="Center" HorizontalOptions="Start" >
+
+            <StackLayout Grid.Column="0" VerticalOptions="Center"  HorizontalOptions="Start" Margin="10,0,10,0" >
+               <ImageButton Grid.ColumnSpan="0" Source="close.png" 
+                   x:Name="BtnClose"  Padding="10" VerticalOptions="Center"
+                   Clicked="BtnClose_Clicked" WidthRequest="10" HeightRequest="10"/>
+
+            </StackLayout>
+            <StackLayout Grid.Column="1" VerticalOptions="Center"  HorizontalOptions="Start" Margin="-20,0,0,0">
+                <ImageButton Grid.ColumnSpan="1" Source="left.png" 
+                    x:Name="BtnBack"  Padding="9" VerticalOptions="Center"
+                   Clicked="BtnBack_Clicked" WidthRequest="20" HeightRequest="20"/>
+            </StackLayout>
+            <StackLayout Grid.Column="1" VerticalOptions="Center" HorizontalOptions="Start" Margin="10,0,0,0">
+                <ImageButton Grid.ColumnSpan="3" Source="right.png" 
+                    x:Name="BtnForward"  VerticalOptions="Center"
+                   Clicked="BtnForward_Clicked"  Padding="10"
+                   WidthRequest="20" HeightRequest="20"/>
+            </StackLayout>
+            
+            <StackLayout BackgroundColor="Transparent" VerticalOptions="Center" HorizontalOptions="Center"  Grid.Column="1" Margin="-45,2,0,0">
+            <Border Grid.Column="3" Stroke="Black" StrokeThickness="1"  WidthRequest="200" Padding="-8"  Margin="10,5,5,0" VerticalOptions="Center">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="20"/>
+                </Border.StrokeShape>
+                <Entry Text="" x:Name="url"
+                       PlaceholderColor="Black"
+                       TextColor="Black"
+                       FontSize="12"
+                       Margin="10,0,10,0"
+                       ReturnType="Search"
+                       Completed="OnSearchCompleted"
+                       HorizontalTextAlignment="Start"/>
+             
+            </Border>
+                <ImageButton Grid.ColumnSpan="4" VerticalOptions="Center" HorizontalOptions="Center" Source="lupa.png"         HeightRequest="20" 
+                             WidthRequest="20" Padding="10" 
+                             Margin="180,0,0,0" ZIndex="10" Background="Transparent" BackgroundColor="Black"/>
+            </StackLayout>
+        </Grid>
+    </Shell.TitleView>
+
+        <WebView 
+             x:Name="BrowserView"
+             Margin="5,25,5,20"
+             HeightRequest="700"
+             WidthRequest="360"
+             />
+    
+
+</ContentPage>

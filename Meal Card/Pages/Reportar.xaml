@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:m="clr-namespace:UraniumUI.Icons.MaterialIcons;assembly=UraniumUI.Icons.MaterialIcons"
+             xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
+             x:Class="Meal_Card.Pages.Reportar"
+             Shell.ForegroundColor="Black"
+             Shell.NavBarIsVisible="False"
+             Shell.TabBarIsVisible="False"
+             Shell.TitleColor="Black"
+             Shell.BackgroundColor="White"
+             BackgroundColor="{DynamicResource White}"
+             Title="Reportar" >
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="Titulo" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="FontSize" Value="Title"/>
+                <Setter Property="FontFamily" Value="PoppinsRegular"/>
+                <Setter Property="TextColor" Value="{StaticResource Gray600}"/>
+                <Setter Property="Margin" Value="10,10,0,0"/>
+            </Style>
+            <Style x:Key="Subtitulo" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="FontSize" Value="18"/>
+                <Setter Property="FontFamily" Value="PoppinsRegular"/>
+                <Setter Property="TextColor" Value="{StaticResource Gray600}"/>
+                <Setter Property="Margin" Value="10,10,0,2"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <RefreshView x:Name="refreshView"
+                 VerticalOptions="Fill"
+                 HorizontalOptions="Fill"
+                 RefreshColor="Blue"
+                 Refreshing="Refreshing">
+
+        <Grid RowDefinitions="auto,auto,auto,*" RowSpacing="10" Margin="20">
+
+            <ImageButton  Grid.Row="0" Source="left.png" HorizontalOptions="Start" WidthRequest="20" HeightRequest="20" Padding="8" Margin="10,10" Clicked="BtnVoltar_Clicked" />
+            <Label Grid.Row="1" Style="{StaticResource Subtitulo}" Text="Reportar" VerticalOptions="Center" Margin="0,-20,0,0" HorizontalOptions="Center"/>
+            <Border Grid.Row="2" Grid.Column="4" Stroke="Gray" Background="Gray" Padding="1"  HorizontalOptions="Fill" Margin="5,0,5,20" StrokeShape="RoundRectangle 400"  HeightRequest="1" />
+
+            <ScrollView Grid.Row="3" >
+                <Grid RowDefinitions="auto,auto,auto,auto" Margin="20">
+                    <Label Grid.Row="0" Margin="0,20,0,20" Text="Deixe - nos o seu feedback sobre a aplicação..." TextColor="Black" FontSize="16"/>
+
+                    <Image Grid.Row="1" Margin="0,20,0,20" Source="feedback.jpg" WidthRequest="280" HeightRequest="200" HorizontalOptions="Center" VerticalOptions="Center" />
+
+
+                    <material:RadioButtonGroupView Grid.Row="2" Margin="0,25,0,20">
+                        <material:RadioButton Text="Bugs"  IsChecked="True" TextColor="Black" TextFontSize="15" FontFamily="PoppinsRegular" />
+                        <material:RadioButton Text="Sugestões" TextColor="Black" TextFontSize="15" FontFamily="PoppinsRegular"/>
+                        <!--StyleClass="CheckRadioButton" -->
+                    </material:RadioButtonGroupView>
+
+
+                    <material:EditorField Grid.Row="3" Title="Digite a sua mensagem aqui..." x:Name="txt_Sobrenome"  HorizontalOptions="Fill" TextColor="Black" Margin="0,0,0,20"  FontSize="15"  TitleColor="Black"   BorderColor="Black" FontFamily="PoppinsRegular" HeightRequest="100" BackgroundColor="Transparent" Background="Transparent" AccentColor="Blue"/>
+
+                </Grid>
+            </ScrollView>
+        </Grid>
+    </RefreshView>
+</ContentPage>

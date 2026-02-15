@@ -1,0 +1,134 @@
+﻿using CommunityToolkit.Maui.Alerts;
+using Meal_Card.Models;
+using Meal_Card.Services;
+using Meal_Card.ViewModels;
+
+namespace Meal_Card.Pages;
+
+public partial class Bar : ContentPage
+{
+    private readonly InicioViewModel _inicioView;
+    private readonly CarteiraViewModel _carteiraView;
+    private AuthService _authService;
+    private bool _loginPageDisplay = false;
+    public Bar(AuthService authService, InicioViewModel inicioView, CarteiraViewModel carteiraView)
+    {
+        InitializeComponent();
+        _authService = authService;
+        _inicioView = inicioView;
+        _carteiraView = carteiraView;
+    }
+
+    protected override async void OnAppearing()
+    {
+        base.OnAppearing();
+        await GetProdutosMaisVendidos();
+        await GetProdutosPopulares();
+        await GetListaCategorias();
+    }
+
+    private async Task<IEnumerable<Produtos_Bar>> GetProdutosMaisVendidos()
+    {
+        try
+        {
+            var (produtos, ErrorMessage) = await _authService.GetProdutosBar("plus", string.Empty);
+
+            if (ErrorMessage == "Unauthorized" && !_loginPageDisplay)
+            {
+                await DisplayLoginPage();
+                return Enumerable.Empty<Produtos_Bar>();
+            }
+
+            if (produtos == null)
+            {
+                // mostrar mensagem de erro no ecra
+                //txt_MaisVendidos.Text = "Nenhum Produto encontrado 😑";
+                //await ShowToast("Nenhum Produto encontrado 😑");
+                return Enumerable.Empty<Produtos_Bar>();
+            }
+            CV_MaisVendidos.ItemsSource = produtos;
+            return produtos;
+        }
+        catch (Exception ex)
+        {
+            // mostrar mensagem de erro no ecra
+            System.Diagnostics.Debug.WriteLine($"Erro ao obter produtos mais vendidos: {ex.Message}");
+            return Enumerable.Empty<Produtos_Bar>();
+        }
+    }
+
+    private async Task<IEnumerable<Produtos_Bar>> GetProdutosPopulares()
+    {
+        try
+        {
+            var (produtos, ErrorMessage) = await _authService.GetProdutosBar("popular", string.Empty);
+
+            if (ErrorMessage == "Unauthorized" && !_loginPageDisplay)
+            {
+                await DisplayLoginPage();
+                return Enumerable.Empty<Produtos_Bar>();
+            }
+
+            if (produtos == null)
+            {
+                // mostrar mensagem de erro no ecra
+                //txt_Populares.Text = "Nenhum Produto Popular encontrado 😑";
+                //await ShowToast("Nenhum Produto Popular encontrado 😑");
+                return Enumerable.Empty<Produtos_Bar>();
+            }
+            CV_Populares.ItemsSource = produtos;
+            return produtos;
+        }
+        catch (Exception ex)
+        {
+            // mostrar mensagem de erro no ecra
+            System.Diagnostics.Debug.WriteLine($"Erro ao obter produtos populares: {ex.Message}");
+            return Enumerable.Empty<Produtos_Bar>();
+        }
+    }
+    private async Task<IEnumerable<Categoria>> GetListaCategorias()
+    {
+        try
+        {
+            var (categorias, ErrorMessage) = await _authService.GetCategorias("bar");
+
+            if (ErrorMessage == "Unauthorized" && !_loginPageDisplay)
+            {
+                await DisplayLoginPage();
+                return Enumerable.Empty<Categoria>();
+            }
+
+            if (categorias == null)
+            {
+                // mostrar mensagem de erro no ecra
+                //txt_Categorias.Text = "Nenhuma Categoria encontrada 😑";
+                //await ShowToast("Nenhuma Categoria encontrada 😑");
+                return Enumerable.Empty<Categoria>();
+            }
+
+            CV_Categorias.ItemsSource = categorias;
+            return categorias;
+        }
+        catch (Exception ex)
+        {
+            // mostrar mensagem de erro no ecra
+            System.Diagnostics.Debug.WriteLine($"Erro ao obter categorias: {ex.Message}");
+            return Enumerable.Empty<Categoria>();
+        }
+    }
+
+    private async Task DisplayLoginPage()
+    {
+        _loginPageDisplay = true;
+        var LoginPage = new Login(_authService, _inicioView, _carteiraView);
+        await Navigation.PushModalAsync(LoginPage);
+    }
+
+    private async Task ShowToast(string message)
+    {
+        var notification = Toast.Make(message, CommunityToolkit.Maui.Core.ToastDuration.Short);
+        await notification.Show();
+    }
+
+
+}

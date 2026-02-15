@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:imageEditor="clr-namespace:Syncfusion.Maui.ImageEditor;assembly=Syncfusion.Maui.ImageEditor"
+             x:Class="Meal_Card.Pages.CortarImagem"
+             Shell.NavBarIsVisible="False"
+             Shell.TabBarIsVisible="False"
+             BackgroundColor="White"
+             Title="CortarIamgem"
+             >
+    <Grid RowDefinitions="*, Auto" RowSpacing="10">
+        <imageEditor:SfImageEditor Grid.Row="0"
+                              x:Name="ImageEditor"
+                              ShowToolbar="False"/>
+
+        <Grid Grid.Row="1" ColumnDefinitions="5*,5*" Margin="20,10,20,10" ColumnSpacing="10">
+            <Button Grid.Column="0" Text=" Cancelar" Clicked="Cancelar_click"  />
+            <Button Grid.Column="1" Text="Salvar" Clicked="Salvar_click"  />
+        </Grid>
+    </Grid>
+</ContentPage>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:zxing="clr-namespace:ZXing.Net.Maui.Controls;assembly=ZXing.Net.MAUI.Controls"
+             x:Class="Meal_Card.Pages.QRcode"
+             Shell.NavBarIsVisible="False"
+             Shell.TabBarIsVisible="False"
+             Shell.ForegroundColor="Black"
+             Shell.TitleColor="Black"
+             Shell.BackgroundColor="White"
+             BackgroundColor="{DynamicResource White}">
+
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="Titulo" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="FontSize" Value="Title"/>
+                <Setter Property="FontFamily" Value="PoppinsRegular"/>
+                <Setter Property="TextColor" Value="{StaticResource Gray600}"/>
+                <Setter Property="Margin" Value="10,10,0,0"/>
+            </Style>
+            <Style x:Key="Subtitulo" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="FontSize" Value="Subtitle"/>
+                <Setter Property="FontFamily" Value="PoppinsRegular"/>
+                <Setter Property="TextColor" Value="{StaticResource Gray600}"/>
+                <Setter Property="Margin" Value="10,10,0,2"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <RefreshView x:Name="refreshView"
+                 VerticalOptions="Fill"
+                 HorizontalOptions="Fill"
+                 RefreshColor="Blue"
+                 Refreshing="Refreshing">
+
+        <Grid RowDefinitions="auto,auto,*">
+            <ImageButton  Grid.Row="0" Source="left.png" HorizontalOptions="Start" WidthRequest="20" HeightRequest="20" Padding="8" Margin="10,10" Clicked="BtnVoltar_Clicked" />
+                <Label Grid.Row="1" Style="{StaticResource Subtitulo}" Text="QR code" VerticalOptions="Center" Margin="0,-20,0,-0" HorizontalOptions="Center"/>
+                <ScrollView Grid.Row="2" HorizontalScrollBarVisibility="Never" VerticalScrollBarVisibility="Never">
+
+
+                <StackLayout VerticalOptions="Center"
+                 Spacing="10">
+
+            <ActivityIndicator x:Name="loadIndicator"
+                     IsRunning="False"
+                     IsVisible="False"
+                     Color="Blue "
+                     HorizontalOptions="Center"
+                     VerticalOptions="Center"/>
+
+            <Image x:Name="QRCodeImage" 
+               HorizontalOptions="Center" 
+               VerticalOptions="Center"
+               WidthRequest="300" 
+               HeightRequest="300"           
+               />
+
+            <Label
+            Text=""
+            x:Name="nome"
+            />
+        </StackLayout>                
+           </ScrollView>
+        </Grid>
+    </RefreshView>
+</ContentPage>

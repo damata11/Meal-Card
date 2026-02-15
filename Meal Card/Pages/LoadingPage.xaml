@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Meal_Card.Pages.LoadingPage"
+             NavigationPage.HasNavigationBar="False"
+             Shell.NavBarIsVisible="False"
+             Shell.BackgroundColor="White"
+             Shell.TitleColor="Black"
+             Shell.ForegroundColor="Black"
+             BackgroundColor="{StaticResource White}">
+
+    <Grid RowDefinitions="*,Auto" >
+        <VerticalStackLayout Grid.Row="0" HorizontalOptions="Center" VerticalOptions="Center" Margin="0,120">
+           <Image  Source="app.png"
+               Aspect="AspectFit"
+               HorizontalOptions="Center"
+               VerticalOptions="Center"
+               WidthRequest="200"
+               HeightRequest="200"/>
+        </VerticalStackLayout>
+        <VerticalStackLayout Grid.Row="1" HorizontalOptions="Center" VerticalOptions="End" Margin="20">
+        <Label  TextColor="Gray" >
+            <Label.FormattedText >
+                <FormattedString>
+                    <Span Text="Versão " FontSize="14" FontFamily="PoppinsRegular"/>
+                    <Span x:Name="app_version" FontSize="14" FontFamily="PoppinsRegular"/>
+                </FormattedString>
+            </Label.FormattedText>
+        </Label>
+        </VerticalStackLayout>
+    </Grid>
+
+</ContentPage>

@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:Controls="clr-namespace:Meal_Card.Controls"
+             x:Class="Meal_Card.Pages.RecuperarSenha"
+             xmlns:m="clr-namespace:UraniumUI.Icons.MaterialIcons;assembly=UraniumUI.Icons.MaterialIcons"
+             xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
+             Shell.NavBarHasShadow="False"
+             Shell.NavBarIsVisible="True"
+             Shell.TabBarIsVisible="False"
+             Shell.BackgroundColor="Green"
+             Shell.ForegroundColor="White"
+             BackgroundColor="Green">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="appName" TargetType="Label">
+                <Setter Property="FontSize" Value="25" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+            </Style>
+
+            <Style x:Key="appImage" TargetType="Image">
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="VerticalOptions" Value="Center" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <Grid RowDefinitions="Auto,Auto,Auto,Auto,*,Auto"
+       HeightRequest="1112"
+       VerticalOptions="Start" >
+
+        <VerticalStackLayout Grid.Row="0"  Margin="0,20,0,0" Background="Transparent" VerticalOptions="Start">
+
+            <Image Style="{StaticResource appImage}" Source="food_login.png"
+                Aspect="AspectFit" Margin="0,-10,0,-20"
+                WidthRequest="250" VerticalOptions="Center"
+                HorizontalOptions="Center" />
+
+            <Label Style="{StaticResource appName}" Text=" Redifinir Senha "
+                Margin="0,20,20,0" />
+            <Label
+             Text="...  Tenha seu cartão na sua mão  ..."
+             FontSize="16"
+             Margin="0,0,20,0"
+             CharacterSpacing="0.5"
+             HorizontalOptions="Center"
+             TextColor="White" />
+
+        </VerticalStackLayout>
+        <Border Grid.Row="2" Margin="0,20,0,0" HeightRequest="600" WidthRequest="420" Background="White" VerticalOptions="End">
+            <Border.StrokeShape>
+                <RoundRectangle  CornerRadius="65,65,0,0"/>
+            </Border.StrokeShape>
+
+            <VerticalStackLayout Grid.Row="0" Margin="10,80,10,0">
+
+                <Label Text="Nova Senha"
+                    CharacterSpacing="0.5"
+                    Margin="38,0,0,10"
+                    FontSize="16"
+                    FontAttributes="Bold"
+                    TextColor="Black" />
+
+                <material:TextField Title=" Sua Senha" Icon="{FontImageSource FontFamily=MaterialRegular,
+                                 Glyph={x:Static m:MaterialRegular.Password},Color={StaticResource Gray900}}" x:Name="txt_NovaSenha"
+                                 HorizontalOptions="Fill" TextColor="Black" Margin="30,0,30,20"  FontSize="15"
+                                 BorderColor="Black" TitleColor="Black" AccentColor="Black" FontFamily="PoppinsRegular" IsPassword="True" SelectionHighlightColor="Blue" TextChanged="txt_NovaSenha_TextChanged" >
+                    <material:TextField.Attachments >
+                        <material:TextFieldPasswordShowHideAttachment  />
+                    </material:TextField.Attachments>
+                </material:TextField>
+
+                <Label Text="Confirmar Senha"
+                    CharacterSpacing="0.5"
+                    Margin="38,0,0,10"
+                    FontSize="16"
+                    FontAttributes="Bold"
+                    TextColor="Black" />
+
+                <material:TextField Title=" Sua Senha" Icon="{FontImageSource FontFamily=MaterialRegular,
+                                 Glyph={x:Static m:MaterialRegular.Password},Color={StaticResource Gray900}}" x:Name="txt_ConfirmarSenha"
+                                 HorizontalOptions="Fill" TextColor="Black" Margin="30,0,30,20"  FontSize="15"
+                                 BorderColor="Black" TitleColor="Black" AccentColor="Black" FontFamily="PoppinsRegular" IsPassword="True" SelectionHighlightColor="Blue" TextChanged="txt_ConfirmarSenha_TextChanged">
+                    <material:TextField.Attachments >
+                        <material:TextFieldPasswordShowHideAttachment  />
+                    </material:TextField.Attachments>
+                </material:TextField>
+
+                <Controls:ButtonControl
+                 Margin="30,0"
+                 Text="Entrar"
+                 x:Name="lbl_login"
+                 TextColor="White"
+                 CharacterSpacing="1"
+                 BackgroundColor="Transparent"
+                 Background="Green"
+                 Padding="10"
+                 FontAttributes="Bold"
+                 StrokeThickness="1"
+                 Stroke="Gray"
+                 Clicked="BtnRedifinir_Clicked"
+                 HeightRequest="50"
+                 />
+
+            </VerticalStackLayout>
+        </Border>
+    </Grid>
+</ContentPage>

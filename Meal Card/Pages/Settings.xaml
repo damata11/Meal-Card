@@ -1,0 +1,206 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:sf="clr-namespace:Syncfusion.Maui.Toolkit.SegmentedControl;assembly=Syncfusion.Maui.Toolkit"
+             x:Class="Meal_Card.Pages.Settings"
+             xmlns:model="clr-namespace:Meal_Card.ViewModels"
+             x:DataType="model:CarteiraViewModel"
+             Shell.TitleColor="Black"
+             Shell.NavBarIsVisible="False"
+             Shell.TabBarIsVisible="False"
+             Shell.ForegroundColor="Black"
+             BackgroundColor="{DynamicResource White}" >
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="Titulo" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="FontSize" Value="Title"/>
+                <Setter Property="FontFamily" Value="PoppinsRegular"/>
+                <Setter Property="TextColor" Value="{StaticResource Gray600}"/>
+                <Setter Property="Margin" Value="10,10,0,0"/>
+            </Style>
+            <Style x:Key="Subtitulo" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="FontSize" Value="18"/>
+                <Setter Property="FontFamily" Value="PoppinsRegular"/>
+                <Setter Property="TextColor" Value="{StaticResource Gray600}"/>
+                <Setter Property="Margin" Value="10,10,0,2"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <RefreshView x:Name="refreshView"
+                 VerticalOptions="Fill"
+                 HorizontalOptions="Fill"             
+                 RefreshColor="Blue"
+                 Refreshing="Refreshing">
+
+        <Grid RowDefinitions="auto,auto,auto,auto,*,1*" RowSpacing="10" Margin="10">
+            <ImageButton  Grid.Row="0" Source="left.png" HorizontalOptions="Start" WidthRequest="20" HeightRequest="20" Padding="8" Margin="10,10" Clicked="BtnVoltar_Clicked" />
+            <Label Grid.Row="1" Style="{StaticResource Subtitulo}" Text="Profile" VerticalOptions="Center" Margin="0,-20,0,0" HorizontalOptions="Center"/>
+            <Border Grid.Row="2" Grid.Column="4" Stroke="Gray" Background="Gray" Padding="1"  HorizontalOptions="Fill" Margin="5,0,5,20" StrokeShape="RoundRectangle 400"  HeightRequest="1" />
+
+            <ActivityIndicator x:Name="loadIndicator"
+                           IsRunning="False"
+                           IsVisible="False"
+                           Color="Blue"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"/>
+
+            <!--    <StackLayout Orientation="Horizontal" Grid.Row="0" Padding="0"
+        Margin="0,50,20,0"  HorizontalOptions="End" VerticalOptions="Start">
+        <sf:SfSegmentedControl x:Name="ThemeSegmentedControl"
+        VerticalOptions="Center" HorizontalOptions="Center" SelectionChanged="SfSegmentedControl_SelectionChanged"
+        SegmentWidth="40" SegmentHeight="28" Margin="0,-25,0,0">
+        <sf:SfSegmentedControl.ItemsSource>
+        <x:Array Type="{x:Type sf:SfSegmentItem}">
+        <sf:SfSegmentItem ImageSource="{StaticResource IconLight}"/>
+        <sf:SfSegmentItem ImageSource="{StaticResource IconDark}"/>
+        </x:Array>
+        </sf:SfSegmentedControl.ItemsSource>
+        </sf:SfSegmentedControl>
+        </StackLayout>  -->
+            <ScrollView Grid.Row="3" HorizontalScrollBarVisibility="Never" VerticalScrollBarVisibility="Never">
+                <VerticalStackLayout Padding="0" VerticalOptions="Start">
+                    <Border Stroke="Transparent" Padding="0"  Background="{StaticResource White}" HeightRequest="220" Margin="0,20">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="0,0,20,20"/>
+                        </Border.StrokeShape>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <Border Stroke="White" Background="Transparent" StrokeThickness="1"       WidthRequest="120" HeightRequest="120" VerticalOptions="Center"   HorizontalOptions="Center" Margin="0,20,0,0">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="120"/>
+                                </Border.StrokeShape>
+
+                                <Image 
+                           Source="{Binding Imagem}"
+                           HeightRequest="150"
+                           WidthRequest="150"
+                           Aspect="AspectFill"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"/>
+                            </Border>
+
+                            <StackLayout Grid.Row="2" >
+                                <Label
+                                x:Name="hora"
+                                HorizontalOptions="Center"
+                                FontFamily="PoppinsRegular" 
+                                FontSize="15"
+                                FontAttributes="Bold"
+                                WidthRequest="142"
+                                Margin="0,8,0,0"
+                                HorizontalTextAlignment="Center"
+                                TextColor="DarkGoldenrod"/>
+                                <Label
+                                Text="{Binding Nome}"
+                                HorizontalOptions="Center"
+                                FontFamily="PoppinsRegular" 
+                                FontSize="15"
+                                FontAttributes="Bold"
+                                WidthRequest="142"
+                                Margin="0"
+                                HorizontalTextAlignment="Center"
+                                TextColor="DarkGoldenrod"/>
+                            </StackLayout>
+                        </Grid>
+                    </Border>
+
+
+                    <VerticalStackLayout Grid.Row="4" Margin="2,0,2,20" Padding="10" VerticalOptions="Start">
+
+                        <Border Grid.Row="0" VerticalOptions="Start" Margin="0,10,0,0" Stroke="{StaticResource Gray100Brush}">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="10" />
+                            </Border.StrokeShape>
+                            <Grid Margin="10">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Image Source="cara.png" HeightRequest="28" VerticalOptions="Center" HorizontalOptions="Start"/>
+                                <Label Text="Minha Conta"
+                       TextColor="Black"
+                       FontSize="16"
+                       FontAttributes="Bold"
+                       HorizontalTextAlignment="Start"
+                       VerticalOptions="Center" Margin="40,0,0,0"/>
+                                <Image Source="next.png" HeightRequest="15" Opacity=".6" VerticalOptions="Center" HorizontalOptions="End"/>
+                            </Grid>
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer x:Name="TapInformações" Tapped="TapInformações_Tapped" />
+                            </Border.GestureRecognizers>
+                        </Border>
+
+                        <Border Grid.Row="0" VerticalOptions="Start" Margin="0,10,0,0" Stroke="{StaticResource Gray100Brush}">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="10" />
+                            </Border.StrokeShape>
+                            <Grid Margin="10">
+                                <Image Source="senha.png" HeightRequest="25" MinimumWidthRequest="100" VerticalOptions="Center" HorizontalOptions="Start"/>
+                                <Label Text="Redifinir Senha"
+                       TextColor="Black"
+                       FontSize="16"
+                       FontAttributes="Bold"
+                       HorizontalTextAlignment="Start"
+                       VerticalOptions="Center" Margin="40,0,0,0"/>
+                                <Image Source="next.png" HeightRequest="15" Opacity=".6" VerticalOptions="Center" HorizontalOptions="End"/>
+                            </Grid>
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer x:Name="TapAlterSenha" Tapped="TapAlterSenha_Tapped" />
+                            </Border.GestureRecognizers>
+                        </Border>
+
+                        <Border Grid.Row="0" VerticalOptions="Start" Margin="0,10,0,0" Stroke="{StaticResource Gray100Brush}">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="10" />
+                            </Border.StrokeShape>
+                            <Grid Margin="10">
+                                <Image Source="news.png" HeightRequest="25" MinimumWidthRequest="100" VerticalOptions="Center" HorizontalOptions="Start"/>
+                                <Label Text="Notificações"
+                       TextColor="Black"
+                       FontSize="16"
+                       FontAttributes="Bold"
+                       HorizontalTextAlignment="Start"
+                       VerticalOptions="Center" Margin="40,0,0,0"/>
+                                <Image Source="next.png" HeightRequest="15" Opacity=".6" VerticalOptions="Center" HorizontalOptions="End"/>
+                            </Grid>
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer x:Name="TapNotificacao" Tapped="TapNotificacao_Tapped" />
+                            </Border.GestureRecognizers>
+                        </Border>
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Grid.Row="5">
+                        <Border  VerticalOptions="End" Stroke="{StaticResource Gray100Brush}" StrokeThickness="1" Background="Gray"  HeightRequest="50" Margin="10,25" HorizontalOptions="Fill">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="100"/>
+                            </Border.StrokeShape>
+                            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center" Margin="10,0">
+                                <ImageButton
+                    Source="logout.png"
+                    HeightRequest="40"
+                    WidthRequest="40"
+                    Padding="8" Margin="5"
+                    ToolTipProperties.Text="Logout"
+                    HorizontalOptions="Fill"
+                    x:Name="btnLogout"/>
+                                <Label Text="Terminar Sessão" FontSize="15" FontAttributes="Bold" CharacterSpacing="1" TextColor="White"
+                       HorizontalOptions="Center" VerticalOptions="Center" Padding="0" Margin="0"/>
+                            </StackLayout>
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer x:Name="Logout" Tapped="Logout_Tapped"/>
+                            </Border.GestureRecognizers>
+                        </Border>
+                    </VerticalStackLayout>
+                </VerticalStackLayout>
+            </ScrollView>
+        </Grid>
+    </RefreshView>
+</ContentPage>

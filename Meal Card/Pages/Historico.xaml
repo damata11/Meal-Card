@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:view="clr-namespace:Meal_Card.ViewModels"
+             xmlns:HistoricoList="clr-namespace:Meal_Card.Models"
+             x:DataType="view:HistoricoViewModel"
+             x:Class="Meal_Card.Pages.Historico"
+             Shell.NavBarIsVisible="False"
+             Shell.TabBarIsVisible="False"
+             Shell.ForegroundColor="Black"
+             Shell.TitleColor="Black"
+             Shell.BackgroundColor="White"
+             BackgroundColor="{DynamicResource White}">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="Titulo" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="FontSize" Value="Title"/>
+                <Setter Property="FontFamily" Value="PoppinsRegular"/>
+                <Setter Property="TextColor" Value="{StaticResource Gray600}"/>
+                <Setter Property="Margin" Value="10,10,0,0"/>
+            </Style>
+            <Style x:Key="Subtitulo" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="FontSize" Value="18"/>
+                <Setter Property="FontFamily" Value="PoppinsRegular"/>
+                <Setter Property="TextColor" Value="{StaticResource Gray600}"/>
+                <Setter Property="Margin" Value="10,10,0,2"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <RefreshView x:Name="refreshView"
+                 VerticalOptions="Fill"
+                 HorizontalOptions="Fill"
+                 RefreshColor="Blue"
+                 Refreshing="Refreshing">
+
+        <Grid RowDefinitions="auto, auto,auto, *" Padding="10" RowSpacing="10" Margin="0">
+
+            <ImageButton  Grid.Row="0" Source="left.png" HorizontalOptions="Start" WidthRequest="20" HeightRequest="20" Padding="8" Margin="10,10" Clicked="BtnVoltar_Clicked" />
+            <Label Grid.Row="1" Style="{StaticResource Subtitulo}" Text="Historico" VerticalOptions="Center" Margin="0,-20,0,0" HorizontalOptions="Center"/>
+            <Border Grid.Row="2"  Stroke="Gray" Background="Gray" Padding="1"  HorizontalOptions="Fill" Margin="5,0,5,10" StrokeShape="RoundRectangle 400"  HeightRequest="1" />
+
+            <ScrollView Grid.Row="3">
+                <Grid Margin="0,10">
+                    <CollectionView  ItemsSource="{Binding Historico}">
+                        <CollectionView.EmptyView>
+                            <Label Text="Sem Registros" HorizontalTextAlignment="Center" TextColor="Black" FontSize="18" FontAttributes="Bold" VerticalOptions="Center" Margin="0,0,0,0" x:Name="txt_SemRegistro"/>
+                        </CollectionView.EmptyView>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="HistoricoList:HistoricoList">
+                                <Border Margin="0,10,0,10" Stroke="{StaticResource Gray200}" Padding="0" HeightRequest="70">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="8"/>
+                                    </Border.StrokeShape>
+                                    <Grid Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="4"  VerticalOptions="Start" Margin="10,0" >
+
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+
+                                   <Image Source="{Binding Icon}" WidthRequest="30" HeightRequest="30"  HorizontalOptions="Start" Margin="0,0,20,0" VerticalOptions="Center"/>
+
+                                   <Label Grid.Row="1"  Text="{Binding Nome}"
+                                     TextColor="Black" FontAttributes="Bold"
+                                     FontSize="12" Padding="10" Margin="35,0,0,0"
+                                     VerticalOptions="Start"
+                                     HorizontalTextAlignment="Start"/>
+
+                                   <Label Text="{Binding Descricao}"
+                                     TextColor="Black"
+                                     FontSize="10" Padding="10" Margin="35,0,0,0"
+                                     VerticalOptions="End"
+                                     HorizontalTextAlignment="Start"/>
+
+                                <Label Text="{Binding valor}"
+                                  TextColor="Black"
+                                  FontSize="10" Padding="10" Margin="35,18,0,0"
+                                  FontFamily="EBGaramondSemiBold"
+                                  HorizontalTextAlignment="Start"/>
+
+
+                                        <Label Text="{Binding Data}"
+                                  TextColor="Black"
+                                  FontSize="10" Margin="20,10,0,0" Padding="10"
+                                  VerticalOptions="End"
+                                  HorizontalTextAlignment="End"/>
+
+                                        <Border Stroke="Gray" StrokeThickness="1" Background="Green" WidthRequest="100" HeightRequest="30" HorizontalOptions="End" VerticalOptions="Start" Margin="10,5,0,40" x:Name="BorderState_color">
+                                            <Border.StrokeShape>
+                                                <RoundRectangle CornerRadius="50"/>
+                                            </Border.StrokeShape>
+                                            <Label Text="{Binding status}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" TextColor="White"/>
+                                        </Border>
+                                    </Grid>
+                                    <Border.GestureRecognizers>
+                                        <TapGestureRecognizer x:Name="detalhes" NumberOfTapsRequired="1" Tapped="detalhes_Tapped" />
+                                    </Border.GestureRecognizers>
+                                </Border>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </Grid>
+            </ScrollView>
+        </Grid>
+    </RefreshView>
+</ContentPage>

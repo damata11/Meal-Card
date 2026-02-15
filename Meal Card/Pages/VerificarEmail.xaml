@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Meal_Card.Pages.VerificarEmail"
+             xmlns:Controls="clr-namespace:Meal_Card.Controls"
+             xmlns:m="clr-namespace:UraniumUI.Icons.MaterialIcons;assembly=UraniumUI.Icons.MaterialIcons"
+             xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
+             Shell.NavBarHasShadow="False"
+             Shell.NavBarIsVisible="True"
+             Shell.TabBarIsVisible="False"
+             Shell.BackgroundColor="Green"
+             Shell.ForegroundColor="White"
+             BackgroundColor="Green">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="appName" TargetType="Label">
+                <Setter Property="FontSize" Value="25" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="FontFamily" Value="PoppinsRegular" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+            </Style>
+
+            <Style x:Key="appImage" TargetType="Image">
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="VerticalOptions" Value="Center" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid  VerticalOptions="Start"
+          RowDefinitions="Auto,Auto,Auto,Auto,*,Auto"
+          HeightRequest="1112" >
+
+        <VerticalStackLayout Grid.Row="0" Margin="0,-10,0,0" Background="Transparent" VerticalOptions="Start">
+
+            <Image Style="{StaticResource appImage}" Margin="0"
+                   Aspect="AspectFit"
+                   Source="food_login.png"
+                   WidthRequest="250"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Center"
+                   />
+
+            <Label Style="{StaticResource appName}" Text=" Recuperar a Senha "/>
+
+            <Label TextColor="White" Text="Introduza o seu email para prosseguir." FontSize="16"
+                   HorizontalTextAlignment="Center" />
+
+        </VerticalStackLayout>
+
+        <Border Grid.Row="2" Margin="0,20,0,0" HeightRequest="600" WidthRequest="420" Background="White" VerticalOptions="End">
+            <Border.StrokeShape>
+                <RoundRectangle  CornerRadius="65,65,0,0"/>
+            </Border.StrokeShape>
+
+            <VerticalStackLayout Margin="10,80,10,0">
+
+                <Label Text="Digite o seu email"
+                       CharacterSpacing="0.5"
+                       Margin="38,0,0,0"
+                       Padding="0"
+                       FontSize="15"
+                       FontAttributes="Bold"
+                       TextColor="Black"/>
+
+                <material:TextField Title=" E-mail" Icon="{FontImageSource FontFamily=MaterialRegular, Glyph={x:Static m:MaterialRegular.Email},Color={StaticResource Gray900}}" x:Name="txt_email" HorizontalOptions="Fill" TextChanged="txt_email_TextChanged" TextColor="Black" Margin="30,0,30,20"  FontSize="15" BorderColor="Black" TitleColor="Black" AccentColor="Black" FontFamily="PoppinsRegular" SelectionHighlightColor="Black"/>
+
+                <Controls:ButtonControl
+                    Text="Enviar"
+                    x:Name="lbl_Redifinir"
+                    TextColor="White"
+                    CharacterSpacing="1"
+                    HeightRequest="50"
+                    Margin="30,10"
+                    FontAttributes="Bold"
+                    FontFamily="Anton"
+                    Background="Green"
+                    Stroke="gray"
+                    Clicked="BtnVerificar_Clicked"
+                    HorizontalOptions="Fill"/>
+
+            </VerticalStackLayout>
+        </Border>
+    </Grid>
+</ContentPage>
