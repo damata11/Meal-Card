@@ -1,15 +1,3 @@
-C:\Users\danil\Desktop\PAP\Meal Card\Meal Card\bin\Debug\net9.0-android\Meal Card.runtimeconfig.json
-C:\Users\danil\Desktop\PAP\Meal Card\Meal Card\bin\Debug\net9.0-android\Meal Card.dll
-C:\Users\danil\Desktop\PAP\Meal Card\Meal Card\bin\Debug\net9.0-android\Meal Card.pdb
-C:\Users\danil\Desktop\PAP\Meal Card\Meal Card\bin\Debug\net9.0-android\com.companyname.mealcard.apk
-C:\Users\danil\Desktop\PAP\Meal Card\Meal Card\bin\Debug\net9.0-android\com.companyname.mealcard.aab
-C:\Users\danil\Desktop\PAP\Meal Card\Meal Card\bin\Debug\net9.0-android\com.companyname.mealcard-Signed.aab
-C:\Users\danil\Desktop\PAP\Meal Card\Meal Card\bin\Debug\net9.0-android\com.companyname.mealcard-Signed.apk
-C:\Users\danil\Desktop\PAP\Meal Card\Meal Card\bin\Debug\net9.0-android\com.companyname.mealcard-Signed.apk.idsig
-C:\Users\danil\Desktop\PAP\Meal Card\Meal Card\bin\Debug\net9.0-android\Microsoft.Maui.Controls.HotReload.Forms.dll
-C:\Users\danil\Desktop\PAP\Meal Card\Meal Card\bin\Debug\net9.0-android\Microsoft.VisualStudio.DesignTools.MobileTapContracts.dll
-C:\Users\danil\Desktop\PAP\Meal Card\Meal Card\bin\Debug\net9.0-android\Microsoft.VisualStudio.DesignTools.TapContract.dll
-C:\Users\danil\Desktop\PAP\Meal Card\Meal Card\bin\Debug\net9.0-android\Microsoft.VisualStudio.DesignTools.XamlTapContract.dll
 C:\Users\danil\Desktop\PAP\Meal Card\Meal Card\obj\Debug\net9.0-android\.NETCoreApp,Version=v9.0.AssemblyAttributes.cs
 C:\Users\danil\Desktop\PAP\Meal Card\Meal Card\obj\Debug\net9.0-android\build.props
 C:\Users\danil\Desktop\PAP\Meal Card\Meal Card\obj\Debug\net9.0-android\adb.props
@@ -198,10 +186,23 @@ C:\Users\danil\Desktop\PAP\Meal Card\Meal Card\obj\Debug\net9.0-android\Meal Car
 C:\Users\danil\Desktop\PAP\Meal Card\Meal Card\obj\Debug\net9.0-android\Meal Card.AssemblyInfoInputs.cache
 C:\Users\danil\Desktop\PAP\Meal Card\Meal Card\obj\Debug\net9.0-android\Meal Card.AssemblyInfo.cs
 C:\Users\danil\Desktop\PAP\Meal Card\Meal Card\obj\Debug\net9.0-android\Meal Card.csproj.CoreCompileInputs.cache
-C:\Users\danil\Desktop\PAP\Meal Card\Meal Card\obj\Debug\net9.0-android\XamlC.stamp
-C:\Users\danil\Desktop\PAP\Meal Card\Meal Card\obj\Debug\net9.0-android\Meal Card.csproj.Up2Date
+C:\Users\danil\Desktop\PAP\Meal Card\Meal Card\obj\Debug\net9.0-android\Meal Card.sourcelink.json
 C:\Users\danil\Desktop\PAP\Meal Card\Meal Card\obj\Debug\net9.0-android\Meal Card.dll
 C:\Users\danil\Desktop\PAP\Meal Card\Meal Card\obj\Debug\net9.0-android\Meal Card.pdb
+C:\Users\danil\Desktop\PAP\Meal Card\Meal Card\bin\Debug\net9.0-android\Meal Card.runtimeconfig.json
+C:\Users\danil\Desktop\PAP\Meal Card\Meal Card\bin\Debug\net9.0-android\Meal Card.dll
+C:\Users\danil\Desktop\PAP\Meal Card\Meal Card\bin\Debug\net9.0-android\Meal Card.pdb
+C:\Users\danil\Desktop\PAP\Meal Card\Meal Card\bin\Debug\net9.0-android\com.companyname.mealcard.apk
+C:\Users\danil\Desktop\PAP\Meal Card\Meal Card\bin\Debug\net9.0-android\com.companyname.mealcard.aab
+C:\Users\danil\Desktop\PAP\Meal Card\Meal Card\bin\Debug\net9.0-android\com.companyname.mealcard-Signed.aab
+C:\Users\danil\Desktop\PAP\Meal Card\Meal Card\bin\Debug\net9.0-android\com.companyname.mealcard-Signed.apk
+C:\Users\danil\Desktop\PAP\Meal Card\Meal Card\bin\Debug\net9.0-android\com.companyname.mealcard-Signed.apk.idsig
+C:\Users\danil\Desktop\PAP\Meal Card\Meal Card\bin\Debug\net9.0-android\Microsoft.Maui.Controls.HotReload.Forms.dll
+C:\Users\danil\Desktop\PAP\Meal Card\Meal Card\bin\Debug\net9.0-android\Microsoft.VisualStudio.DesignTools.MobileTapContracts.dll
+C:\Users\danil\Desktop\PAP\Meal Card\Meal Card\bin\Debug\net9.0-android\Microsoft.VisualStudio.DesignTools.TapContract.dll
+C:\Users\danil\Desktop\PAP\Meal Card\Meal Card\bin\Debug\net9.0-android\Microsoft.VisualStudio.DesignTools.XamlTapContract.dll
+C:\Users\danil\Desktop\PAP\Meal Card\Meal Card\obj\Debug\net9.0-android\XamlC.stamp
+C:\Users\danil\Desktop\PAP\Meal Card\Meal Card\obj\Debug\net9.0-android\Meal Card.csproj.Up2Date
 C:\Users\danil\Desktop\PAP\Meal Card\Meal Card\obj\Debug\net9.0-android\Meal Card.genruntimeconfig.cache
 C:\Users\danil\Desktop\PAP\Meal Card\Meal Card\obj\Debug\net9.0-android\Meal Card.runtimeconfig.json.bin
 C:\Users\danil\Desktop\PAP\Meal Card\Meal Card\obj\Debug\net9.0-android\android\bin\com.companyname.mealcard.apk
@@ -1324,3 +1325,9 @@ C:\Users\danil\Desktop\PAP\Meal Card\Meal Card\obj\Debug\net9.0-android\stamp\_C
 C:\Users\danil\Desktop\PAP\Meal Card\Meal Card\obj\Debug\net9.0-android\stamp\_GenerateJavaStubs.stamp
 C:\Users\danil\Desktop\PAP\Meal Card\Meal Card\obj\Debug\net9.0-android\stamp\_GeneratePackageManagerJava.stamp
 C:\Users\danil\Desktop\PAP\Meal Card\Meal Card\obj\Debug\net9.0-android\stamp\_ResolveLibraryProjectImports.stamp
+C:\Users\danil\Desktop\PAP\Meal Card\Meal Card\obj\Debug\net9.0-android\resizetizer\f\ArchivoBlack-Regular.ttf
+C:\Users\danil\Desktop\PAP\Meal Card\Meal Card\obj\Debug\net9.0-android\assets\ArchivoBlack-Regular.ttf
+C:\Users\danil\Desktop\PAP\Meal Card\Meal Card\obj\Debug\net9.0-android\resizetizer\f\Montserrat-Italic-VariableFont_wght.ttf
+C:\Users\danil\Desktop\PAP\Meal Card\Meal Card\obj\Debug\net9.0-android\resizetizer\f\Montserrat_VariableFont_wght.ttf
+C:\Users\danil\Desktop\PAP\Meal Card\Meal Card\obj\Debug\net9.0-android\assets\Montserrat-Italic-VariableFont_wght.ttf
+C:\Users\danil\Desktop\PAP\Meal Card\Meal Card\obj\Debug\net9.0-android\assets\Montserrat_VariableFont_wght.ttf

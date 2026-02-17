@@ -17,8 +17,8 @@ public partial class Cantina : ContentPage
         _authService = authService;
         _inicioView = inicioView;
         _carteiraView = carteiraView;
-        //_cantinaView = cantinaView;
-        //BindingContext = _cantinaView;
+        _cantinaView = cantinaView;
+        BindingContext = _cantinaView;
         _detalhesViwe = detalhesViwe;
     }
 
@@ -26,6 +26,10 @@ public partial class Cantina : ContentPage
     protected override async void OnAppearing()
     {
         base.OnAppearing();
+    }
+    private void Refreshing( object sender, EventArgs e )
+    {
+
     }
 
     protected override bool OnBackButtonPressed()
@@ -40,7 +44,7 @@ public partial class Cantina : ContentPage
         }
         return true;
     }
-
+    /*
     private async void BtnVoltar_Clicked( object sender, EventArgs e )
     {
         if (IsBusy) return;
@@ -70,13 +74,9 @@ public partial class Cantina : ContentPage
         }
     }
 
-    private void Refreshing( object sender, EventArgs e )
-    {
-
-    }
 
 
-    /*   private async Task GetRefeições()
+       private async Task GetRefeições()
        {
            // Lógica para obter refeições usando _apiService
        }
@@ -107,7 +107,7 @@ public partial class Cantina : ContentPage
                 // mostrar mensagem de erro no ecra
                 return Enumerable.Empty<Categoria>();
             }
-       }*/
+       } */
 
 
 }

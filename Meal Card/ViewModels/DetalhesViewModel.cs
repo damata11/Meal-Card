@@ -184,11 +184,7 @@ namespace Meal_Card.ViewModels
 
             try
             {
-                //System.Diagnostics.Debug.WriteLine($"Buscando produto com ID: {id_produto}");
-
                 var (produto, ErrorMessage) = await _authService.GetProdutosDetalhes(id_produto);
-
-                //System.Diagnostics.Debug.WriteLine($"Resultado da API - Produto: {produto?.Nome}, Error: {ErrorMessage}");
 
                 if (ErrorMessage == "Unauthorized")
                 {
@@ -230,8 +226,7 @@ namespace Meal_Card.ViewModels
             try
             {
                 var carrinhoItem = new Incluir_Carrinho()
-                {
-                    //Id_utilizador = Preferences.Get("id", 0)
+                {              
                     Id_produto = id_produto,
                     Quantidade = Quantidade,
 
@@ -281,8 +276,6 @@ namespace Meal_Card.ViewModels
         }
 
         // Sessão Favoritos 
-
-
         public async Task AddFacorito()
         {
             try
@@ -360,7 +353,7 @@ namespace Meal_Card.ViewModels
 
                 if (favorito is not null)
                 {
-                    Btn_favorito = "favorito.png";  //💖 favoritado
+                    Btn_favorito = "favorito.png";  // 💖 favoritado
                 }
                 else
                 {

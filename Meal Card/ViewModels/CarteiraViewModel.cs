@@ -169,12 +169,6 @@ namespace Meal_Card.ViewModels
                 var carteira = await GetCarteira();
                 var escola = await GetEscola();
 
-                // LOGS DE DIAGNÓSTICO
-                System.Diagnostics.Debug.WriteLine($"DEBUG: utilizador={(utilizador != null ? "OK" : "NULL")}");
-                System.Diagnostics.Debug.WriteLine($"DEBUG: carteira={(carteira != null ? "OK" : "NULL")}");
-                System.Diagnostics.Debug.WriteLine($"DEBUG: escola={(escola != null ? "OK" : "NULL")}");
-
-                // ✅ CORREÇÃO: Verificar cada um individualmente e usar dados da API quando disponíveis
                 await MainThread.InvokeOnMainThreadAsync(() =>
                 {
                     if (utilizador != null)
@@ -231,7 +225,6 @@ namespace Meal_Card.ViewModels
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine($"❌ ERRO em CarregarDados: {ex.Message}");
                 System.Diagnostics.Debug.WriteLine($"StackTrace: {ex.StackTrace}");
             }
         }

@@ -19,8 +19,6 @@ public partial class DetalhesProdutos : ContentPage
         BindingContext = _detalhesView;
         _authService = authService ?? throw new ArgumentNullException(nameof(authService)); ;
         SetTitle();
-        System.Diagnostics.Debug.WriteLine($"ID do produto: {id_produto}");
-        System.Diagnostics.Debug.WriteLine($"Nome do produto: {nome_produto}");
     }
 
     protected override async void OnAppearing()
@@ -96,8 +94,6 @@ public partial class DetalhesProdutos : ContentPage
             IsBusy = false;
         }
     }
-
-
 
     private async void Refreshing( object sender, EventArgs e )
     {

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Meal Card")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0+42534f7e5ab46f7edbed21bd2b17954eb093c40a")]
 [assembly: System.Reflection.AssemblyProductAttribute("Meal Card")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Meal Card")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

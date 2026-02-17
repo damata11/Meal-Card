@@ -65,6 +65,6 @@ public partial class Carteira : ContentPage
 
     private async void VerHistorico_Tapped(object sender, TappedEventArgs e)
     {
-        await AppShell.Current.GoToAsync(nameof(CarteiraPaymentNFC));
+        await AppShell.Current.GoToAsync(nameof(Historico));
     }
 }

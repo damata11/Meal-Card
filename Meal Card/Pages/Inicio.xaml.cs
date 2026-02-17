@@ -27,8 +27,6 @@ public partial class Inicio : ContentPage
     {
         base.OnAppearing();
 
-        Debug.WriteLine("Inicio.OnAppearing");
-
         await _inicioView.VerificarECarregarDadosCommand.ExecuteAsync(null);
         _inicioView.OnPageAppearing();
     }

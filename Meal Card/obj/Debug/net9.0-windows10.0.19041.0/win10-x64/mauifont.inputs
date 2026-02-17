@@ -4,7 +4,9 @@ File=C:\Users\danil\.nuget\packages\syncfusion.maui.imageeditor\32.1.22\buildTra
 File=C:\Users\danil\.nuget\packages\syncfusion.maui.imageeditor\32.1.22\buildTransitive\..\buildTransitive\Resources\Fonts\Handlee.ttf;Link=Resources\Fonts\Handlee.ttf;Alias=
 File=C:\Users\danil\.nuget\packages\syncfusion.maui.imageeditor\32.1.22\buildTransitive\..\buildTransitive\Resources\Fonts\KaushanScript.ttf;Link=Resources\Fonts\KaushanScript.ttf;Alias=
 File=C:\Users\danil\.nuget\packages\syncfusion.maui.imageeditor\32.1.22\buildTransitive\..\buildTransitive\Resources\Fonts\PinyonScript.ttf;Link=Resources\Fonts\PinyonScript.ttf;Alias=
+File=Resources\Fonts\ArchivoBlack-Regular.ttf;Link=;Alias=
 File=Resources\Fonts\GoogleSans_VariableFont.ttf;Link=;Alias=
+File=Resources\Fonts\Montserrat_VariableFont_wght.ttf;Link=;Alias=
 File=Resources\Fonts\OpenSans_Regular.ttf;Link=;Alias=
 File=Resources\Fonts\Poppins-Regular.ttf;Link=;Alias=
 File=Resources\Fonts\Poppins-SemiBold.ttf;Link=;Alias=

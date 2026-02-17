@@ -27,6 +27,8 @@ namespace Meal_Card
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("GoogleSans_VariableFont.ttf", "GoogleSans");
+                    fonts.AddFont("ArchivoBlack-Regular.ttf", "ArchivoRegular");
+                    fonts.AddFont("Montserrat_VariableFont_wght.ttf", "MontSerrat");
                     fonts.AddFont("Poppins-Regular.ttf", "PoppinsRegular");
                     fonts.AddFont("Poppins-SemiBold.ttf", "PoppinsBold");
                     fonts.AddFont("SHOOGIE.otf", "Shoogie");
