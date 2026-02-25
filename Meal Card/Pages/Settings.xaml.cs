@@ -43,7 +43,7 @@ public partial class Settings : ContentPage
     {
         var horas = DataControllerUser.DataAppUser();
         hora.Text = horas;
-        var dados = _carteiraView.CarregarDados();
+        var dados = _carteiraView.CarregarMenu();
         await Task.WhenAll(dados);
 
     }
@@ -59,7 +59,7 @@ public partial class Settings : ContentPage
         {
 
             _authService.Logout();
-            //Application.Current!.MainPage = new NavigationPage(new Login())
+            // Application.Current!.MainPage = new NavigationPage(new Login())
             var notification = Toast.Make("Sessão encerada com sucesso...",
                 CommunityToolkit.Maui.Core.ToastDuration.Short);
             await notification.Show();

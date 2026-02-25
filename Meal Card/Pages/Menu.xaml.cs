@@ -15,14 +15,12 @@ public partial class Menu : ContentPage
         _viewModel = viewModel ?? throw new ArgumentNullException(nameof(viewModel));
         _authService = authService ?? throw new ArgumentNullException(nameof(authService));
         BindingContext = _viewModel;
-
-
     }
 
     private async void Refreshing( object sender, EventArgs e )
     {
         refreshView.IsRefreshing = true;
-        await _viewModel.CarregarDados();
+        await _viewModel.CarregarMenu();
         refreshView.IsRefreshing = false;
     }
 
@@ -38,7 +36,7 @@ public partial class Menu : ContentPage
     }
     private async Task LoadData()
     {
-        var dados = _viewModel.CarregarDados();
+        var dados = _viewModel.CarregarPerfil();
 
         await Task.WhenAll(dados);
     }
