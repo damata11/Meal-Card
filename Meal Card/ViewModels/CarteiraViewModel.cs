@@ -158,11 +158,36 @@ namespace Meal_Card.ViewModels
             _historiaViewModel = historiaViewModel;
         }
 
-        public async Task CarregarDados()
+        public async Task CarregarMenu()
         {
             try
             {
-                System.Diagnostics.Debug.WriteLine("=== INICIANDO CarregarDados ===");
+                var utilizador = await GetUtilizador();
+
+                if (utilizador != null)
+                {
+                    Nome = $"{utilizador.Nome} {utilizador.Sobrenome}";
+                    Imagem = utilizador.CaminhoImagem;
+                    Email = utilizador.Email;
+                }
+                else
+                {
+                    Nome = Preferences.Get("nome", null);
+                    Email = Preferences.Get("email", null);
+                    Imagem = "perfil.png";
+                }
+
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"StackTrace: {ex.StackTrace}");
+            }
+        }
+
+        public async Task CarregarPerfil()
+        {
+            try
+            {
 
                 // Buscar dados da API
                 var utilizador = await GetUtilizador();
@@ -188,9 +213,8 @@ namespace Meal_Card.ViewModels
                     }
                     else
                     {
-                        // Fallback para Preferences
-                        Nome = Preferences.Get("nome", "Danilson da Mata");
-                        Email = Preferences.Get("email", "danilsonmata@gmailcom");
+                        Nome = Preferences.Get("nome", null);
+                        Email = Preferences.Get("email", null);
                         CardNumber = Preferences.Get("card", "12345");
                         Imagem = "perfil.png";
                         TipoUtilizador = Preferences.Get("tipo", "Estudante").ToUpper();
@@ -233,9 +257,7 @@ namespace Meal_Card.ViewModels
         {
             try
             {
-                System.Diagnostics.Debug.WriteLine("Atualizando histórico...");
 
-                // Tentar carregar histórico se estiver vazio
                 if (_historiaViewModel.Historico == null || !_historiaViewModel.Historico.Any())
                 {
                     System.Diagnostics.Debug.WriteLine("Histórico vazio, tentando carregar...");
@@ -266,7 +288,7 @@ namespace Meal_Card.ViewModels
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine($"❌ ERRO em AtualizarHistorico: {ex.Message}");
+                System.Diagnostics.Debug.WriteLine($" ERRO em AtualizarHistorico: {ex.Message}");
             }
         }
 
@@ -274,12 +296,10 @@ namespace Meal_Card.ViewModels
         {
             try
             {
-                System.Diagnostics.Debug.WriteLine("Buscando carteira...");
                 var (carteira, errorMessage) = await _authService.GetCarteira();
 
                 if (errorMessage == "Unauthorized")
                 {
-                    System.Diagnostics.Debug.WriteLine("Carteira: Unauthorized");
                     await MainThread.InvokeOnMainThreadAsync(async () =>
                     {
                         await NotificationToast.ShowToastL("Sessão expirada. Será redirecionado para a tela de login.");
@@ -298,7 +318,7 @@ namespace Meal_Card.ViewModels
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine($"❌ ERRO GetCarteira: {ex.Message}");
+                System.Diagnostics.Debug.WriteLine($" ERRO GetCarteira: {ex.Message}");
                 return null;
             }
         }
@@ -312,7 +332,6 @@ namespace Meal_Card.ViewModels
 
                 if (errorMessage == "Unauthorized")
                 {
-                    System.Diagnostics.Debug.WriteLine("Escola: Unauthorized");
                     return null;
                 }
 
@@ -326,7 +345,7 @@ namespace Meal_Card.ViewModels
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine($"❌ ERRO GetEscola: {ex.Message}");
+                System.Diagnostics.Debug.WriteLine($" ERRO GetEscola: {ex.Message}");
                 return null;
             }
         }
@@ -354,7 +373,7 @@ namespace Meal_Card.ViewModels
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine($"❌ ERRO GetUtilizador: {ex.Message}");
+                System.Diagnostics.Debug.WriteLine($" ERRO GetUtilizador: {ex.Message}");
                 return null;
             }
         }

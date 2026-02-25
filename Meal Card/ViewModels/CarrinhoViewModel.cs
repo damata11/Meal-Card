@@ -131,14 +131,14 @@ namespace Meal_Card.ViewModels
             }
             catch (TimeoutException)
             {
-                await NotificationToast.ShowToastL("Tempo esgotado. Tentando novamente...");
+
                 return await RetryGetCarrinho(3);
             }
             catch (Exception ex)
             {
                 if (retryCount < MaxRetries)
                 {
-                    await Task.Delay(1000); // Espera 1s
+                    await Task.Delay(1000);
                     return await GetCarrinho(retryCount + 1);
                 }
                 await NotificationToast.ShowToastL("Falha após retries: " + ex.Message);
