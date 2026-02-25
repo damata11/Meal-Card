@@ -1,135 +1,271 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
-             xmlns:shimer="clr-namespace:Syncfusion.Maui.Toolkit.Shimmer;assembly=Syncfusion.Maui.Toolkit"
-             xmlns:controls="clr-namespace:Meal_Card.Controls"
-             xmlns:view="clr-namespace:Meal_Card.ViewModels"
-             xmlns:model="clr-namespace:Meal_Card.Models"
-             x:DataType="view:CarrinhoViewModel"
-             x:Class="Meal_Card.Pages.Carrinho"
-             NavigationPage.HasNavigationBar="False"
-             Shell.NavBarIsVisible="False" 
-             Shell.TitleColor="Black"        
-             BackgroundColor="{StaticResource White}"
-             Title="Carrinho">
+<ContentPage
+    x:Class="Meal_Card.Pages.Carrinho"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:Meal_Card.Controls"
+    xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
+    xmlns:model="clr-namespace:Meal_Card.Models"
+    xmlns:shimer="clr-namespace:Syncfusion.Maui.Toolkit.Shimmer;assembly=Syncfusion.Maui.Toolkit"
+    xmlns:view="clr-namespace:Meal_Card.ViewModels"
+    Title="Carrinho"
+    x:DataType="view:CarrinhoViewModel"
+    BackgroundColor="{StaticResource White}"
+    NavigationPage.HasNavigationBar="False"
+    Shell.NavBarIsVisible="False"
+    Shell.TitleColor="Black">
 
 
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style x:Key="Titulo" TargetType="Label">
-                <Setter Property="FontAttributes" Value="Bold"/>
-                <Setter Property="FontSize" Value="Title"/>
-                <Setter Property="FontFamily" Value="PoppinsRegular"/>
-                <Setter Property="TextColor" Value="{StaticResource Gray600}"/>
-                <Setter Property="Margin" Value="10,10,0,0"/>
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="FontSize" Value="Title" />
+                <Setter Property="FontFamily" Value="PoppinsRegular" />
+                <Setter Property="TextColor" Value="{StaticResource Gray600}" />
+                <Setter Property="Margin" Value="10,10,0,0" />
             </Style>
             <Style x:Key="Subtitulo" TargetType="Label">
-                <Setter Property="FontAttributes" Value="Bold"/>
-                <Setter Property="FontSize" Value="18"/>
-                <Setter Property="FontFamily" Value="PoppinsRegular"/>
-                <Setter Property="TextColor" Value="{StaticResource Gray600}"/>
-                <Setter Property="Margin" Value="10,10,0,2"/>
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="FontSize" Value="18" />
+                <Setter Property="FontFamily" Value="PoppinsRegular" />
+                <Setter Property="TextColor" Value="{StaticResource Gray600}" />
+                <Setter Property="Margin" Value="10,10,0,2" />
             </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
 
     <!--<shimer:SfShimmer x:Name="SHProcessando" VerticalOptions="Fill" Type="Shopping">-->
 
-    <RefreshView x:Name="refreshView"
-                 VerticalOptions="Fill"
-                 HorizontalOptions="Fill"
-                 RefreshColor="Blue"
-                 IsRefreshing="{Binding IsRefreshing}"
-                 Refreshing="Refreshing">
+    <RefreshView
+        x:Name="refreshView"
+        HorizontalOptions="Fill"
+        IsRefreshing="{Binding IsRefreshing}"
+        RefreshColor="Blue"
+        Refreshing="Refreshing"
+        VerticalOptions="Fill">
 
-        <Grid RowDefinitions="auto, auto, *, auto" >
-            <Grid Grid.Row="0" RowDefinitions="auto, *" ColumnDefinitions="4*,3*,2*,2*" >
-                <Label Grid.Row="0" Grid.Column="0" Style="{StaticResource Subtitulo}" Text="Carrinho" VerticalOptions="Center"  HorizontalOptions="Start" Margin="20,15,20,0"/>
-                <ImageButton  Grid.Row="0" Grid.Column="2" Source="favorito.png" WidthRequest="20" VerticalOptions="Center" HeightRequest="10" Padding="10" Margin="0,20,-40,0" x:Name="Btnfavoritos"  Clicked="Btnfavoritos_Clicked" />
-                <ImageButton  Grid.Row="0" Grid.Column="3" Source="lixeira.png" WidthRequest="20" VerticalOptions="Center" HeightRequest="10" Padding="10" Margin="0,20,0,0" x:Name="BtnApagarTudo" Clicked="BtnApagarTudo_Clicked" />
+        <Grid RowDefinitions="auto, auto, *, auto">
+            <Grid
+                Grid.Row="0"
+                ColumnDefinitions="4*,3*,2*,2*"
+                RowDefinitions="auto, *">
+                <Label
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Margin="20,15,20,0"
+                    HorizontalOptions="Start"
+                    Style="{StaticResource Subtitulo}"
+                    Text="Carrinho"
+                    VerticalOptions="Center" />
+                <ImageButton
+                    x:Name="Btnfavoritos"
+                    Grid.Row="0"
+                    Grid.Column="2"
+                    Margin="0,20,-40,0"
+                    Padding="10"
+                    Clicked="Btnfavoritos_Clicked"
+                    HeightRequest="10"
+                    Source="favorito.png"
+                    VerticalOptions="Center"
+                    WidthRequest="20" />
+                <ImageButton
+                    x:Name="BtnApagarTudo"
+                    Grid.Row="0"
+                    Grid.Column="3"
+                    Margin="0,20,0,0"
+                    Padding="10"
+                    Clicked="BtnApagarTudo_Clicked"
+                    HeightRequest="10"
+                    Source="lixeira.png"
+                    VerticalOptions="Center"
+                    WidthRequest="20" />
             </Grid>
             <Grid Grid.Row="1">
-                <Border Grid.Row="1" Grid.Column="4" Stroke="Gray" Background="Gray" Padding="1"  HorizontalOptions="Fill" Margin="5,2,5,20" StrokeShape="RoundRectangle 400"  HeightRequest="1" />
+                <Border
+                    Grid.Row="1"
+                    Grid.Column="4"
+                    Margin="5,2,5,20"
+                    Padding="1"
+                    Background="Gray"
+                    HeightRequest="1"
+                    HorizontalOptions="Fill"
+                    Stroke="Gray"
+                    StrokeShape="RoundRectangle 400" />
             </Grid>
             <ScrollView Grid.Row="2">
-                <Grid Grid.Row="2"  >
-                    <CollectionView  ItemsSource="{Binding Carrinho}" SelectionMode="Single" Margin="10">
+                <Grid Grid.Row="2">
+                    <CollectionView
+                        Margin="10"
+                        ItemsSource="{Binding Carrinho}"
+                        SelectionMode="Single">
                         <CollectionView.ItemsLayout>
-                            <LinearItemsLayout Orientation="Vertical" ItemSpacing="10"/>
+                            <LinearItemsLayout ItemSpacing="10" Orientation="Vertical" />
                         </CollectionView.ItemsLayout>
                         <CollectionView.ItemTemplate>
                             <DataTemplate x:DataType="model:Itens_Carrinho">
                                 <Border Margin="0" StrokeShape="RoundRectangle 10">
-                                <Grid RowDefinitions="auto,auto,auto" ColumnDefinitions="3*, 6*, 1*" ColumnSpacing="10" RowSpacing="5" HeightRequest="120">
+                                    <Grid
+                                        ColumnDefinitions="3*, 6*, 1*"
+                                        ColumnSpacing="10"
+                                        HeightRequest="120"
+                                        RowDefinitions="auto,auto,auto"
+                                        RowSpacing="5">
 
-                                    <Border Grid.Column="0" Stroke="{StaticResource Gray200}" StrokeShape="RoundRectangle 10" Margin="10,10,10,0" HeightRequest="100" >
-                                        <Image Source="{Binding CaminhoImagem}" Aspect="AspectFill"  VerticalOptions="Fill" HorizontalOptions="Fill"/>
-                                            <Border.GestureRecognizers>
-                                                <TapGestureRecognizer NumberOfTapsRequired="1" x:Name="DetalhesTapped" Tapped="DetalhesTapped_Tapped" />
-                                            </Border.GestureRecognizers>
-                                    </Border>
-                                    
-                                    <Label Grid.Row="0" Grid.Column="1" Text="{Binding Nome}" FontSize="14" FontFamily="PoppinsRegular" TextColor="Black" VerticalOptions="Start" Margin="0,20" />
-
-                                    <Label Grid.Row="0" Grid.Column="1" Text="{Binding Preco, StringFormat='{}{0:C}'}" FontSize="14" FontFamily="PoppinsRegular" TextColor="Black" VerticalOptions="Center" HorizontalOptions="Start" Margin="0,20,0,0" />
-
-                                    <HorizontalStackLayout Grid.Row="1" Grid.Column="1" Spacing="0" Margin="0,-30,0,0">
-                                        <Button Text="-"
-                                                TextColor="Black"
-                                                FontSize="15"
-                                                FontAttributes="Bold"
-                                                x:Name="BtnDecrementar"
-                                                VerticalOptions="Fill"
+                                        <Border
+                                            Grid.Column="0"
+                                            Margin="10,10,10,0"
+                                            HeightRequest="100"
+                                            Stroke="{StaticResource Gray200}"
+                                            StrokeShape="RoundRectangle 10">
+                                            <Image
+                                                Aspect="AspectFill"
                                                 HorizontalOptions="Fill"
+                                                Source="{Binding CaminhoImagem}"
+                                                VerticalOptions="Fill" />
+                                            <Border.GestureRecognizers>
+                                                <TapGestureRecognizer
+                                                    x:Name="DetalhesTapped"
+                                                    NumberOfTapsRequired="1"
+                                                    Tapped="DetalhesTapped_Tapped" />
+                                            </Border.GestureRecognizers>
+                                        </Border>
+
+                                        <Label
+                                            Grid.Row="0"
+                                            Grid.Column="1"
+                                            Margin="0,20"
+                                            FontFamily="PoppinsRegular"
+                                            FontSize="14"
+                                            Text="{Binding Nome}"
+                                            TextColor="Black"
+                                            VerticalOptions="Start" />
+
+                                        <Label
+                                            Grid.Row="0"
+                                            Grid.Column="1"
+                                            Margin="0,20,0,0"
+                                            FontFamily="PoppinsRegular"
+                                            FontSize="14"
+                                            HorizontalOptions="Start"
+                                            Text="{Binding Preco, StringFormat='{}{0:C}'}"
+                                            TextColor="Black"
+                                            VerticalOptions="Center" />
+
+                                        <HorizontalStackLayout
+                                            Grid.Row="1"
+                                            Grid.Column="1"
+                                            Margin="0,-30,0,0"
+                                            Spacing="0">
+                                            <Button
+                                                x:Name="BtnDecrementar"
                                                 Padding="0"
+                                                Background="AliceBlue"
+                                                Clicked="BtnDecrementar_Clicked"
+                                                FontAttributes="Bold"
+                                                FontSize="15"
+                                                HorizontalOptions="Fill"
                                                 MaximumHeightRequest="30"
                                                 MaximumWidthRequest="30"
-                                                Background="AliceBlue"
-                                                Clicked="BtnDecrementar_Clicked"/>
-
-                                        <Label Text="{Binding Quantidade}" FontSize="14" FontFamily="PoppinsRegular" TextColor="Black" VerticalOptions="Center" Margin="6,5,6,0"/>
-
-                                        <Button Text="+"
+                                                Text="-"
                                                 TextColor="Black"
-                                                FontSize="15"
-                                                FontAttributes="Bold"
+                                                VerticalOptions="Fill" />
+
+                                            <Label
+                                                Margin="6,5,6,0"
+                                                FontFamily="PoppinsRegular"
+                                                FontSize="14"
+                                                Text="{Binding Quantidade}"
+                                                TextColor="Black"
+                                                VerticalOptions="Center" />
+
+                                            <Button
                                                 x:Name="BtnIncrementar"
                                                 Padding="0"
+                                                Background="AliceBlue"
+                                                Clicked="BtnIncrementar_Clicked"
+                                                FontAttributes="Bold"
+                                                FontSize="15"
                                                 MaximumHeightRequest="30"
                                                 MaximumWidthRequest="30"
-                                                Background="AliceBlue"
-                                                Clicked="BtnIncrementar_Clicked"/>
-                                    </HorizontalStackLayout>
-                                    <ImageButton  Grid.Column="2" Source="lixeira.png" WidthRequest="20" HeightRequest="20" Padding="8" Margin="0,0,25,-10" x:Name="BtnApagar"  Clicked="BtnApagar_Clicked" HorizontalOptions="Center" VerticalOptions="End"/>
-                                </Grid>
+                                                Text="+"
+                                                TextColor="Black" />
+                                        </HorizontalStackLayout>
+                                        <ImageButton
+                                            x:Name="BtnApagar"
+                                            Grid.Column="2"
+                                            Margin="0,0,25,-10"
+                                            Padding="8"
+                                            Clicked="BtnApagar_Clicked"
+                                            HeightRequest="20"
+                                            HorizontalOptions="Center"
+                                            Source="lixeira.png"
+                                            VerticalOptions="End"
+                                            WidthRequest="20" />
+                                    </Grid>
                                 </Border>
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
                     </CollectionView>
-                    <Grid VerticalOptions="Center" IsVisible="{Binding IsVisible}" >
-                        <Image Source="category_not_found.png" VerticalOptions="Center"  
-                               HeightRequest="150" WidthRequest="198" Aspect="AspectFill"  HorizontalOptions="Center" Margin="0,0,0,20" />
+                    <Grid IsVisible="{Binding IsVisible}" VerticalOptions="Center">
+                        <Image
+                            Margin="0,0,0,20"
+                            Aspect="AspectFill"
+                            HeightRequest="150"
+                            HorizontalOptions="Center"
+                            Source="category_not_found.png"
+                            VerticalOptions="Center"
+                            WidthRequest="198" />
                     </Grid>
                 </Grid>
             </ScrollView>
-            <Grid Grid.Row="3" RowDefinitions="auto, auto"  BackgroundColor="Transparent" VerticalOptions="End" HorizontalOptions="Fill" Background="AliceBlue">
-                <Grid Grid.Row="0" ColumnDefinitions="6*, 4*" Margin="10,10,10,0">
-                    <Label Grid.Column="0" Text=" Valor Total a pagar :" HorizontalOptions="Start" VerticalOptions="Center" Margin="20,0" FontSize="16" FontFamily="PoppinsRegular" TextColor="Black"/>
+            <Grid
+                Grid.Row="3"
+                Background="AliceBlue"
+                BackgroundColor="Transparent"
+                HorizontalOptions="Fill"
+                RowDefinitions="auto, auto"
+                VerticalOptions="End">
+                <Grid
+                    Grid.Row="0"
+                    Margin="10,10,10,0"
+                    ColumnDefinitions="6*, 4*">
+                    <Label
+                        Grid.Column="0"
+                        Margin="20,0"
+                        FontFamily="PoppinsRegular"
+                        FontSize="16"
+                        HorizontalOptions="Start"
+                        Text=" Valor Total a pagar :"
+                        TextColor="Black"
+                        VerticalOptions="Center" />
 
-                    <VerticalStackLayout  Grid.Column="1" Margin="10,10,10,0" HorizontalOptions="End" VerticalOptions="Center">
-                        <Label Text="{Binding ValorTotal, StringFormat='{}{0:C}'}" FontSize="16" FontFamily="PoppinsRegular" TextColor="Black"/>
+                    <VerticalStackLayout
+                        Grid.Column="1"
+                        Margin="10,10,10,0"
+                        HorizontalOptions="End"
+                        VerticalOptions="Center">
+                        <Label
+                            FontFamily="PoppinsRegular"
+                            FontSize="16"
+                            Text="{Binding ValorTotal, StringFormat='{}{0:C}'}"
+                            TextColor="Black" />
                     </VerticalStackLayout>
                 </Grid>
-                <controls:ButtonControl Grid.Row="1"             
-                             Text="Finalizar Compra" 
-                             Background="Green" TextColor="White" 
-                             FontSize="16" FontAttributes="Bold" 
-                             FontFamily="PoppinsRegular"
-                             StrokeShape="RoundRectangle 10" Padding="0" Margin="10,8,10,20" 
-                             Clicked="BtnFinalizarCompra_Clicked"
-                             HorizontalOptions="Fill"
-                             HeightRequest="50"/>
+                <controls:ButtonControl
+                    Grid.Row="1"
+                    Margin="10,8,10,20"
+                    Padding="0"
+                    Background="Green"
+                    Clicked="BtnFinalizarCompra_Clicked"
+                    FontAttributes="Bold"
+                    FontFamily="PoppinsRegular"
+                    FontSize="16"
+                    HeightRequest="50"
+                    HorizontalOptions="Fill"
+                    StrokeShape="RoundRectangle 10"
+                    Text="Finalizar Compra"
+                    TextColor="White" />
 
             </Grid>
         </Grid>

@@ -41,7 +41,7 @@
             <ScrollView Grid.Row="3" >
                 <CollectionView>
                     <CollectionView.ItemTemplate>
-                        <DataTemplate>
+                        <DataTemplate x:DataType="x:String">
                             <Border Margin="0, 5" Padding="10" Background="white" StrokeThickness="1">
                                 <VerticalStackLayout>
                                     <Label Text="{Binding Titulo}" FontSize="12" />
