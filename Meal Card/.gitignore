@@ -1,6 +1,18 @@
-bin/
-obj/
-.vs/
-*.user
-*.tmp
-*.cache
+# pastas de saída de compilação
+/bin/
+/obj/
+
+# arquivos de configuração de usuário
+/*.user
+/*.suo
+/*.userprefs
+
+# logs
+/*.log
+/*.tmp
+/*.cache
+
+# pastas de ferramentas
+/packages/
+/.vscode/
+/../.vs/
