@@ -1,50 +1,38 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:shimer="clr-namespace:Syncfusion.Maui.Toolkit.Shimmer;assembly=Syncfusion.Maui.Toolkit"
-             x:Class="Meal_Card.Pages.ListaProdutos"
-             NavigationPage.HasNavigationBar="False"
-             BackgroundColor="{StaticResource White}"
-             Title="Produtos"
-             Shell.NavBarIsVisible="False">
+<ContentPage
+    x:Class="Meal_Card.Pages.ListaProdutos"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:shimer="clr-namespace:Syncfusion.Maui.Toolkit.Shimmer;assembly=Syncfusion.Maui.Toolkit"
+    Title="Produtos"
+    BackgroundColor="{StaticResource White}"
+    NavigationPage.HasNavigationBar="False"
+    Shell.NavBarIsVisible="False">
 
     <ContentPage.Resources>
         <ResourceDictionary>
-            <Style x:Key="Titulo"
-                   TargetType="Label">
-                <Setter Property="FontAttributes"
-                        Value="Bold"/>
-                <Setter Property="FontSize"
-                        Value="Title"/>
-                <Setter Property="FontFamily"
-                        Value="PoppinsRegular"/>
-                <Setter Property="TextColor"
-                        Value="{StaticResource Gray600}"/>
-                <Setter Property="Margin"
-                        Value="10,10,0,0"/>
+            <Style x:Key="Titulo" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="FontSize" Value="Title" />
+                <Setter Property="FontFamily" Value="PoppinsRegular" />
+                <Setter Property="TextColor" Value="{StaticResource Gray600}" />
+                <Setter Property="Margin" Value="10,10,0,0" />
             </Style>
-            <Style x:Key="Subtitulo"
-                   TargetType="Label">
-                <Setter Property="FontAttributes"
-                        Value="Bold"/>
-                <Setter Property="FontSize"
-                        Value="18"/>
-                <Setter Property="FontFamily"
-                        Value="PoppinsRegular"/>
-                <Setter Property="TextColor"
-                        Value="{StaticResource Gray600}"/>
-                <Setter Property="Margin"
-                        Value="10,10,0,2"/>
+            <Style x:Key="Subtitulo" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="FontSize" Value="18" />
+                <Setter Property="FontFamily" Value="PoppinsRegular" />
+                <Setter Property="TextColor" Value="{StaticResource Gray600}" />
+                <Setter Property="Margin" Value="10,10,0,2" />
             </Style>
             <Style TargetType="Grid">
                 <Setter Property="VisualStateManager.VisualStateGroups">
                     <VisualStateGroupList>
                         <VisualStateGroup x:Name="CommonStates">
-                            <VisualState x:Name="Normal"/>
+                            <VisualState x:Name="Normal" />
                             <VisualState x:Name="Selected">
                                 <VisualState.Setters>
-                                    <Setter Property="BackgroundColor"
-                                            Value="Transparent"/>
+                                    <Setter Property="BackgroundColor" Value="Transparent" />
                                 </VisualState.Setters>
                             </VisualState>
                         </VisualStateGroup>
@@ -55,11 +43,10 @@
                 <Setter Property="VisualStateManager.VisualStateGroups">
                     <VisualStateGroupList>
                         <VisualStateGroup x:Name="CommonStates">
-                            <VisualState x:Name="Normal"/>
+                            <VisualState x:Name="Normal" />
                             <VisualState x:Name="Selected">
                                 <VisualState.Setters>
-                                    <Setter Property="BackgroundColor"
-                                            Value="Transparent"/>
+                                    <Setter Property="BackgroundColor" Value="Transparent" />
                                 </VisualState.Setters>
                             </VisualState>
                         </VisualStateGroup>
@@ -69,122 +56,140 @@
         </ResourceDictionary>
     </ContentPage.Resources>
 
-    <RefreshView x:Name="refreshView"
-                 VerticalOptions="Fill"
-                 HorizontalOptions="Fill"
-                 RefreshColor="Blue"
-                 Refreshing="Refreshing">
+    <RefreshView
+        x:Name="refreshView"
+        HorizontalOptions="Fill"
+        RefreshColor="Blue"
+        Refreshing="Refreshing"
+        VerticalOptions="Fill">
 
-        <Grid RowDefinitions="auto, auto,auto,auto, *"
-              RowSpacing="10"
-              HorizontalOptions="Fill"
-              VerticalOptions="Fill"
-              Padding="0"
-              Margin="0,10">
-            <ImageButton  Grid.Row="0"
-                          Source="left.png"
-                          HorizontalOptions="Start"
-                          WidthRequest="20"
-                          HeightRequest="20"
-                          Padding="8"
-                          Margin="10,10"
-                          Clicked="BtnVoltar_Clicked"/>
-            <Label Grid.Row="1"
-                   Style="{StaticResource Subtitulo}"
-                   x:Name="TitlePage"
-                   VerticalOptions="Center"
-                   Margin="0,-5,0,10"
-                   HorizontalOptions="Center"/>
-            <Border Grid.Row="2"
-                    Stroke="Black"
-                    StrokeThickness="1"
-                    StrokeShape="RoundRectangle 10"
-                    Margin="20,0"
-                    HeightRequest="45">
-                <SearchBar  x:Name="Sb_nome"
-                            Placeholder="Procurar "
-                            TextChanged="Sb_nome_TextChanged"
-                            PlaceholderColor="Black"
-                            CancelButtonColor="Gray"
-                            TextColor="Black"/>
+        <Grid
+            Margin="0,10"
+            Padding="0"
+            HorizontalOptions="Fill"
+            RowDefinitions="auto, auto,auto,auto, *"
+            RowSpacing="10"
+            VerticalOptions="Fill">
+            <ImageButton
+                Grid.Row="0"
+                Margin="10,10"
+                Padding="8"
+                Clicked="BtnVoltar_Clicked"
+                HeightRequest="20"
+                HorizontalOptions="Start"
+                Source="left.png"
+                WidthRequest="20" />
+            <Label
+                x:Name="TitlePage"
+                Grid.Row="1"
+                Margin="0,-5,0,10"
+                HorizontalOptions="Center"
+                Style="{StaticResource Subtitulo}"
+                VerticalOptions="Center" />
+            <Border
+                Grid.Row="2"
+                Margin="20,0"
+                HeightRequest="45"
+                Stroke="Black"
+                StrokeShape="RoundRectangle 10"
+                StrokeThickness="1">
+                <SearchBar
+                    x:Name="Sb_nome"
+                    CancelButtonColor="Gray"
+                    Placeholder="Procurar "
+                    PlaceholderColor="Black"
+                    TextChanged="Sb_nome_TextChanged"
+                    TextColor="Black" />
             </Border>
 
-            <Border Grid.Row="3"
-                    Stroke="Gray"
-                    Background="Gray"
-                    Padding="1"
-                    HorizontalOptions="Fill"
-                    Margin="5,10,5,10"
-                    StrokeShape="RoundRectangle 400"
-                    HeightRequest="1"/>
+            <Border
+                Grid.Row="3"
+                Margin="5,10,5,10"
+                Padding="1"
+                Background="Gray"
+                HeightRequest="1"
+                HorizontalOptions="Fill"
+                Stroke="Gray"
+                StrokeShape="RoundRectangle 400" />
 
-            <ActivityIndicator VerticalOptions="Center"
-                               HorizontalOptions="Center"
-                               Color="Blue"
-                               IsRunning="False"
-                               x:Name="SearchLoading"/>
-            <ScrollView Grid.Row="4"
-                        HorizontalScrollBarVisibility="Never"
-                        VerticalScrollBarVisibility="Never">
+            <ActivityIndicator
+                x:Name="SearchLoading"
+                HorizontalOptions="Center"
+                IsRunning="False"
+                VerticalOptions="Center"
+                Color="Blue" />
+
+            <ScrollView
+                Grid.Row="4"
+                HorizontalScrollBarVisibility="Never"
+                VerticalScrollBarVisibility="Never">
                 <VerticalStackLayout>
-                    <CollectionView x:Name="Cv_Produtos"
-                                    SelectionMode="Single"
-                                    Margin="10"
-                                    SelectionChanged="Cv_Produto_SelectionChanged"
-                                    Background="Transparent"
-                                    BackgroundColor="Transparent">
+                    <CollectionView
+                        x:Name="Cv_Produtos"
+                        Margin="10"
+                        Background="Transparent"
+                        BackgroundColor="Transparent"
+                        SelectionChanged="Cv_Produto_SelectionChanged"
+                        SelectionMode="Single">
                         <CollectionView.ItemsLayout>
-                            <GridItemsLayout Orientation="Vertical"
-                                             Span="2"
-                                             HorizontalItemSpacing="10"
-                                             VerticalItemSpacing="10"/>
+                            <LinearItemsLayout ItemSpacing="8" Orientation="Vertical" />
                         </CollectionView.ItemsLayout>
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
-                                <Border Stroke="Gray"
-                                        StrokeThickness="1"
-                                        StrokeShape="RoundRectangle 8"
-                                        BackgroundColor="White"
-                                        Margin="2,0">
-                                    <Grid RowDefinitions="auto,auto"
-                                          VerticalOptions="Center"
-                                          HorizontalOptions="Center"
-                                          WidthRequest="180"
-                                          HeightRequest="199"
-                                          Background="Beige"
-                                          Margin="0,-2">
-                                        <Border Grid.Row="0"
-                                                HeightRequest="125"
-                                                WidthRequest="170"
-                                                Padding="10"
-                                                Stroke="Transparent"
-                                                Margin="0,0,0,0">
-                                            <Border.StrokeShape>
-                                                <RoundRectangle CornerRadius="8"/>
-                                            </Border.StrokeShape>
-                                            <Image HeightRequest="125"
-                                                   WidthRequest="158"
-                                                   Source="{Binding CaminhoImagem}"
-                                                   Aspect="AspectFill"
-                                                   BackgroundColor="{StaticResource Gray100}"/>
+                                <Border
+                                    Margin="0"
+                                    BackgroundColor="White"
+                                    Stroke="#ddd"
+                                    StrokeShape="RoundRectangle 5"
+                                    StrokeThickness="1">
+                                    <Grid
+                                        ColumnDefinitions="3*, 6*, 1*"
+                                        ColumnSpacing="10"
+                                        HeightRequest="120"
+                                        RowDefinitions="auto,auto,auto"
+                                        RowSpacing="5">
+                                        <Border
+                                            Grid.Column="0"
+                                            Margin="10,10,10,0"
+                                            HeightRequest="100"
+                                            Stroke="#FFF0EEEE"
+                                            StrokeShape="RoundRectangle 10">
+                                            <Image Aspect="AspectFill" Source="{Binding CaminhoImagem}" />
                                         </Border>
-                                        <VerticalStackLayout Grid.Row="1"
-                                                             Padding="0"
-                                                             Margin="10">
-                                            <Label  Text="{Binding Nome}"
-                                                    HorizontalOptions="Center"
-                                                    Margin="5,0"
-                                                    VerticalOptions="Center"
-                                                    HorizontalTextAlignment="Center"
-                                                    FontFamily="PoppinsRegular"
-                                                    TextColor="Black"/>
 
-                                            <Label Text="{Binding Preco, StringFormat='Preço: {0:C} '}"
-                                                   HorizontalOptions="Center"
-                                                   VerticalOptions="Center"
-                                                   FontFamily="PoppinsRegular"
-                                                   TextColor="Black"/>
-                                        </VerticalStackLayout>
+                                        <Label
+                                            Grid.Row="0"
+                                            Grid.Column="1"
+                                            Margin="0,20"
+                                            FontFamily="PoppinsRegular"
+                                            FontSize="14"
+                                            Text="{Binding Nome}"
+                                            TextColor="Black"
+                                            VerticalOptions="Start" />
+
+                                        <Label
+                                            Grid.Row="0"
+                                            Grid.Column="1"
+                                            Margin="0,20,0,0"
+                                            FontFamily="PoppinsRegular"
+                                            FontSize="14"
+                                            HorizontalOptions="Start"
+                                            Text="{Binding Preco, StringFormat='{}{0:C}'}"
+                                            TextColor="Black"
+                                            VerticalOptions="Center" />
+
+                                        <ImageButton
+                                            x:Name="BtnAdicionar"
+                                            Grid.Column="2"
+                                            Margin="0,0,25,-10"
+                                            Padding="8"
+                                            Clicked="BtnAdicionar_Clicked"
+                                            HeightRequest="20"
+                                            HorizontalOptions="Center"
+                                            Source="carrinho.png"
+                                            VerticalOptions="End"
+                                            WidthRequest="20" />
+
                                     </Grid>
                                 </Border>
                             </DataTemplate>

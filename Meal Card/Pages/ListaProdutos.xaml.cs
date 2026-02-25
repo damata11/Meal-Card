@@ -232,4 +232,8 @@ public partial class ListaProdutos : ContentPage
         }
 
     }
+
+    private void BtnAdicionar_Clicked(object sender, EventArgs e)
+    {
+    }
 }

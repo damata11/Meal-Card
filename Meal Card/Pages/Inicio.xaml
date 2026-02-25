@@ -1,38 +1,39 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:shimer="clr-namespace:Syncfusion.Maui.Toolkit.Shimmer;assembly=Syncfusion.Maui.Toolkit"
-             x:Class="Meal_Card.Pages.Inicio"
-             xmlns:view="clr-namespace:Meal_Card.ViewModels"
-             xmlns:Collection="clr-namespace:Meal_Card.Models"
-             x:DataType="view:InicioViewModel"
-             xmlns:models="clr-namespace:Meal_Card.Models" 
-             Shell.NavBarIsVisible="False"
-             BackgroundColor="White"
-             Title="Inicio">
+<ContentPage
+    x:Class="Meal_Card.Pages.Inicio"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Collection="clr-namespace:Meal_Card.Models"
+    xmlns:models="clr-namespace:Meal_Card.Models"
+    xmlns:shimer="clr-namespace:Syncfusion.Maui.Toolkit.Shimmer;assembly=Syncfusion.Maui.Toolkit"
+    xmlns:view="clr-namespace:Meal_Card.ViewModels"
+    Title="Inicio"
+    x:DataType="view:InicioViewModel"
+    BackgroundColor="White"
+    Shell.NavBarIsVisible="False">
 
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style x:Key="Titulo" TargetType="Label">
-                <Setter Property="FontAttributes" Value="Bold"/>
-                <Setter Property="FontSize" Value="Title"/>
-                <Setter Property="FontFamily" Value="PoppinsRegular"/>
-                <Setter Property="TextColor" Value="{StaticResource Gray600}"/>
-                <Setter Property="Margin" Value="10,10,0,0"/>
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="FontSize" Value="Title" />
+                <Setter Property="FontFamily" Value="PoppinsRegular" />
+                <Setter Property="TextColor" Value="{StaticResource Gray600}" />
+                <Setter Property="Margin" Value="10,10,0,0" />
             </Style>
             <Style x:Key="Subtitulo" TargetType="Label">
-                <Setter Property="FontAttributes" Value="Bold"/>
-                <Setter Property="FontSize" Value="18"/>
-                <Setter Property="FontFamily" Value="PoppinsRegular"/>
-                <Setter Property="TextColor" Value="{StaticResource Gray600}"/>
-                <Setter Property="Margin" Value="10,10,0,2"/>
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="FontSize" Value="18" />
+                <Setter Property="FontFamily" Value="PoppinsRegular" />
+                <Setter Property="TextColor" Value="{StaticResource Gray600}" />
+                <Setter Property="Margin" Value="10,10,0,2" />
             </Style>
             <Style x:Key="AppTitle" TargetType="Label">
-                <Setter Property="FontAttributes" Value="Bold"/>
-                <Setter Property="FontSize" Value="18"/>
-                <Setter Property="FontFamily" Value="PoppinsRegular"/>
-                <Setter Property="TextColor" Value="{StaticResource White}"/>
-                <Setter Property="Margin" Value="10,10,0,2"/>
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="FontSize" Value="18" />
+                <Setter Property="FontFamily" Value="PoppinsRegular" />
+                <Setter Property="TextColor" Value="{StaticResource White}" />
+                <Setter Property="Margin" Value="10,10,0,2" />
             </Style>
             <Style TargetType="Grid">
                 <Setter Property="VisualStateManager.VisualStateGroups">
@@ -41,8 +42,7 @@
                             <VisualState x:Name="Normal" />
                             <VisualState x:Name="Selected">
                                 <VisualState.Setters>
-                                    <Setter Property="BackgroundColor"
-                                        Value="Transparent" />
+                                    <Setter Property="BackgroundColor" Value="Transparent" />
                                 </VisualState.Setters>
                             </VisualState>
                         </VisualStateGroup>
@@ -56,8 +56,7 @@
                             <VisualState x:Name="Normal" />
                             <VisualState x:Name="Selected">
                                 <VisualState.Setters>
-                                    <Setter Property="BackgroundColor"
-                                        Value="Transparent" />
+                                    <Setter Property="BackgroundColor" Value="Transparent" />
                                 </VisualState.Setters>
                             </VisualState>
                         </VisualStateGroup>
@@ -68,119 +67,202 @@
     </ContentPage.Resources>
 
 
-    <RefreshView x:Name="refreshView"
-                 VerticalOptions="Fill"
-                 HorizontalOptions="Fill"
-                 RefreshColor="Blue"
-                 IsRefreshing="{Binding IsRefreshing}"
-                 Refreshing="Refreshing">
+    <RefreshView
+        x:Name="refreshView"
+        HorizontalOptions="Fill"
+        IsRefreshing="{Binding IsRefreshing}"
+        RefreshColor="Blue"
+        Refreshing="Refreshing"
+        VerticalOptions="Fill">
 
         <Grid RowDefinitions="auto,auto,auto, *">
-            <Grid Grid.Row="0" RowDefinitions="auto, *"  ColumnDefinitions="5*,2*" Background="Green">
-                <Label Grid.Row="0" Grid.Column="0" Style="{StaticResource AppTitle}" Text="MEAL CARD — EPAMG " VerticalOptions="Center" HorizontalOptions="Start" Margin="20,18,20,0"/>
-                <Border  Grid.Row="0" Grid.Column="1" Stroke="Transparent" WidthRequest="30" HeightRequest="30" Margin="0,20,-20,10" StrokeShape="RoundRectangle 25" VerticalOptions="Center" HorizontalOptions="Center">
-                    <ImageButton  Source="cara.png" WidthRequest="25" HeightRequest="25" VerticalOptions="Center" HorizontalOptions="Center"  Padding="4" 
-                   x:Name="BtnProfile" Clicked="BtnProfile_Clicked" />
+            <Grid
+                Grid.Row="0"
+                Background="Green"
+                ColumnDefinitions="5*,2*"
+                RowDefinitions="auto, *">
+                <Label
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Margin="20,18,20,0"
+                    HorizontalOptions="Start"
+                    Style="{StaticResource AppTitle}"
+                    Text="MEAL CARD — EPAMG "
+                    VerticalOptions="Center" />
+                <Border
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Margin="0,20,-20,10"
+                    HeightRequest="30"
+                    HorizontalOptions="Center"
+                    Stroke="Transparent"
+                    StrokeShape="RoundRectangle 25"
+                    VerticalOptions="Center"
+                    WidthRequest="30">
+                    <ImageButton
+                        x:Name="BtnProfile"
+                        Padding="4"
+                        Clicked="BtnProfile_Clicked"
+                        HeightRequest="25"
+                        HorizontalOptions="Center"
+                        Source="cara.png"
+                        VerticalOptions="Center"
+                        WidthRequest="25" />
                 </Border>
             </Grid>
             <Grid Grid.Row="1" Background="Green">
-                <Border Grid.Row="1" Grid.Column="4" Stroke="White" Background="Gray" Padding="1"  HorizontalOptions="Fill" Margin="0,2,0,1" StrokeShape="RoundRectangle 400"  HeightRequest="1" />
+                <Border
+                    Grid.Row="1"
+                    Grid.Column="4"
+                    Margin="0,2,0,1"
+                    Padding="1"
+                    Background="Gray"
+                    HeightRequest="1"
+                    HorizontalOptions="Fill"
+                    Stroke="White"
+                    StrokeShape="RoundRectangle 400" />
             </Grid>
 
-            <!-- Carousel -->
-            <Grid Grid.Row="2" Margin="0" ZIndex="1" BackgroundColor="Beige">
+            <!--  Carousel  -->
+            <Grid
+                Grid.Row="2"
+                Margin="0"
+                BackgroundColor="Beige"
+                ZIndex="1">
                 <Border StrokeThickness="0">
-                    <CarouselView ItemsSource="{Binding CarosselItems}" Position="{Binding CurrentPosition, Mode=TwoWay}" IndicatorView="Indicator" Loop="True" BackgroundColor="White" HeightRequest="200" HorizontalOptions="Fill">
+                    <CarouselView
+                        BackgroundColor="White"
+                        HeightRequest="200"
+                        HorizontalOptions="Fill"
+                        IndicatorView="Indicator"
+                        ItemsSource="{Binding CarosselItems}"
+                        Loop="True"
+                        Position="{Binding CurrentPosition, Mode=TwoWay}">
                         <CarouselView.ItemTemplate>
                             <DataTemplate x:DataType="Collection:InicioCarosselList">
                                 <Grid RowDefinitions="auto,*,*">
 
-                                    <Image Grid.Row="0" Source="{Binding Imagem}" HeightRequest="200"  HorizontalOptions="Fill" Aspect="AspectFill" ZIndex="0"/>
+                                    <Image
+                                        Grid.Row="0"
+                                        Aspect="AspectFill"
+                                        HeightRequest="200"
+                                        HorizontalOptions="Fill"
+                                        Source="{Binding Imagem}"
+                                        ZIndex="0" />
 
-                                    <Label Text="{Binding Titulo}" 
-                                           FontSize="Body" 
-                                           TextColor="white" 
-                                           FontFamily="GoogleSans"
-                                           ZIndex="10" 
-                                           Margin="10, 25"
-                                           HorizontalOptions="Start"
-                                           VerticalOptions="End"
-                                           HorizontalTextAlignment="Justify"
-                                           VerticalTextAlignment="Justify"/>
+                                    <Label
+                                        Margin="10,25"
+                                        FontFamily="GoogleSans"
+                                        FontSize="Body"
+                                        HorizontalOptions="Start"
+                                        HorizontalTextAlignment="Justify"
+                                        Text="{Binding Titulo}"
+                                        TextColor="white"
+                                        VerticalOptions="End"
+                                        VerticalTextAlignment="Justify"
+                                        ZIndex="10" />
 
-                                    <Label Text="{Binding Descrição}" 
-                                           FontSize="Medium" 
-                                           TextColor="White" 
-                                           FontFamily="GoogleSans" 
-                                           ZIndex="10" 
-                                           Margin="10, 10"
-                                           HorizontalOptions="Start"
-                                           VerticalOptions="End"
-                                           HorizontalTextAlignment="Justify"
-                                           VerticalTextAlignment="Justify"/>
+                                    <Label
+                                        Margin="10,10"
+                                        FontFamily="GoogleSans"
+                                        FontSize="Medium"
+                                        HorizontalOptions="Start"
+                                        HorizontalTextAlignment="Justify"
+                                        Text="{Binding Descrição}"
+                                        TextColor="White"
+                                        VerticalOptions="End"
+                                        VerticalTextAlignment="Justify"
+                                        ZIndex="10" />
 
                                 </Grid>
                             </DataTemplate>
                         </CarouselView.ItemTemplate>
                     </CarouselView>
                     <Border.Shadow>
-                        <Shadow Brush="Green"  Radius="2"/>
+                        <Shadow Brush="Green" Radius="2" />
                     </Border.Shadow>
                 </Border>
-                <IndicatorView x:Name="Indicator" VerticalOptions="End" HorizontalOptions="Center"
-                           IndicatorColor="Black" IndicatorSize="5"
-                           SelectedIndicatorColor="white" Margin="0,0,0,10"
-                           Opacity=".8">
-                </IndicatorView>
+                <IndicatorView
+                    x:Name="Indicator"
+                    Margin="0,0,0,10"
+                    HorizontalOptions="Center"
+                    IndicatorColor="Black"
+                    IndicatorSize="5"
+                    Opacity=".8"
+                    SelectedIndicatorColor="white"
+                    VerticalOptions="End" />
             </Grid>
 
-            <!-- Conteúdo principal com scroll -->
-            <ScrollView Grid.Row="3" ZIndex="0" >
-                <VerticalStackLayout Spacing="20" Margin="10,10,10,25">
+            <!--  Conteúdo principal com scroll  -->
+            <ScrollView Grid.Row="3" ZIndex="0">
+                <VerticalStackLayout Margin="10,10,10,25" Spacing="20">
                     <Label Margin="10,20,0,0">
                         <Label.FormattedText>
                             <FormattedString>
-                                <Span Text=" Aqui podes ver as informações e os produtos disponiveis na cantina" 
-                                  FontFamily="PoppinsRegular" FontSize="16" TextColor="Black"/>
+                                <Span
+                                    FontFamily="PoppinsRegular"
+                                    FontSize="16"
+                                    Text=" Aqui podes ver as informações e os produtos disponiveis na cantina"
+                                    TextColor="Black" />
                             </FormattedString>
                         </Label.FormattedText>
                     </Label>
 
-                    <Label Text="Categoria dos produtos" Style="{StaticResource Subtitulo}"/>
+                    <Label Style="{StaticResource Subtitulo}" Text="Categoria dos produtos" />
 
-                    <CollectionView ItemsSource="{Binding Categorias}" x:Name="CV_Categorias" SelectionMode="Single" HeightRequest="160"  SelectionChanged="Cv_Categorias_SelectionChanged" Background="Transparent" BackgroundColor="Transparent" >
+                    <CollectionView
+                        x:Name="CV_Categorias"
+                        Background="Transparent"
+                        BackgroundColor="Transparent"
+                        HeightRequest="240"
+                        ItemsSource="{Binding Categorias}"
+                        SelectionChanged="Cv_Categorias_SelectionChanged"
+                        SelectionMode="Single">
                         <CollectionView.ItemsLayout>
-                            <LinearItemsLayout Orientation="Horizontal" ItemSpacing="15"/>
+                            <LinearItemsLayout ItemSpacing="15" Orientation="Horizontal" />
                         </CollectionView.ItemsLayout>
                         <CollectionView.ItemTemplate>
                             <DataTemplate x:DataType="models:Categoria">
-                                <Border Stroke="Gray"
-                                StrokeThickness="1"
-                                StrokeShape="RoundRectangle 8" 
-                                BackgroundColor="White"
-                                Margin="2">
-                                    <Grid RowDefinitions="auto,*" HeightRequest="200" WidthRequest="200" >
-                                        <Image Grid.Row="0"
-                                               Source="{Binding CaminhoImagem}" 
-                                               HeightRequest="200" WidthRequest="200"  
-                                               HorizontalOptions="Fill" Aspect="AspectFill" 
-                                               Opacity=".8" ZIndex="0" />
-                                        <Label Text="{Binding Nome}" 
-                                              Margin="0,0,0,25" 
-                                              HorizontalOptions="Center"
-                                              VerticalOptions="End" 
-                                              HorizontalTextAlignment="Justify" 
-                                              VerticalTextAlignment="Justify" 
-                                              ZIndex="10" FontFamily="ArchivoRegular"
-                                              TextColor="White" 
-                                              TextTransform="Uppercase"
-                                              FontAttributes="Bold" 
-                                              FontSize="20" >
+                                <Border
+                                    Margin="2"
+                                    BackgroundColor="White"
+                                    HeightRequest="180"
+                                    Stroke="Gray"
+                                    StrokeShape="RoundRectangle 6"
+                                    StrokeThickness="1"
+                                    WidthRequest="200">
+                                    <Grid
+                                        HeightRequest="200"
+                                        RowDefinitions="auto,*"
+                                        WidthRequest="200">
+                                        <Image
+                                            Grid.Row="0"
+                                            Aspect="AspectFill"
+                                            HeightRequest="200"
+                                            HorizontalOptions="Fill"
+                                            Opacity=".8"
+                                            Source="{Binding CaminhoImagem}"
+                                            WidthRequest="200"
+                                            ZIndex="0" />
+                                        <Label
+                                            Margin="0,0,0,25"
+                                            FontAttributes="Bold"
+                                            FontFamily="ArchivoRegular"
+                                            FontSize="20"
+                                            HorizontalOptions="Center"
+                                            HorizontalTextAlignment="Justify"
+                                            Text="{Binding Nome}"
+                                            TextColor="White"
+                                            TextTransform="Uppercase"
+                                            VerticalOptions="End"
+                                            VerticalTextAlignment="Justify"
+                                            ZIndex="10">
                                             <Label.Shadow>
-                                                <Shadow Brush="#202220"
-                                                Offset="1,1"
-                                                Radius="1"
-                                                Opacity="0.9" />
+                                                <Shadow
+                                                    Brush="#202220"
+                                                    Opacity="0.9"
+                                                    Radius="1"
+                                                    Offset="1,1" />
                                             </Label.Shadow>
                                         </Label>
                                     </Grid>
@@ -189,81 +271,217 @@
                         </CollectionView.ItemTemplate>
                     </CollectionView>
 
-                    <Border Stroke="Gray" StrokeThickness=".5" Background="Transparent" HorizontalOptions="Center" WidthRequest="120" VerticalOptions="Center" HeightRequest="35" StrokeShape="RoundRectangle 30" Padding="5" Margin="10,15,10,15">
-                        <Label HorizontalOptions="Center" VerticalOptions="Center" >
+                    <Border
+                        Margin="10,15,10,15"
+                        Padding="5"
+                        Background="Transparent"
+                        HeightRequest="35"
+                        HorizontalOptions="Center"
+                        Stroke="Gray"
+                        StrokeShape="RoundRectangle 30"
+                        StrokeThickness=".5"
+                        VerticalOptions="Center"
+                        WidthRequest="120">
+                        <Label HorizontalOptions="Center" VerticalOptions="Center">
                             <Label.FormattedText>
                                 <FormattedString>
-                                    <Span Text="Ver todos" TextColor="Gray" FontSize="Medium" FontAttributes="Bold" FontFamily="PoppinsRegular"/>
+                                    <Span
+                                        FontAttributes="Bold"
+                                        FontFamily="PoppinsRegular"
+                                        FontSize="Medium"
+                                        Text="Ver todos"
+                                        TextColor="Gray" />
                                 </FormattedString>
                             </Label.FormattedText>
                         </Label>
                         <Border.GestureRecognizers>
-                            <TapGestureRecognizer x:Name="ListarTodos" Tapped="ListarTodos_Tapped"/>
+                            <TapGestureRecognizer x:Name="ListarTodos" Tapped="ListarTodos_Tapped" />
                         </Border.GestureRecognizers>
                     </Border>
 
-                    <Grid  VerticalOptions="Center" HorizontalOptions="Start" Margin="10,0" >
-                        <Label Text="Mais Vendidos" Style="{StaticResource Subtitulo}" VerticalOptions="Center" HorizontalOptions="Start" Margin="0"/>
+                    <Grid
+                        Margin="10,0"
+                        HorizontalOptions="Start"
+                        VerticalOptions="Center">
+                        <Label
+                            Margin="0"
+                            HorizontalOptions="Start"
+                            Style="{StaticResource Subtitulo}"
+                            Text="Mais Vendidos"
+                            VerticalOptions="Center" />
                     </Grid>
 
-                    <CollectionView ItemsSource="{Binding ProdutosPlus}" x:Name="CV_MaisVendidos" SelectionMode="Single" HeightRequest="190" SelectionChanged="Cv_Produto_SelectionChanged" Background="Transparent" BackgroundColor="Transparent">
+                    <CollectionView
+                        x:Name="CV_MaisVendidos"
+                        Background="Transparent"
+                        BackgroundColor="Transparent"
+                        HeightRequest="240"
+                        ItemsSource="{Binding ProdutosPlus}"
+                        SelectionChanged="Cv_Produto_SelectionChanged"
+                        SelectionMode="Single">
                         <CollectionView.ItemsLayout>
-                            <LinearItemsLayout Orientation="Horizontal" ItemSpacing="5"/>
+                            <LinearItemsLayout ItemSpacing="5" Orientation="Horizontal" />
                         </CollectionView.ItemsLayout>
                         <CollectionView.ItemTemplate>
                             <DataTemplate x:DataType="models:Produtos_Bar">
-                                <Border Stroke="Gray"
-                                StrokeThickness="1"
-                                StrokeShape="RoundRectangle 8" 
-                                BackgroundColor="White"
-                                Margin="2">
-                                    <Grid RowDefinitions="auto,auto" VerticalOptions="Center" HorizontalOptions="Center" WidthRequest="160" HeightRequest="220" Background="Beige">
-                                        <Border Grid.Row="0" Padding="0" Stroke="Transparent" Margin="0,18,0,10">
-                                            <Border.StrokeShape>
-                                                <RoundRectangle CornerRadius="0"/>
-                                            </Border.StrokeShape>
-                                            <Image Aspect="Fill" Source="{Binding CaminhoImagem}"  BackgroundColor="{StaticResource Gray100}" />
-                                        </Border>
-                                        <VerticalStackLayout Grid.Row="1" Padding="0" Margin="6" >
+                                <Border
+                                    Margin="2"
+                                    BackgroundColor="White"
+                                    HeightRequest="200"
+                                    Stroke="Gray"
+                                    StrokeShape="RoundRectangle 6"
+                                    StrokeThickness="1"
+                                    WidthRequest="180">
+                                    <Grid
+                                        BackgroundColor="White"
+                                        HeightRequest="200"
+                                        RowDefinitions="auto,auto,auto">
 
-                                            <Label Text="{Binding Nome}" HorizontalOptions="Center" VerticalOptions="Center"
-                                             FontFamily="PoppinsRegular" TextColor="#202220"  FontSize="Small" 
-                                                   HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
-                                        </VerticalStackLayout>
+                                        <Border
+                                            Grid.Row="0"
+                                            HeightRequest="130"
+                                            Stroke="Transparent"
+                                            StrokeShape="RoundRectangle 6,6,0,0">
+                                            <Border.Background>
+                                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                                    <GradientStop Offset="0" Color="#F8F9FA" />
+                                                    <GradientStop Offset="1" Color="#E9ECEF" />
+                                                </LinearGradientBrush>
+                                            </Border.Background>
+                                            <Image
+                                                Aspect="Fill"
+                                                HorizontalOptions="Center"
+                                                Source="{Binding CaminhoImagem}"
+                                                VerticalOptions="Center" />
+                                        </Border>
+                                        <StackLayout
+                                            Grid.Row="1"
+                                            Padding="15"
+                                            BackgroundColor="White"
+                                            Spacing="5">
+
+                                            <Label
+                                                FontAttributes="Bold"
+                                                FontFamily="PoppinsSemiBold"
+                                                FontSize="14"
+                                                HorizontalOptions="Center"
+                                                HorizontalTextAlignment="Center"
+                                                LineHeight="1.3"
+                                                MaxLines="2"
+                                                Text="{Binding Nome}"
+                                                TextColor="#DD707070"
+                                                VerticalOptions="Center"
+                                                VerticalTextAlignment="Justify" />
+
+                                            <Label
+                                                FontFamily="PoppinsBold"
+                                                FontSize="16"
+                                                HorizontalOptions="Center"
+                                                HorizontalTextAlignment="Center"
+                                                Text="{Binding Preco, StringFormat='{}{0:C}'}"
+                                                TextColor="#9CF3A107"
+                                                VerticalOptions="Center"
+                                                VerticalTextAlignment="Justify" />
+
+                                        </StackLayout>
                                     </Grid>
                                 </Border>
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
                     </CollectionView>
 
-                    <Label Text="Produtos Populares" Style="{StaticResource Subtitulo}"/>
+                    <Label Style="{StaticResource Subtitulo}" Text="Produtos Populares" />
 
-                    <CollectionView ItemsSource="{Binding ProdutosPopulares}" x:Name="CV_Populares" SelectionMode="Single" HeightRequest="220" SelectionChanged="Cv_Produto_SelectionChanged" Background="Transparent" BackgroundColor="Transparent">
+                    <CollectionView
+                        x:Name="CV_Populares"
+                        Background="Transparent"
+                        HeightRequest="240"
+                        ItemsSource="{Binding ProdutosPopulares}"
+                        SelectionChanged="Cv_Produto_SelectionChanged"
+                        SelectionMode="Single">
+
                         <CollectionView.ItemsLayout>
-                            <LinearItemsLayout Orientation="Horizontal" ItemSpacing="5"/>
+                            <LinearItemsLayout ItemSpacing="15" Orientation="Horizontal" />
                         </CollectionView.ItemsLayout>
+
                         <CollectionView.ItemTemplate>
                             <DataTemplate x:DataType="models:Produtos_Bar">
-                                <Border Stroke="Gray"
-                                StrokeThickness="1"
-                                StrokeShape="RoundRectangle 8" 
-                                BackgroundColor="White"
-                                Margin="2">
-                                    <Grid RowDefinitions="auto,auto" VerticalOptions="Center" HorizontalOptions="Center" WidthRequest="160" HeightRequest="220" Background="Beige">
-                                        <Border Grid.Row="0" Padding="0" Stroke="Transparent" Margin="0,0,0,10">
-                                            <Border.StrokeShape>
-                                                <RoundRectangle CornerRadius="0"/>
-                                            </Border.StrokeShape>
-                                            <Image Source="{Binding CaminhoImagem}" Aspect="Fill"/>
+                                <!--  Card principal com sombra e estilo  -->
+                                <Border
+                                    Margin="5"
+                                    BackgroundColor="White"
+                                    HeightRequest="200"
+                                    Stroke="#ddd"
+                                    StrokeThickness="1"
+                                    WidthRequest="180">
+                                    <Border.Shadow>
+                                        <Shadow
+                                            Brush="#ddd"
+                                            Opacity="0.3"
+                                            Radius="12"
+                                            Offset="0,4" />
+                                    </Border.Shadow>
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="6" />
+                                    </Border.StrokeShape>
+
+                                    <Grid
+                                        BackgroundColor="White"
+                                        HeightRequest="200"
+                                        RowDefinitions="auto,auto,auto">
+
+                                        <!--  Area da Imagem com borda inferior arredondada  -->
+                                        <Border
+                                            Grid.Row="0"
+                                            HeightRequest="130"
+                                            Stroke="Transparent"
+                                            StrokeShape="RoundRectangle 6,6,0,0">
+                                            <Border.Background>
+                                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                                    <GradientStop Offset="0" Color="#F8F9FA" />
+                                                    <GradientStop Offset="1" Color="#E9ECEF" />
+                                                </LinearGradientBrush>
+                                            </Border.Background>
+                                            <Image
+                                                Aspect="Fill"
+                                                HorizontalOptions="Center"
+                                                Source="{Binding CaminhoImagem}"
+                                                VerticalOptions="Center" />
                                         </Border>
 
-                                        <VerticalStackLayout Grid.Row="1" Padding="0" Margin="6" >
-                                            <Label  Text="{Binding Nome}" HorizontalOptions="Center" VerticalOptions="Center" HorizontalTextAlignment="Center"
-                                       FontFamily="PoppinsRegular" TextColor="Black" />
+                                        <!--  Area do Conteúdo  -->
+                                        <StackLayout
+                                            Grid.Row="1"
+                                            Padding="15"
+                                            BackgroundColor="White"
+                                            Spacing="5">
 
-                                            <Label Text="{Binding Preco, StringFormat='Preço: {0:C} '}" 
-                                       HorizontalOptions="Center" VerticalOptions="Center" FontFamily="PoppinsRegular" TextColor="Black"/>
-                                        </VerticalStackLayout>
+                                            <!--  Nome do Produto  -->
+                                            <Label
+                                                FontAttributes="Bold"
+                                                FontFamily="PoppinsSemiBold"
+                                                FontSize="14"
+                                                HorizontalOptions="Center"
+                                                HorizontalTextAlignment="Center"
+                                                LineHeight="1.3"
+                                                MaxLines="2"
+                                                Text="{Binding Nome}"
+                                                TextColor="#DD707070"
+                                                VerticalOptions="Center"
+                                                VerticalTextAlignment="Justify" />
+
+                                            <!--  Preço com destaque  -->
+                                            <Label
+                                                FontFamily="PoppinsBold"
+                                                FontSize="16"
+                                                HorizontalOptions="Center"
+                                                HorizontalTextAlignment="Center"
+                                                Text="{Binding Preco, StringFormat='{}{0:C}'}"
+                                                TextColor="#9CF3A107"
+                                                VerticalOptions="Center"
+                                                VerticalTextAlignment="Justify" />
+                                        </StackLayout>
+
                                     </Grid>
                                 </Border>
                             </DataTemplate>
