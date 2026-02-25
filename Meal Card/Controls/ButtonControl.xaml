@@ -1,38 +1,51 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<Border xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-        x:Class="Meal_Card.Controls.ButtonControl"
-        x:Name="this"
-        Background="#FFF">
+<Border
+    x:Class="Meal_Card.Controls.ButtonControl"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Name="this"
+    Background="#FFF">
 
     <Border.StrokeShape>
-        <RoundRectangle CornerRadius="15"/>
+        <RoundRectangle CornerRadius="15" />
     </Border.StrokeShape>
 
     <HorizontalStackLayout HorizontalOptions="Center">
-        <ActivityIndicator BackgroundColor="Transparent"  IsVisible="{Binding Source={x:Reference this},Path=IsInProgress}"
-                           IsRunning="True" WidthRequest="20" HeightRequest="20"/>
-        <Label x:Name="lblButtonText"
-               Text="{Binding Source={x:Reference this},Path=Text}"
-               CharacterSpacing="{Binding Source={x:Reference this}, Path=CharacterSpacing}"
-               FontFamily="{Binding Source={x:Reference this}, Path=FontFamily}"
-               FontAttributes="{Binding Source={x:Reference this}, Path=FontAttributes}"
-               TextColor="{Binding Source={x:Reference this},Path=TextColor}"
-               FontSize="{Binding Source={x:Reference this}, Path=FontSize}"
-               HorizontalOptions="Center"
-               VerticalOptions="Center"/>               <!--FontSize="16"-->
+        <ActivityIndicator
+            BackgroundColor="Transparent"
+            HeightRequest="20"
+            IsRunning="True"
+            IsVisible="{Binding Source={x:Reference this}, Path=IsInProgress}"
+            WidthRequest="20" />
+        <Label
+            x:Name="lblButtonText"
+            CharacterSpacing="{Binding Source={x:Reference this}, Path=CharacterSpacing}"
+            FontAttributes="{Binding Source={x:Reference this}, Path=FontAttributes}"
+            FontFamily="{Binding Source={x:Reference this}, Path=FontFamily}"
+            FontSize="{Binding Source={x:Reference this}, Path=FontSize}"
+            HorizontalOptions="Center"
+            Text="{Binding Source={x:Reference this}, Path=Text}"
+            TextColor="{Binding Source={x:Reference this}, Path=TextColor}"
+            VerticalOptions="Center" />               
+        <!--  FontSize="16"  -->
     </HorizontalStackLayout>
     <Border.Triggers>
-        <DataTrigger TargetType="Border" Binding="{Binding Source={x:Reference this},Path=IsInProgress}" Value="True">
-            <Setter Property="IsEnabled" Value="False"/>
+        <DataTrigger
+            Binding="{Binding Source={x:Reference this}, Path=IsInProgress}"
+            TargetType="Border"
+            Value="True">
+            <Setter Property="IsEnabled" Value="False" />
         </DataTrigger>
-        <DataTrigger TargetType="Border" Binding="{Binding Source={x:Reference this},Path=IsInProgress}" Value="False">
-            <Setter Property="IsEnabled" Value="True"/>
+        <DataTrigger
+            Binding="{Binding Source={x:Reference this}, Path=IsInProgress}"
+            TargetType="Border"
+            Value="False">
+            <Setter Property="IsEnabled" Value="True" />
         </DataTrigger>
     </Border.Triggers>
     <Border.GestureRecognizers>
-        <TapGestureRecognizer Command="{Binding Source={x:Reference this},Path=Command}" Tapped="TapGestureRecognizer_Tapped" />
-        <TapGestureRecognizer Command="{Binding Source={x:Reference this},Path=Command}" Tapped="TapGestureRecognizer_Tapped_1" />
+        <TapGestureRecognizer Command="{Binding Source={x:Reference this}, Path=Command}" Tapped="TapGestureRecognizer_Tapped" />
+        <TapGestureRecognizer Command="{Binding Source={x:Reference this}, Path=Command}" Tapped="TapGestureRecognizer_Tapped_1" />
     </Border.GestureRecognizers>
 
 </Border>

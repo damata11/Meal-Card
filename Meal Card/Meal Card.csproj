@@ -20,7 +20,7 @@
 		<SingleProject>true</SingleProject>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
-
+        <NoWarn>$(NoWarn);XC0022;XC0045;CS0169</NoWarn>
 		<!-- Display name -->
 		<ApplicationTitle>Meal Card</ApplicationTitle>
 
@@ -183,6 +183,10 @@
 	  <None Update="Pages\CortarIamgem.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </None>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Pages\NewFolder\" />
 	</ItemGroup>
 
 </Project>

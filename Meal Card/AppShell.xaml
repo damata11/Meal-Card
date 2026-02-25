@@ -5,20 +5,20 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:Meal_Card"
     xmlns:pages="clr-namespace:Meal_Card.Pages"
-    Shell.FlyoutBehavior="Disabled"
     Shell.BackgroundColor="#E5E5E5"
+    Shell.FlyoutBehavior="Disabled"
     Shell.TabBarBackgroundColor="#E5E5E5"
-    Shell.TabBarUnselectedColor="Black"
-    Shell.TitleColor="Black"
     Shell.TabBarForegroundColor="Green"
-    Shell.TabBarTitleColor="Green">
+    Shell.TabBarTitleColor="Green"
+    Shell.TabBarUnselectedColor="Black"
+    Shell.TitleColor="Black">
 
 
-    <!--     
-    <ShellContent Title="Home" Route="LoadingPage" 
-                  Shell.NavBarIsVisible="False" 
+    <!--
+    <ShellContent Title="Home" Route="LoadingPage"
+                  Shell.NavBarIsVisible="False"
                   ContentTemplate="{DataTemplate pages:LoadingPage}"/>
-    
+
     <TabBar>
         <Tab Title="Home" Icon="home.png" Route="Home" Shell.NavBarIsVisible="False">
             <ShellContent ContentTemplate="{DataTemplate pages:Inicio}"/>
@@ -32,6 +32,6 @@
             <ShellContent ContentTemplate="{DataTemplate pages:Menu}"/>
         </Tab>
 
-    </TabBar> -->
+    </TabBar>-->
 
 </Shell>
