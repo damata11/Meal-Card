@@ -21,6 +21,7 @@ public partial class ContaInfo : ContentPage
     private async void Refreshing( object sender, EventArgs e )
     {
         await _accountModel.RefreshDataAsync();
+        refreshView.IsRefreshing = false;
     }
 
     protected async override void OnAppearing()

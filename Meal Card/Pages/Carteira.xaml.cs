@@ -45,7 +45,7 @@ public partial class Carteira : ContentPage
 
     private async Task LoadData()
     {
-        await _viewModel.CarregarDados();
+        await _viewModel.CarregarPerfil();
     }
 
     private async void BtnQrCode_Clicked(object sender, EventArgs e)
