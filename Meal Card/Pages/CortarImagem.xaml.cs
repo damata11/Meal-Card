@@ -21,7 +21,7 @@ public partial class CortarImagem : ContentPage, IQueryAttributable
         {
             if (string.IsNullOrWhiteSpace(photoSource))
             {
-                await Toast.Make("Nenhuma foto selecionada").Show();
+                await Toast.Make("Nenhuma foto selecionada para recorte").Show();
                 await Shell.Current.GoToAsync("..");
                 return;
             }
@@ -29,40 +29,41 @@ public partial class CortarImagem : ContentPage, IQueryAttributable
         }
 
         ImageEditor.Source = PhotoSource;
-        ImageEditor.ImageLoaded += ImageEdito_Loaded;
+
+        ImageEditor.ImageLoaded += ImageEditor_Loaded;
     }
 
-    private void ImageEdito_Loaded( object? sender, EventArgs e )
+    private void ImageEditor_Loaded( object? sender, EventArgs e )
     {
         ImageEditor.Crop(Syncfusion.Maui.ImageEditor.ImageCropType.Circle);
-        ImageEditor.ImageLoaded -= ImageEdito_Loaded;
+        ImageEditor.ImageLoaded -= ImageEditor_Loaded;
     }
 
     private async void Salvar_click( object sender, EventArgs e )
     {
-        if (ImageEditor.HasUnsavedEdits)
+        if (!ImageEditor.HasUnsavedEdits)
         {
 
-            await Shell.Current.DisplayAlert("Cancelar Corte", "As alterações não foram guardadas !", "Sim", "Não");
+            await Shell.Current.DisplayAlert("Alerta", "Nenhuma alteração encontrada", "Sim", "Não");
 
         }
 
         ImageEditor.SaveEdits();
         var newPothoStream = await ImageEditor.GetImageStream();
 
-         var extension = Path.GetExtension(PhotoSource);
+        var extension = Path.GetExtension(PhotoSource);
 
-        var tempFilePath = Path.Combine(FileSystem.CacheDirectory, $"{Guid.NewGuid()}{extension}");
+        var tempPath = Path.Combine(FileSystem.CacheDirectory, $"{Guid.NewGuid()}{extension}");
 
-        using (var fileStream = File.OpenWrite(tempFilePath))
-            {
-               await newPothoStream.CopyToAsync(fileStream);
-            }
+        using (var fileStream = File.OpenWrite(tempPath))
+        {
+           await newPothoStream.CopyToAsync(fileStream);
+        }
 
 
         await newPothoStream.DisposeAsync();
 
-        await Shell.Current.GoToAsync($"..?new-src" + tempFilePath);
+        await Shell.Current.GoToAsync($"..?new-src=" + tempPath);
     }
 
     private async void Cancelar_click( object sender, EventArgs e )

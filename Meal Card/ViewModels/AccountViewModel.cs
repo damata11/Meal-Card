@@ -167,9 +167,18 @@ namespace Meal_Card.ViewModels
                 var utilizador = await GetUtilizador();
                 var escola = await GetSchoolInfo();
 
+            if (utilizador == null)
+            {
+
+            Nome = Preferences.Get("nome", "Danilson");
+            Sobrenome = Preferences.Get("sobrenome", "da Mata");
+            Email = Preferences.Get("email", "danilsonmata@gmail.com");
+            CardNumber = Preferences.Get("card", "123456");
+            Imagem = "perfil.png";
+        }
             if (utilizador != null)
             {
-            Preferences.Set("nome", utilizador.Nome);
+                Preferences.Set("nome", utilizador.Nome);
                 Preferences.Set("sobrenome", utilizador.Sobrenome);
                 Preferences.Set("email", utilizador.Email);
                 Preferences.Set("card", utilizador.Card);
@@ -181,15 +190,7 @@ namespace Meal_Card.ViewModels
                 Imagem = utilizador.CaminhoImagem;
             }
 
-            if (utilizador == null)
-            {
 
-            Nome = Preferences.Get("nome", "Danilson");
-            Sobrenome = Preferences.Get("sobrenome", "da Mata");
-                Email = Preferences.Get("email", "danilsonmata@gmail.com");
-            CardNumber = Preferences.Get("card", "123456");
-                Imagem = "perfil.png";
-        }
             });
         }
         private async Task<Utilizador> GetUtilizador()
@@ -200,7 +201,7 @@ namespace Meal_Card.ViewModels
 
                 if (ErrorMessage == "Unauthorized")
                 {
-                    await NotificationToast.ShowToastL("Sessão expirada.Sera redirecionado pars a tela de login, para fazer login novamente.");
+                    //await NotificationToast.ShowToastL("Sessão expirada.Sera redirecionado pars a tela de login, para fazer login novamente.");
                     _authService.Logout();
                     return null!;
                 }
@@ -262,18 +263,12 @@ namespace Meal_Card.ViewModels
 
         private async Task<string?> carregarFoto()
         {
-
             try
             {
-                await Task.Run(async () =>
-                {
-            
                 var status = await Permissions.CheckStatusAsync<Permissions.Photos>();
-
                 if (status != PermissionStatus.Granted)
                 {
                     status = await Permissions.RequestAsync<Permissions.Photos>();
-
                     if (status != PermissionStatus.Granted)
                     {
                         await NotificationToast.ShowToastL("Permissão para aceder às fotos negada");
@@ -283,81 +278,81 @@ namespace Meal_Card.ViewModels
 
                 var photo = await MediaPicker.PickPhotoAsync(new MediaPickerOptions
                 {
-
                     Title = "Selecionar uma Foto"
-
                 });
 
-                if (photo == null)
+                if (photo == null) return null;
+
+                var extension = Path.GetExtension(photo.FileName)?.ToLower() ?? ".jpg";
+                if (extension != ".jpg" && extension != ".jpeg" && extension != ".png")
+                    extension = ".jpg";
+
+                var tempFile = Path.Combine(FileSystem.CacheDirectory, $"{Guid.NewGuid()}{extension}");
+
+                using (var sourceStream = await photo.OpenReadAsync())
+                using (var fileStream = File.Create(tempFile))
                 {
-                    await NotificationToast.ShowToastL("Selecione uma imagem ");
-                    return null;
+                    await sourceStream.CopyToAsync(fileStream);
                 }
 
-                var stream = await photo.OpenReadAsync();
-                //Imagem = ImageSource.FromStream(() => stream);
-
-                using (var memoryStream = new MemoryStream())
-                {
-                    await stream.CopyToAsync(memoryStream);
-                    return memoryStream.ToArray().ToString();
-                }    
-              });
+                return tempFile;
             }
             catch (FeatureNotSupportedException)
             {
-                await NotificationToast.ShowToastL("A funcionalidade não é suportada pelo seu dispositivo");
+                await NotificationToast.ShowToastL("Funcionalidade não suportada");
+                return null;
             }
             catch (PermissionException)
             {
-                await NotificationToast.ShowToastL("Permissão negada para aceder a camera ou galeria.");
+                await NotificationToast.ShowToastL("Permissão negada");
+                return null;
             }
             catch (Exception ex)
             {
-                await NotificationToast.ShowToastL($"Ocorreu um erro ao selecionar a foto: {ex.Message}");
+                await NotificationToast.ShowToastL($"Erro: {ex.Message}");
+                return null;
             }
-            return null;
         }
 
         partial void OnCropPhotoSourceChanged( string? oldValue, string? newValue );
 
-        async partial void OnCropPhotoSourceChanged( string? oldValue, string? newValue )
+        async partial void OnCropPhotoSourceChanged(string? oldValue, string? newValue)
         {
-            if (!string.IsNullOrWhiteSpace(newValue))
+            if (string.IsNullOrWhiteSpace(newValue)) return;
+
+            await MainThread.InvokeOnMainThreadAsync(async () =>
             {
+                try
+                {
 
-                MainThread.BeginInvokeOnMainThread(async () =>
-               {
-                   try
-                   {
-                       var photoName = Path.GetFileName(newValue);
-                       var fullPath = Path.Combine(FileSystem.CacheDirectory, photoName);
+                    if (!File.Exists(newValue))
+                    {
+                        await NotificationToast.ShowToastL("Arquivo de imagem não encontrado");
+                        return;
+                    }
 
-                       // ✅ CORRETO: Ler bytes diretamente do ficheiro
-                       var imageBytes = await File.ReadAllBytesAsync(fullPath);
+                    var imageBytes = await File.ReadAllBytesAsync(newValue);
 
-                       var result = await _authService.UploadProfileImage(imageBytes);
+                    var result = await _authService.UploadProfileImage(imageBytes);
 
-                       if (!result.HasError && result.Data)
-                       {
-                           await NotificationToast.ShowToastS("Imagem de perfil atualizada com sucesso. 🫡");
-                           await CarregarDados();
-                            return;
-                       }
-                       else 
-                       {
-                           await NotificationToast.ShowToastL($"Erro ao atualizar a imagem de perfil 😑");
-                           return;
+                    if (!result.HasError && result.Data)
+                    {
+                        await NotificationToast.ShowToastS("Imagem atualizada com sucesso! 🫡");
 
-                       }
-                   }
-                   catch (Exception ex)
-                   {
-                       await NotificationToast.ShowToastL($"Erro ao atualizar a imagem de perfil: {ex.Message}");
-                       throw;
-                   }
-               });
-            }
+                        try { File.Delete(newValue); } catch { }
+
+                        await CarregarDados();
+                    }
+                    else
+                    {
+                        await NotificationToast.ShowToastL("Erro ao atualizar imagem 😑");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    await NotificationToast.ShowToastL($"Erro: {ex.Message}");
+                }
+            });
         }
 
 
