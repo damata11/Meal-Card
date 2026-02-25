@@ -9,9 +9,9 @@ namespace Meal_Card.ViewModels
     {
         private readonly AuthService _authService;
 
-        public CantinaViewModel( AuthService authService )
+        public CantinaViewModel(AuthService authService)
         {
-            _authService = authService; 
+            _authService = authService;
         }
 
         private bool _isRefreshing;
@@ -27,11 +27,11 @@ namespace Meal_Card.ViewModels
         }
 
         public async Task RefreshDataAsync()
-        { 
+        {
             IsRefreshing = true;
             try
             {
-                
+
                 await Task.Delay(2000);
                 // await CarregarDadosCantina();
             }
@@ -47,7 +47,7 @@ namespace Meal_Card.ViewModels
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        protected virtual void OnPropertyChanged( [CallerMemberName] string propertyName = null! )
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null!)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }

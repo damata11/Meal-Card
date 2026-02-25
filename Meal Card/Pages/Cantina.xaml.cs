@@ -44,6 +44,18 @@ public partial class Cantina : ContentPage
         }
         return true;
     }
+
+    private void OnPreviousMonth_Clicked(object sender, EventArgs e)
+    {
+    }
+
+    private void OnNextMonth_Clicked(object sender, EventArgs e)
+    {
+    }
+
+    private void OnAddMeal_Clicked(object sender, EventArgs e)
+    {
+    }
     /*
     private async void BtnVoltar_Clicked( object sender, EventArgs e )
     {

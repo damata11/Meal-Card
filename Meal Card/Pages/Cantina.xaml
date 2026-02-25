@@ -1,21 +1,392 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Meal_Card.Pages.Cantina"
-             xmlns:model="clr-namespace:Meal_Card.ViewModels"
-             NavigationPage.HasNavigationBar="False"
-             Shell.NavBarIsVisible="False"
-             Shell.TitleColor="Black"
-             BackgroundColor="{StaticResource White}"
-             Title="Cantina">
+<ContentPage
+    x:Class="Meal_Card.Pages.Cantina"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:model="clr-namespace:Meal_Card.ViewModels"
+    Title="Cantina"
+    BackgroundColor="{StaticResource White}"
+    NavigationPage.HasNavigationBar="False"
+    Shell.NavBarIsVisible="False"
+    Shell.TitleColor="Black">
 
 
-    <RefreshView x:Name="refreshView"
-                     VerticalOptions="Fill"
-                     HorizontalOptions="Fill"
-                     IsRefreshing="{Binding IsRefreshing}"
-                     Refreshing="Refreshing">
+    <RefreshView
+        x:Name="refreshView"
+        HorizontalOptions="Fill"
+        IsRefreshing="{Binding IsRefreshing}"
+        Refreshing="Refreshing"
+        VerticalOptions="Fill">
 
+        <Grid RowDefinitions="Auto,Auto,*">
+            <!--  Main Content  -->
+            <ScrollView Grid.Row="2" BackgroundColor="White">
+                <VerticalStackLayout Spacing="0">
+                    <!--  Month Navigation  -->
+                    <Border
+                        Margin="10,15,10,0"
+                        Stroke="#ddd"
+                        StrokeShape="RoundRectangle 5">
+                        <Grid Padding="20,10" BackgroundColor="#ddd">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
 
+                            <Button
+                                x:Name="OnPreviousMonth"
+                                Grid.Column="0"
+                                Padding="10"
+                                BackgroundColor="transparent"
+                                Clicked="OnPreviousMonth_Clicked"
+                                ImageSource="left.png" />
+
+                            <Label
+                                x:Name="CalendarMonthLabel"
+                                Grid.Column="1"
+                                FontAttributes="Bold"
+                                FontSize="16"
+                                HorizontalOptions="Center"
+                                Text="Fevereiro de 2026"
+                                VerticalOptions="Center">
+                                <Label.Shadow>
+                                    <Shadow Brush="#FF464545" Offset="1,1" />
+                                </Label.Shadow>
+                            </Label>
+
+                            <Button
+                                x:Name="OnPreviousMonth"
+                                Grid.Column="2"
+                                Padding="12"
+                                BackgroundColor="transparent"
+                                Clicked="OnPreviousMonth_Clicked"
+                                ImageSource="right.png" />
+                        </Grid>
+                    </Border>
+
+                    <!-- Calendar Icon
+                <Border BackgroundColor="#ddd"
+                       StrokeShape="RoundRectangle 50"
+                       HeightRequest="45"
+                       WidthRequest="45"
+                       HorizontalOptions="Center"
+                       Margin="0,15"
+                       Padding="0">
+                    <Label Text="🍴"
+                           FontSize="32"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"/>
+                </Border>
+                    -->
+
+                    <!--  Add Button  -->
+                    <Button
+                        x:Name="OnAddMeal"
+                        Margin="0,5,20,0"
+                        Padding="10"
+                        BackgroundColor="#FF0CA107"
+                        Clicked="OnAddMeal_Clicked"
+                        CornerRadius="50"
+                        FontSize="20"
+                        HorizontalOptions="End"
+                        Text="+"
+                        TextColor="White"
+                        VerticalOptions="Center" />
+
+                    <!--  Calendar Grid  -->
+                    <Border
+                        Margin="8,10"
+                        BackgroundColor="White"
+                        Stroke="#FF31A10F"
+                        StrokeShape="RoundRectangle 0"
+                        StrokeThickness=".5">
+
+                        <Grid
+                            x:Name="CalendarGrid"
+                            ColumnSpacing="0"
+                            RowSpacing="5">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <!--  Week Headers  -->
+                            <Grid
+                                Grid.Row="0"
+                                Padding="0,10"
+                                ColumnDefinitions="*,*,*,*,*,*,*">
+                                <Label
+                                    Grid.Column="0"
+                                    FontSize="12"
+                                    HorizontalOptions="Center"
+                                    Text="SEG"
+                                    TextColor="#666" />
+                                <Label
+                                    Grid.Column="1"
+                                    FontSize="12"
+                                    HorizontalOptions="Center"
+                                    Text="TER"
+                                    TextColor="#666" />
+                                <Label
+                                    Grid.Column="2"
+                                    FontSize="12"
+                                    HorizontalOptions="Center"
+                                    Text="QUA"
+                                    TextColor="#666" />
+                                <Label
+                                    Grid.Column="3"
+                                    FontSize="12"
+                                    HorizontalOptions="Center"
+                                    Text="QUI"
+                                    TextColor="#666" />
+                                <Label
+                                    Grid.Column="4"
+                                    FontSize="12"
+                                    HorizontalOptions="Center"
+                                    Text="SEX"
+                                    TextColor="#666" />
+                                <Label
+                                    Grid.Column="5"
+                                    FontSize="12"
+                                    HorizontalOptions="Center"
+                                    Text="SÁB"
+                                    TextColor="#666" />
+                                <Label
+                                    Grid.Column="6"
+                                    FontSize="12"
+                                    HorizontalOptions="Center"
+                                    Text="DOM"
+                                    TextColor="#666" />
+                            </Grid>
+                        </Grid>
+                    </Border>
+
+                    <!--  Legend  -->
+                    <Grid
+                        Margin="15,20"
+                        ColumnDefinitions="*,*"
+                        RowDefinitions="Auto,Auto,Auto" VerticalOptions="Center">
+                        <!--  Row 1  -->
+                        <HorizontalStackLayout
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            Margin="5"
+                            Spacing="8">
+                            <Border
+                                Padding="0"
+                                BackgroundColor="#4FC3F7"
+                                HeightRequest="30"
+                                StrokeShape="RoundRectangle 15"
+                                WidthRequest="30">
+                                <Label
+                                    FontSize="14"
+                                    HorizontalOptions="Center"
+                                    Text="🍔"
+                                    VerticalOptions="Center" />
+                            </Border>
+                            <VerticalStackLayout>
+                                <Label
+                                    FontSize="10"
+                                    Text="REFEIÇÃO"
+                                    TextColor="#666" />
+                                <Label
+                                    FontSize="10"
+                                    Text="CONSUMIDA"
+                                    TextColor="#666" />
+                            </VerticalStackLayout>
+                        </HorizontalStackLayout>
+
+                        <HorizontalStackLayout
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            Margin="5"
+                            Spacing="8">
+                            <Border
+                                Padding="0"
+                                BackgroundColor="#FF9800"
+                                HeightRequest="30"
+                                StrokeShape="RoundRectangle 15"
+                                WidthRequest="30">
+                                <Label
+                                    FontSize="14"
+                                    HorizontalOptions="Center"
+                                    Text="🍔"
+                                    VerticalOptions="Center" />
+                            </Border>
+                            <VerticalStackLayout>
+                                <Label
+                                    FontSize="10"
+                                    Text="REFEIÇÃO"
+                                    TextColor="#666" />
+                                <Label
+                                    FontSize="10"
+                                    Text="CONSUMIDA NÃO"
+                                    TextColor="#666" />
+                                <Label
+                                    FontSize="10"
+                                    Text="MARCADA"
+                                    TextColor="#666" />
+                            </VerticalStackLayout>
+                        </HorizontalStackLayout>
+
+                        <!--  Row 2  -->
+                        <HorizontalStackLayout
+                            Grid.Row="1"
+                            Grid.Column="0"
+                            Margin="5"
+                            Spacing="8">
+                            <Border
+                                Padding="0"
+                                BackgroundColor="#F44336"
+                                HeightRequest="30"
+                                StrokeShape="RoundRectangle 15"
+                                WidthRequest="30">
+                                <Label
+                                    FontSize="16"
+                                    HorizontalOptions="Center"
+                                    Text="✕"
+                                    TextColor="White"
+                                    VerticalOptions="Center" />
+                            </Border>
+                            <VerticalStackLayout>
+                                <Label
+                                    FontSize="10"
+                                    Text="REFEIÇÃO NÃO"
+                                    TextColor="#666" />
+                                <Label
+                                    FontSize="10"
+                                    Text="CONSUMIDA"
+                                    TextColor="#666" />
+                            </VerticalStackLayout>
+                        </HorizontalStackLayout>
+
+                        <HorizontalStackLayout
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Margin="5"
+                            Spacing="8">
+                            <Border
+                                Padding="0"
+                                BackgroundColor="#8BC34A"
+                                HeightRequest="30"
+                                StrokeShape="RoundRectangle 15"
+                                WidthRequest="30">
+                                <Label
+                                    FontSize="16"
+                                    HorizontalOptions="Center"
+                                    Text="✓"
+                                    TextColor="White"
+                                    VerticalOptions="Center" />
+                            </Border>
+                            <VerticalStackLayout>
+                                <Label
+                                    FontSize="10"
+                                    Text="REFEIÇÃO JÁ"
+                                    TextColor="#666" />
+                                <Label
+                                    FontSize="10"
+                                    Text="MARCADA"
+                                    TextColor="#666" />
+                            </VerticalStackLayout>
+                        </HorizontalStackLayout>
+
+                        <!--  Row 3  -->
+                        <HorizontalStackLayout
+                            Grid.Row="2"
+                            Grid.Column="0"
+                            Margin="5"
+                            Spacing="8">
+                            <Border
+                                Padding="0"
+                                BackgroundColor="#9E9E9E"
+                                HeightRequest="30"
+                                StrokeShape="RoundRectangle 15"
+                                WidthRequest="30">
+                                <Label
+                                    FontSize="12"
+                                    HorizontalOptions="Center"
+                                    Text="🔒"
+                                    VerticalOptions="Center" />
+                            </Border>
+                            <VerticalStackLayout>
+                                <Label
+                                    FontSize="10"
+                                    Text="REFEIÇÃO NÃO"
+                                    TextColor="#666" />
+                                <Label
+                                    FontSize="10"
+                                    Text="MARCADA"
+                                    TextColor="#666" />
+                            </VerticalStackLayout>
+                        </HorizontalStackLayout>
+
+                        <HorizontalStackLayout
+                            Grid.Row="2"
+                            Grid.Column="1"
+                            Margin="5"
+                            Spacing="8">
+                            <Border
+                                Padding="0"
+                                BackgroundColor="#8BC34A"
+                                HeightRequest="30"
+                                StrokeShape="RoundRectangle 15"
+                                WidthRequest="30">
+                                <Label
+                                    FontSize="14"
+                                    HorizontalOptions="Center"
+                                    Text="🍽"
+                                    VerticalOptions="Center" />
+                            </Border>
+                            <VerticalStackLayout>
+                                <Label
+                                    FontSize="10"
+                                    Text="REFEIÇÃO"
+                                    TextColor="#666" />
+                                <Label
+                                    FontSize="10"
+                                    Text="DISPONÍVEL"
+                                    TextColor="#666" />
+                            </VerticalStackLayout>
+                        </HorizontalStackLayout>
+                    </Grid>
+
+                    <!--  Extra Legend Item  -->
+                    <HorizontalStackLayout
+                        Margin="15,0,15,20"
+                        HorizontalOptions="Center"
+                        Spacing="8">
+                        <Border
+                            Padding="0"
+                            BackgroundColor="#9E9E9E"
+                            HeightRequest="30"
+                            StrokeShape="RoundRectangle 15"
+                            WidthRequest="30">
+                            <Label
+                                FontSize="12"
+                                HorizontalOptions="Center"
+                                Text="🚫"
+                                VerticalOptions="Center" />
+                        </Border>
+                        <VerticalStackLayout>
+                            <Label
+                                FontSize="10"
+                                Text="REFEIÇÃO"
+                                TextColor="#666" />
+                            <Label
+                                FontSize="10"
+                                Text="INDISPONÍVEL"
+                                TextColor="#666" />
+                        </VerticalStackLayout>
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+            </ScrollView>
+
+        </Grid>
     </RefreshView>
 </ContentPage>

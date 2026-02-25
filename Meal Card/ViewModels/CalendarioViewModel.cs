@@ -18,9 +18,9 @@ namespace Meal_Card.ViewModels
         private string? _monthYearDisplay;
         private readonly AuthService _authService;
         private ObservableCollection<MenuCantina>? _Refeicaodays;
-        private ObservableCollection<string>? _weekDays;
+        /*private ObservableCollection<string>? _weekDays;*/
 
-        public CalendarioViewModel( AuthService authService )
+        public CalendarioViewModel(AuthService authService)
         {
             _authService = authService;
             CurrentDate = DateTime.Today;
@@ -170,7 +170,7 @@ namespace Meal_Card.ViewModels
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        protected virtual void OnPropertyChanged( [CallerMemberName] string? propertyName = null )
+        protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
