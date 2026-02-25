@@ -14,7 +14,7 @@ namespace Meal_Card.ViewModels
 
         private readonly AuthService _authService;
 
-        public HistoricoViewModel( AuthService authService )
+        public HistoricoViewModel(AuthService authService)
         {
             _authService = authService;
 
@@ -137,7 +137,7 @@ namespace Meal_Card.ViewModels
 
         }
 
-        protected virtual void OnPropertyChanged( [CallerMemberName] string propertyName = null! )
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null!)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }

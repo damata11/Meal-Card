@@ -37,8 +37,8 @@ namespace Meal_Card.ViewModels
         private bool _isLoading;
 
         [ObservableProperty]
-        private bool _isVisible; 
-        
+        private bool _isVisible;
+
         private string? _currentUserId;
         private bool _hasLoadedOnce = false;
         private IDispatcherTimer? _timer;
@@ -74,7 +74,7 @@ namespace Meal_Card.ViewModels
             {
                 Debug.WriteLine("Carregando dados da API...");
                 await CarregarDadosApiAsync();
-                
+
                 _currentUserId = userId;
                 _hasLoadedOnce = true;
             }
@@ -96,14 +96,14 @@ namespace Meal_Card.ViewModels
         public void ResetarParaNovoLogin()
         {
             Debug.WriteLine("Resetando ViewModel para novo login");
-            
+
             Categorias.Clear();
             ProdutosPlus.Clear();
             ProdutosPopulares.Clear();
-            
+
             _hasLoadedOnce = false;
             _currentUserId = null;
-            
+
             PararTimer();
         }
 

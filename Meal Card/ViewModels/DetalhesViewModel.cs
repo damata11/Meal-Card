@@ -17,7 +17,7 @@ namespace Meal_Card.ViewModels
         private int id_produto;
         private int _quantidade = 1;
 
-        public DetalhesViewModel( AuthService authService, FavoritosService favoritosService )
+        public DetalhesViewModel(AuthService authService, FavoritosService favoritosService)
         {
             _authService = authService ?? throw new ArgumentNullException(nameof(authService)); ;
             _favoritosService = favoritosService ?? throw new ArgumentNullException(nameof(favoritosService)); ;
@@ -142,7 +142,7 @@ namespace Meal_Card.ViewModels
 
         // Sessão atualizar
         public async Task RefreshDataAsync()
-        {     
+        {
             IsRefreshing = true;
             try
             {
@@ -164,7 +164,7 @@ namespace Meal_Card.ViewModels
         }
 
         // Sessão inicializar
-        public async Task Initialize( int Id_produto )
+        public async Task Initialize(int Id_produto)
         {
             await Task.Run(async () =>
             {
@@ -226,7 +226,7 @@ namespace Meal_Card.ViewModels
             try
             {
                 var carrinhoItem = new Incluir_Carrinho()
-                {              
+                {
                     Id_produto = id_produto,
                     Quantidade = Quantidade,
 
@@ -362,7 +362,7 @@ namespace Meal_Card.ViewModels
             });
         }
 
-        protected virtual void OnPropertyChanged( [CallerMemberName] string propertyName = null! )
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null!)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }

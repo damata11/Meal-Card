@@ -16,12 +16,12 @@ namespace Meal_Card.ViewModels
     public class NFCViewModel : INotifyPropertyChanged
     {
         private readonly AuthService _authService;
-        private ObservableCollection<Escola>? Escola { get; } = new(); 
+        private ObservableCollection<Escola>? Escola { get; } = new();
         private ObservableCollection<Utilizador>? Utilizadores { get; } = new();
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        public NFCViewModel( AuthService authService )
+        public NFCViewModel(AuthService authService)
         {
             _authService = authService;
         }
@@ -68,7 +68,7 @@ namespace Meal_Card.ViewModels
                 var escola = await GetEscola();
             });
 
-           //await Task.WhenAll(utilizador,carteira,escola);
+            //await Task.WhenAll(utilizador,carteira,escola);
 
         }
 
@@ -159,7 +159,7 @@ namespace Meal_Card.ViewModels
         }
 
 
-        protected virtual void OnPropertyChanged( [CallerMemberName] string propertyName = null! )
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null!)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
