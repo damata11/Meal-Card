@@ -15,7 +15,7 @@ namespace Meal_Card.Services
             ;
         }
 
-        public async Task<Favorito> ReadAsync( int id, int id_utilizador )
+        public async Task<Favorito> ReadAsync(int id, int id_utilizador)
         {
             try
             {
@@ -41,7 +41,7 @@ namespace Meal_Card.Services
             }
         }
 
-        public async Task CreateAsync( Favorito favoritos )
+        public async Task CreateAsync(Favorito favoritos)
         {
 
             try
@@ -56,7 +56,7 @@ namespace Meal_Card.Services
 
         }
 
-        public async Task DeleteAsync( Favorito favoritos )
+        public async Task DeleteAsync(Favorito favoritos)
         {
             try
             {

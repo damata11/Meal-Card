@@ -15,7 +15,7 @@ namespace Meal_Card.Services
             _database.CreateTableAsync<Models.Utilizador>().Wait();
         }
 
-        public async Task<Utilizador> ReadAsync( int id )
+        public async Task<Utilizador> ReadAsync(int id)
         {
             try
             {
@@ -42,7 +42,7 @@ namespace Meal_Card.Services
             }
         }
 
-        public async Task DeleteAsync(Utilizador user )
+        public async Task DeleteAsync(Utilizador user)
         {
             try
             {

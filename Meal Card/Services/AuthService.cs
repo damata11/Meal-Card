@@ -1,5 +1,8 @@
-﻿using Meal_Card.Models;
+﻿using Meal_Card.Controls;
+using Meal_Card.Models;
 using Microsoft.Extensions.Logging;
+using ServiceStack;
+using System.Diagnostics;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
@@ -69,13 +72,12 @@ namespace Meal_Card.Services
                 }
 
                 var accesstoken = result!.AccessToken;
-
                 _accessToken = accesstoken;
 
                 await SecureStorage.Default.SetAsync("accesstoken", accesstoken!.ToString());
 
                 var utilizador = result.Utilizador;
-                Preferences.Set("id", (int)utilizador!.Id);
+                Preferences.Set("id", utilizador!.Id.ToString());
                 Preferences.Set("email", utilizador!.Email);
 
                 return new ApiResponse<bool> { Data = true };
@@ -151,7 +153,7 @@ namespace Meal_Card.Services
             }
         }
 
-        public async Task<ApiResponse<bool>> GerenciarCarrinho(int id, string acao)
+        public async Task<ApiResponse<bool>> GerenciarCarrinho(int id_item, string acao)
         {
 
             try
@@ -159,7 +161,7 @@ namespace Meal_Card.Services
                 var content = new StringContent(string.Empty, Encoding.UTF8, "application/json");
 
                 // api/PedidoItens/bar/item/5/quantidade?acao=
-                var response = await PutRequest($"api/PedidoItens/bar/item/{id}/quantidade?acao={acao}", content);
+                var response = await PutRequest($"api/PedidoItens/{id_item}/acao={acao}", content);
 
                 if (!response.IsSuccessStatusCode)
                 {
@@ -206,36 +208,118 @@ namespace Meal_Card.Services
             }
         }
 
-        private async Task<HttpResponseMessage> PostRequest(string uri, HttpContent content)
+        public async Task<ApiResponse<bool>> AdicionarFavorito(int id_produto)
         {
-            var enderecoUrl = _baseUrl + uri;
             try
             {
-                var result = await _httpClient.PostAsync(enderecoUrl, content);
-                return result;
+                var json = JsonSerializer.Serialize(id_produto, _serializerOptions);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                var response = await PostRequest("api/Favoritos/criar-favorito", content);
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    _logger.LogError($"Erro ao enviar requisição HTTP: {response.StatusCode}");
+                    return new ApiResponse<bool>
+                    {
+                        ErrorMessage = $"Erro ao enviar requisição HTTP: {response.StatusCode}"
+                    };
+                }
+
+                return new ApiResponse<bool> { Data = true };
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, $"Erro ao enviar requisição Post para {uri} : {ex.Message}");
-                return new HttpResponseMessage(System.Net.HttpStatusCode.BadRequest);
+                _logger.LogError($"Erro ao adicionar item ao carrinho: {ex.Message}");
+                return new ApiResponse<bool> { ErrorMessage = ex.Message };
             }
         }
 
-        private async Task<HttpResponseMessage> PutRequest(string uri, HttpContent content)
+        public async Task<ApiResponse<bool>> RemoverFavorito(int id_produto)
         {
-            var enderecoUrl = _baseUrl + uri;
             try
             {
-                var result = await _httpClient.PutAsync(enderecoUrl, content);
-                return result;
+                var json = JsonSerializer.Serialize(id_produto, _serializerOptions);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                var response = await DeleteRequest("api/Favoritos/remover-favorito", content);
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    _logger.LogError($"Erro ao enviar requisição HTTP: {response.StatusCode}");
+                    return new ApiResponse<bool>
+                    {
+                        ErrorMessage = $"Erro ao enviar requisição HTTP: {response.StatusCode}"
+                    };
+                }
+
+                return new ApiResponse<bool> { Data = true };
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, $"Erro ao enviar requisição Post para {uri} : {ex.Message}");
-                return new HttpResponseMessage(System.Net.HttpStatusCode.BadRequest);
+                _logger.LogError($"Erro ao remover item dos favoritos: {ex.Message}");
+                return new ApiResponse<bool> { ErrorMessage = ex.Message };
             }
         }
 
+        public async Task<ApiResponse<bool>> EsvaziarCarrinhoAsync()
+        {
+            try
+            {
+                var json = JsonSerializer.Serialize(_serializerOptions);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                var response = await DeleteRequest("api/PedidoItens/esvaziar-carrinho", content);
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    _logger.LogError($"Erro ao enviar requisição HTTP: {response.StatusCode}");
+                    return new ApiResponse<bool>
+                    {
+                        ErrorMessage = $"Erro ao enviar requisição HTTP: {response.StatusCode}"
+                    };
+                }
+
+                return new ApiResponse<bool> { Data = true };
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Erro ao remover item dos favoritos: {ex.Message}");
+                return new ApiResponse<bool> { ErrorMessage = ex.Message };
+            }
+        }
+
+        public async Task<ApiResponse<bool>> UploadProfileImage(byte[] imagemArray)
+        {
+            try
+            {
+                var content = new MultipartFormDataContent();
+                content.Add(new ByteArrayContent(imagemArray), "imagem", "profile.jpg");
+                //Console.WriteLine($"Iniciando upload da imagem de perfil... {content}");
+                var response = await PostRequest("api/Utilizadores/upload-foto", content);
+                //Console.WriteLine($"Iniciando upload da imagem de perfil... {content}");
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    string errorMessage = response.StatusCode == System.Net.HttpStatusCode.Unauthorized ? "Unauthorized" : $"Erro ao enviar requisição HTTP: {response.StatusCode}";
+
+                    _logger.LogError($"Erro ao enviar requisição HTTP: {response.StatusCode}");
+
+                }
+                return new ApiResponse<bool>
+                {
+                    Data = true,
+                };
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Erro ao enviar imagem de perfil: {ex.Message}");
+                return new ApiResponse<bool>
+                {
+                    ErrorMessage = $"Erro ao enviar imagem de perfil: {ex.Message}"
+                };
+            }
+        }
 
         public async Task<(List<Categoria>? Categorias, string? ErrorMessage)> GetCategorias(string tipo)
         {
@@ -253,6 +337,17 @@ namespace Meal_Card.Services
         public async Task<(List<Produtos_Bar>? Produtos, string? ErrorMessage)> GetAllProdutosBar()
         {
             return await GetAsync<List<Produtos_Bar>>("api/Bar/produtos");
+        }
+
+        public async Task<(List<Favorito>? Favoritos, string? ErrorMessage)> GetFavoritosAsync()
+        {
+            return await GetAsync<List<Favorito>>("api/Favoritos/favoritos");
+        }
+
+        public async Task<(Favorito? Favorito, string? ErrorMessage)> GetFavoritoAsync(int? id_produto)
+        {
+            string endpoint = $"api/Favoritos/favorito?id_produto={id_produto}";
+            return await GetAsync<Favorito>(endpoint);
         }
 
         public async Task<(Produtos_Bar? Produtos, string? ErrorMessage)> GetProdutosDetalhes(int id_produto)
@@ -286,7 +381,7 @@ namespace Meal_Card.Services
 
         public async Task<(List<Itens_Carrinho>? Carrinho, string? ErrorMessage)> GetCarrinhoAsync()
         {
-            string endpoint = "api/PedidoItens/bar/carrinho";
+            string endpoint = "api/PedidoItens/carrinho";
             return await GetAsync<List<Itens_Carrinho>>(endpoint);
         }
 
@@ -300,12 +395,6 @@ namespace Meal_Card.Services
         {
             string endpoint = "api/Escolas/minha-escola";
             return await GetAsync<Escola>(endpoint);
-        }
-
-        public async Task<(List<UploadPerfil>? uploadPerfils, string? ErrorMessage)> PostImage(ImageFormat imagem)
-        {
-            string endpoint = $"api/Utilizadores/upload-foto/{imagem}";
-            return await GetAsync<List<UploadPerfil>>(endpoint);
         }
 
         public async Task RecuperarTokenAsync()
@@ -325,6 +414,59 @@ namespace Meal_Card.Services
             if (!string.IsNullOrEmpty(_accessToken))
             {
                 _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _accessToken);
+            }
+        }
+
+        private async Task<HttpResponseMessage> DeleteRequest(string uri, object data)
+        {
+            var enderecoUrl = _baseUrl + uri;
+            try
+            {
+                var json = JsonSerializer.Serialize(data);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                var request = new HttpRequestMessage(HttpMethod.Delete, enderecoUrl)
+                {
+                    Content = content
+                };
+
+                var result = await _httpClient.SendAsync(request);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"Erro ao enviar requisição delete para {uri} : {ex.Message}");
+                return new HttpResponseMessage(System.Net.HttpStatusCode.BadRequest);
+            }
+        }
+
+        private async Task<HttpResponseMessage> PostRequest(string uri, HttpContent content)
+        {
+            var enderecoUrl = _baseUrl + uri;
+            try
+            {
+                var result = await _httpClient.PostAsync(enderecoUrl, content);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"Erro ao enviar requisição Post para {uri} : {ex.Message}");
+                return new HttpResponseMessage(System.Net.HttpStatusCode.BadRequest);
+            }
+        }
+
+        private async Task<HttpResponseMessage> PutRequest(string uri, HttpContent content)
+        {
+            var enderecoUrl = _baseUrl + uri;
+            try
+            {
+                var result = await _httpClient.PutAsync(enderecoUrl, content);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"Erro ao enviar requisição Post para {uri} : {ex.Message}");
+                return new HttpResponseMessage(System.Net.HttpStatusCode.BadRequest);
             }
         }
 
@@ -391,41 +533,10 @@ namespace Meal_Card.Services
 
         public async void Logout()
         {
-            SecureStorage.Default.Remove("accesstoken");
             Preferences.Clear();
+            SecureStorage.Default.RemoveAll();
+            _httpClient.DefaultRequestHeaders.Authorization = null;
             await AppShell.Current.GoToAsync($"{nameof(Login)}");
-        }
-
-        public async Task<ApiResponse<bool>> UploadProfileImage(byte[] imagemArray)
-        {
-            try
-            {
-                var content = new MultipartFormDataContent();
-                content.Add(new ByteArrayContent(imagemArray), "imagem", "profile.jpg");
-                //Console.WriteLine($"Iniciando upload da imagem de perfil... {content}");
-                var response = await PostRequest("api/Utilizadores/upload-foto", content);
-                //Console.WriteLine($"Iniciando upload da imagem de perfil... {content}");
-
-                if (!response.IsSuccessStatusCode)
-                {
-                    string errorMessage = response.StatusCode == System.Net.HttpStatusCode.Unauthorized ? "Unauthorized" : $"Erro ao enviar requisição HTTP: {response.StatusCode}";
-
-                    _logger.LogError($"Erro ao enviar requisição HTTP: {response.StatusCode}");
-
-                }
-                return new ApiResponse<bool>
-                {
-                    Data = true,
-                };
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"Erro ao enviar imagem de perfil: {ex.Message}");
-                return new ApiResponse<bool>
-                {
-                    ErrorMessage = $"Erro ao enviar imagem de perfil: {ex.Message}"
-                };
-            }
         }
     }
 }
