@@ -1,4 +1,6 @@
-﻿using Meal_Card.Services;
+﻿using System.Diagnostics;
+using Meal_Card.Controls;
+using Meal_Card.Services;
 using Meal_Card.ViewModels;
 
 namespace Meal_Card.Pages;
@@ -50,21 +52,79 @@ public partial class Carteira : ContentPage
 
     private async void BtnQrCode_Clicked(object sender, EventArgs e)
     {
-        await AppShell.Current.GoToAsync(nameof(QRcode));
+        if (IsBusy) return;
+        IsBusy = true;
+        try
+        {
+            await AppShell.Current.GoToAsync(nameof(QRcode));
+        }
+        catch (Exception ex)
+        {
+            await NotificationToast.MostarToast("Ocorreu um erro!");
+            Debug.Write($"Erro: {ex.Message}");
+        }
+        finally
+        {
+            IsBusy = false;
+        }
+
     }
 
-    private async void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
+    private async void Tap_Historico_Tapped(object sender, TappedEventArgs e)
     {
-        await AppShell.Current.GoToAsync(nameof(Historico));
+        if (IsBusy) return;
+        IsBusy = true;
+        try
+        {
+            await AppShell.Current.GoToAsync(nameof(Historico));
+        }
+        catch (Exception ex)
+        {
+            await NotificationToast.MostarToast("Ocorreu um erro!");
+            Debug.Write($"Erro: {ex.Message}");
+        }
+        finally
+        {
+            IsBusy = false;
+        }
+
     }
 
     private async void Card_Payment_NFC_Tapped(object sender, TappedEventArgs e)
     {
-        await AppShell.Current.GoToAsync(nameof(CarteiraPaymentNFC));
+        if (IsBusy) return;
+        IsBusy = true;
+        try
+        {
+            await AppShell.Current.GoToAsync(nameof(CarteiraPaymentNFC));
+        }
+        catch (Exception ex)
+        {
+            await NotificationToast.MostarToast("Ocorreu um erro!");
+            Debug.Write($"Erro: {ex.Message}");
+        }
+        finally
+        {
+            IsBusy = false;
+        }
     }
 
     private async void VerHistorico_Tapped(object sender, TappedEventArgs e)
     {
-        await AppShell.Current.GoToAsync(nameof(Historico));
+        if (IsBusy) return;
+        IsBusy = true;
+        try
+        {
+            await AppShell.Current.GoToAsync(nameof(Historico));
+        }
+        catch (Exception ex)
+        {
+            await NotificationToast.MostarToast("Ocorreu um erro!");
+            Debug.Write($"Erro: {ex.Message}");
+        }
+        finally
+        {
+            IsBusy = false;
+        }
     }
 }
