@@ -1,4 +1,5 @@
-﻿using Meal_Card.Controls;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using Meal_Card.Controls;
 using Meal_Card.Models;
 using Meal_Card.Services;
 using System.Collections.ObjectModel;
@@ -7,12 +8,19 @@ using System.Runtime.CompilerServices;
 
 namespace Meal_Card.ViewModels
 {
-    public class CarteiraViewModel : INotifyPropertyChanged
+    public partial class CarteiraViewModel : AuthViewModel
     {
         private readonly AuthService _authService;
         private readonly HistoricoViewModel _historiaViewModel;
 
         private ObservableCollection<HistoricoList> _listItens = new();
+
+        public CarteiraViewModel(HistoricoViewModel historiaViewModel, AuthService authService) : base(authService)
+        {
+            _authService = authService;
+            _historiaViewModel = historiaViewModel;
+        }
+
         public ObservableCollection<HistoricoList> ListItens
         {
             get => _listItens;
@@ -24,139 +32,24 @@ namespace Meal_Card.ViewModels
         }
 
         // Campos privados
-        private string? _nome;
-        private string? _acronimo;
-        private string? _escola;
-        private string? _email;
-        private string? _cardNumber;
-        private string? _alerta;
-        private string? _image;
+        [ObservableProperty]
+        private string? _Nome;
+        [ObservableProperty]
+        private string? _Acronimo;
+        [ObservableProperty]
+        private string? _NomeEscola;
+        [ObservableProperty]
+        private string? _Email;
+        [ObservableProperty]
+        private string? _CardNumber;
+        [ObservableProperty]
+        private string? _State;
+        [ObservableProperty]
+        private string? _Imagem;
+        [ObservableProperty]
         private string? _saldo;
+        [ObservableProperty]
         private string? _tipoUtilizador;
-
-        // Propriedades com notificação
-        public string? Nome
-        {
-            get => _nome;
-            set
-            {
-                if (_nome != value)
-                {
-                    _nome = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        public string? Acronimo
-        {
-            get => _acronimo;
-            set
-            {
-                if (_acronimo != value)
-                {
-                    _acronimo = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        public string? NomeEscola
-        {
-            get => _escola;
-            set
-            {
-                if (_escola != value)
-                {
-                    _escola = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        public string? Email
-        {
-            get => _email;
-            set
-            {
-                if (_email != value)
-                {
-                    _email = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        public string? CardNumber
-        {
-            get => _cardNumber;
-            set
-            {
-                if (_cardNumber != value)
-                {
-                    _cardNumber = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        public string? TipoUtilizador
-        {
-            get => _tipoUtilizador;
-            set
-            {
-                if (_tipoUtilizador != value)
-                {
-                    _tipoUtilizador = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        public string? State
-        {
-            get => _alerta;
-            set
-            {
-                if (_alerta != value)
-                {
-                    _alerta = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        public string? Saldo
-        {
-            get => _saldo;
-            set
-            {
-                if (_saldo != value)
-                {
-                    _saldo = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        public string? Imagem
-        {
-            get => _image;
-            set
-            {
-                if (_image != value)
-                {
-                    _image = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        public CarteiraViewModel(HistoricoViewModel historiaViewModel, AuthService authService)
-        {
-            _authService = authService;
-            _historiaViewModel = historiaViewModel;
-        }
 
         public async Task CarregarMenu()
         {
@@ -302,7 +195,7 @@ namespace Meal_Card.ViewModels
                 {
                     await MainThread.InvokeOnMainThreadAsync(async () =>
                     {
-                        await NotificationToast.ShowToastL("Sessão expirada. Será redirecionado para a tela de login.");
+                        await NotificationToast.MostarToast("Sessão expirada. Será redirecionado para a tela de login.");
                         _authService.Logout();
                     });
                     return null;
@@ -377,10 +270,5 @@ namespace Meal_Card.ViewModels
                 return null;
             }
         }
-
-        public event PropertyChangedEventHandler? PropertyChanged;
-
-        protected void OnPropertyChanged([CallerMemberName] string? name = null) =>
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
     }
 }

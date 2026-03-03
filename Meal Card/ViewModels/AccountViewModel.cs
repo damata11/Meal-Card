@@ -1,8 +1,9 @@
-﻿using Meal_Card.Controls;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using Meal_Card.Controls;
 using Meal_Card.Models;
 using Meal_Card.Pages;
 using Meal_Card.Services;
-using ServiceStack;
+using Microsoft.Extensions.Logging;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -11,98 +12,33 @@ namespace Meal_Card.ViewModels
 {
     [QueryProperty(nameof(CropPhotoSource), "new-src")]
 
-    public partial class AccountViewModel : INotifyPropertyChanged
+    public partial class AccountViewModel : AuthViewModel
     {
         private readonly AuthService _authService;
         public ObservableCollection<Utilizador>? Utilizadores { get; } = new();
 
-        public AccountViewModel( AuthService authService )
+        public AccountViewModel(AuthService authService) : base(authService)
         {
             _authService = authService;
         }
 
+
         public string? CropPhotoSource { get; set; }
-        private bool _isRefreshing;
-        private string? _nome;
-        private string? _escola;
-        private string? _email;
-        private string? _imagem;
-        private string? _sobrenome;
-        private string? _cardNumber;
+        [ObservableProperty]
+        private bool _IsRefreshing;
+        [ObservableProperty]
+        private string? _Nome;
+        [ObservableProperty]
+        private string? _Escola;
+        [ObservableProperty]
+        private string? _Email;
+        [ObservableProperty]
+        private string? _Imagem;
+        [ObservableProperty]
+        private string? _Sobrenome;
+        [ObservableProperty]
+        private string? _CardNumber;
 
-        public bool IsRefreshing
-        {
-            get => _isRefreshing;
-            set
-            {
-                _isRefreshing = value;
-                OnPropertyChanged();
-            }
-        }
-        public string? Nome
-        {
-            get => _nome;
-            set
-            {
-                if (_nome != value)
-                {
-                    _nome = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        public string? Sobrenome
-        {
-            get => _sobrenome;
-            set
-            {
-                if (_sobrenome != value)
-                {
-                    _sobrenome = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        public string? Email
-        {
-            get => _email;
-            set
-            {
-                if (_email != value)
-                {
-                    _email = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-        public string? CardNumber
-        {
-            get => _cardNumber;
-            set
-            {
-                if (_cardNumber != value)
-                {
-                    _cardNumber = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        public string? Escola
-        {
-            get => _escola;
-
-            set
-            {
-                if (_escola != value)
-                {
-                    _escola = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
 
         /* public ImageSource Imagem
          {
@@ -113,18 +49,6 @@ namespace Meal_Card.ViewModels
              }
          }*/
 
-        public string? Imagem
-        {
-            get => _imagem;
-            set
-            {
-                if (_imagem != value)
-                {
-                    _imagem = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
 
         public Image? _imageCrup;
         public Image? ImagemCrup
@@ -167,28 +91,28 @@ namespace Meal_Card.ViewModels
                 var utilizador = await GetUtilizador();
                 var escola = await GetSchoolInfo();
 
-            if (utilizador == null)
-            {
+                if (utilizador == null)
+                {
 
-            Nome = Preferences.Get("nome", "Danilson");
-            Sobrenome = Preferences.Get("sobrenome", "da Mata");
-            Email = Preferences.Get("email", "danilsonmata@gmail.com");
-            CardNumber = Preferences.Get("card", "123456");
-            Imagem = "perfil.png";
-        }
-            if (utilizador != null)
-            {
-                Preferences.Set("nome", utilizador.Nome);
-                Preferences.Set("sobrenome", utilizador.Sobrenome);
-                Preferences.Set("email", utilizador.Email);
-                Preferences.Set("card", utilizador.Card);
-                Nome = utilizador.Nome;
-                Escola = escola.Nome;
-                Sobrenome = utilizador.Sobrenome;
-                Email = utilizador.Email;
-                CardNumber = utilizador.Card;
-                Imagem = utilizador.CaminhoImagem;
-            }
+                    Nome = Preferences.Get("nome", "Danilson");
+                    Sobrenome = Preferences.Get("sobrenome", "da Mata");
+                    Email = Preferences.Get("email", "danilsonmata@gmail.com");
+                    CardNumber = Preferences.Get("card", "123456");
+                    Imagem = "perfil.png";
+                }
+                if (utilizador != null)
+                {
+                    Preferences.Set("nome", utilizador.Nome);
+                    Preferences.Set("sobrenome", utilizador.Sobrenome);
+                    Preferences.Set("email", utilizador.Email);
+                    Preferences.Set("card", utilizador.Card);
+                    Nome = utilizador.Nome;
+                    Escola = escola.Nome;
+                    Sobrenome = utilizador.Sobrenome;
+                    Email = utilizador.Email;
+                    CardNumber = utilizador.Card;
+                    Imagem = utilizador.CaminhoImagem;
+                }
 
 
             });
@@ -201,7 +125,7 @@ namespace Meal_Card.ViewModels
 
                 if (ErrorMessage == "Unauthorized")
                 {
-                    //await NotificationToast.ShowToastL("Sessão expirada.Sera redirecionado pars a tela de login, para fazer login novamente.");
+                    //await NotificationToast.MostarToast("Sessão expirada.Sera redirecionado pars a tela de login, para fazer login novamente.");
                     _authService.Logout();
                     return null!;
                 }
@@ -227,7 +151,7 @@ namespace Meal_Card.ViewModels
 
                 if (ErrorMessage == "Unauthorized")
                 {
-                    //await NotificationToast.ShowToastL("Sessão expirada.Sera redirecionado pars a tela de login, para fazer login novamente.");
+                    //await NotificationToast.MostarToast("Sessão expirada.Sera redirecionado pars a tela de login, para fazer login novamente.");
                     _authService.Logout();
                     return null!;
                 }
@@ -250,16 +174,16 @@ namespace Meal_Card.ViewModels
         {
             var photo = await carregarFoto();
             if (!string.IsNullOrWhiteSpace(photo))
+            {
+                var param = new Dictionary<string, object>
                 {
-                    var param = new Dictionary<string, object>
-                    {
-                        [nameof(CortarImagem.PhotoSource)] = photo
-                    };
+                    [nameof(CortarImagem.PhotoSource)] = photo
+                };
 
-                    await AppShell.Current.GoToAsync(nameof(CortarImagem), param);
-                }
-
+                await AppShell.Current.GoToAsync(nameof(CortarImagem), param);
             }
+
+        }
 
         private async Task<string?> carregarFoto()
         {
@@ -271,14 +195,14 @@ namespace Meal_Card.ViewModels
                     status = await Permissions.RequestAsync<Permissions.Photos>();
                     if (status != PermissionStatus.Granted)
                     {
-                        await NotificationToast.ShowToastL("Permissão para aceder às fotos negada");
+                        await NotificationToast.MostarToast("Permissão para aceder às fotos negada");
                         return null;
                     }
                 }
 
                 var photo = await MediaPicker.PickPhotoAsync(new MediaPickerOptions
                 {
-                    Title = "Selecionar uma Foto"
+                    Title = "Selecionar uma foto"
                 });
 
                 if (photo == null) return null;
@@ -299,22 +223,22 @@ namespace Meal_Card.ViewModels
             }
             catch (FeatureNotSupportedException)
             {
-                await NotificationToast.ShowToastL("Funcionalidade não suportada");
+                await NotificationToast.MostarToast("Funcionalidade não suportada");
                 return null;
             }
             catch (PermissionException)
             {
-                await NotificationToast.ShowToastL("Permissão negada");
+                await NotificationToast.MostarToast("Permissão negada");
                 return null;
             }
             catch (Exception ex)
             {
-                await NotificationToast.ShowToastL($"Erro: {ex.Message}");
+                await NotificationToast.MostarToast($"Erro: {ex.Message}");
                 return null;
             }
         }
 
-        partial void OnCropPhotoSourceChanged( string? oldValue, string? newValue );
+        partial void OnCropPhotoSourceChanged(string? oldValue, string? newValue);
 
         async partial void OnCropPhotoSourceChanged(string? oldValue, string? newValue)
         {
@@ -327,7 +251,7 @@ namespace Meal_Card.ViewModels
 
                     if (!File.Exists(newValue))
                     {
-                        await NotificationToast.ShowToastL("Arquivo de imagem não encontrado");
+                        await NotificationToast.MostarToast("Arquivo de imagem não encontrado");
                         return;
                     }
 
@@ -337,7 +261,7 @@ namespace Meal_Card.ViewModels
 
                     if (!result.HasError && result.Data)
                     {
-                        await NotificationToast.ShowToastS("Imagem atualizada com sucesso! 🫡");
+                        await NotificationToast.MostarToast("Imagem atualizada com sucesso! 🫡");
 
                         try { File.Delete(newValue); } catch { }
 
@@ -345,22 +269,15 @@ namespace Meal_Card.ViewModels
                     }
                     else
                     {
-                        await NotificationToast.ShowToastL("Erro ao atualizar imagem 😑");
+                        await NotificationToast.MostarToast("Erro ao atualizar imagem 😑");
                     }
                 }
                 catch (Exception ex)
                 {
-                    await NotificationToast.ShowToastL($"Erro: {ex.Message}");
+                    await NotificationToast.MostarToast($"Erro: {ex.Message}");
                 }
             });
         }
-
-
-        public event PropertyChangedEventHandler? PropertyChanged;
-
-        protected void OnPropertyChanged( [CallerMemberName] string? name = null ) =>
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-
 
     }
 

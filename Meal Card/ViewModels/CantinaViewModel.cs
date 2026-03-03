@@ -1,7 +1,6 @@
 ﻿using Meal_Card.Services;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Windows.Input;
 
 namespace Meal_Card.ViewModels
 {
@@ -31,7 +30,6 @@ namespace Meal_Card.ViewModels
             IsRefreshing = true;
             try
             {
-
                 await Task.Delay(2000);
                 // await CarregarDadosCantina();
             }

@@ -1,4 +1,5 @@
-﻿using Meal_Card.Controls;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using Meal_Card.Controls;
 using Meal_Card.Models;
 using Meal_Card.Services;
 using System.Collections.ObjectModel;
@@ -7,18 +8,21 @@ using System.Runtime.CompilerServices;
 
 namespace Meal_Card.ViewModels
 {
-    public class CarrinhoViewModel : INotifyPropertyChanged
+    public partial class CarrinhoViewModel : AuthViewModel
     {
         public ObservableCollection<Itens_Carrinho>? _itensCarrinho = new();
         private readonly AuthService _authService;
 
-        public CarrinhoViewModel(AuthService authService)
+        public CarrinhoViewModel(AuthService authService) : base(authService)
         {
             _authService = authService;
         }
 
+        [ObservableProperty]
         private bool _isRefreshing;
+        [ObservableProperty]
         private bool _isVisible = true;
+        [ObservableProperty]
         private decimal _valorTotal;
 
         public ObservableCollection<Itens_Carrinho>? Carrinho
@@ -30,45 +34,6 @@ namespace Meal_Card.ViewModels
                 {
                     _itensCarrinho = value;
                     OnPropertyChanged(nameof(Carrinho));
-                }
-            }
-        }
-
-        public bool IsRefreshing
-        {
-            get => _isRefreshing;
-            set
-            {
-                if (_isRefreshing != value)
-                {
-                    _isRefreshing = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        public bool IsVisible
-        {
-            get => _isVisible;
-            set
-            {
-                if (_isVisible != value)
-                {
-                    _isVisible = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        public decimal ValorTotal
-        {
-            get => _valorTotal;
-            set
-            {
-                if (_valorTotal != value)
-                {
-                    _valorTotal = value;
-                    OnPropertyChanged();
                 }
             }
         }
@@ -108,7 +73,6 @@ namespace Meal_Card.ViewModels
         {
             try
             {
-
                 var (pedidos, ErrorMessage) = await CallServiceWithTimeout(() => _authService.GetCarrinhoAsync());
 
                 if (ErrorMessage != null || pedidos is null || !pedidos.Any())
@@ -141,7 +105,7 @@ namespace Meal_Card.ViewModels
                     await Task.Delay(1000);
                     return await GetCarrinho(retryCount + 1);
                 }
-                await NotificationToast.ShowToastL("Falha após retries: " + ex.Message);
+                await NotificationToast.MostarToast("Falha após retries: " + ex.Message);
                 return Enumerable.Empty<Itens_Carrinho>();
             }
         }
@@ -189,12 +153,12 @@ namespace Meal_Card.ViewModels
                     if (!response.HasError && response.Data)
                     {
                         await Initialize();
-                        await NotificationToast.ShowToastL($" Pedido criado com sucesso 🫡 ");
+                        await NotificationToast.MostarToast($" Pedido criado com sucesso 🫡 ");
                         IsVisible = true;
                     }
                     else
                     {
-                        await NotificationToast.ShowToastL($" Não foi possivel processar o pedido 😑 ");
+                        await NotificationToast.MostarToast($" Não foi possivel processar o pedido 😑 ");
                     }
                 }
                 else
@@ -209,18 +173,18 @@ namespace Meal_Card.ViewModels
             }
         }
 
-        public async Task IncrementarQuantidade(int id_CarrinhoItem)
+        public async Task IncrementarQuantidade(int id_item)
         {
             try
             {
-                var item = Carrinho?.FirstOrDefault(p => p.Id_pedido_itens == id_CarrinhoItem);
+                var item = Carrinho?.FirstOrDefault(p => p.Id_pedido_itens == id_item);
                 if (item != null)
                 {
                     item.Quantidade++;
                     AtualizarTotal();
                 }
 
-                await _authService.GerenciarCarrinho(id_CarrinhoItem, "aumentar");
+                await _authService.GerenciarCarrinho(id_item, "aumentar");
 
             }
             catch (Exception ex)
@@ -230,22 +194,22 @@ namespace Meal_Card.ViewModels
 
         }
 
-        public async Task DecrementarQuantidade(int id_CarrinhoItem)
+        public async Task DecrementarQuantidade(int id_item)
         {
             try
             {
-                var item = Carrinho?.FirstOrDefault(p => p.Id_pedido_itens == id_CarrinhoItem);
+                var item = Carrinho?.FirstOrDefault(p => p.Id_pedido_itens == id_item);
                 if (item == null) return;
 
                 if (item.Quantidade > 1)
                 {
                     item.Quantidade--;
-                    await _authService.GerenciarCarrinho(id_CarrinhoItem, "diminuir");
+                    await _authService.GerenciarCarrinho(id_item, "diminuir");
                 }
                 else
                 {
                     Carrinho!.Remove(item);
-                    await _authService.GerenciarCarrinho(id_CarrinhoItem, "eliminar");
+                    await _authService.GerenciarCarrinho(id_item, "eliminar");
                 }
 
                 AtualizarTotal();
@@ -258,16 +222,30 @@ namespace Meal_Card.ViewModels
 
         }
 
-        public async Task EliminarQuantidade(int id_CarrinhoItem)
+        public async Task EliminarQuantidade(int id_item)
         {
             try
             {
-                await _authService.GerenciarCarrinho(id_CarrinhoItem, "eliminar");
+                await _authService.GerenciarCarrinho(id_item, "eliminar");
                 AtualizarTotal();
             }
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine($"Erro ao eliminar produto {ex.Message}");
+            }
+
+        }
+
+        public async Task EsvaziarCarrinhoAsync()
+        {
+            try
+            {
+                await _authService.EsvaziarCarrinhoAsync();
+                AtualizarTotal();
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Erro ao esvaziar carrinho {ex.Message}");
             }
 
         }
@@ -297,11 +275,5 @@ namespace Meal_Card.ViewModels
             return (default!, null);
         }
 
-        public event PropertyChangedEventHandler? PropertyChanged;
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null!)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
     }
 }

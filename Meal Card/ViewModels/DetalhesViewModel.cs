@@ -1,4 +1,6 @@
-﻿using Meal_Card.Controls;
+﻿using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Mvvm.ComponentModel;
+using Meal_Card.Controls;
 using Meal_Card.Models;
 using Meal_Card.Services;
 using System.Collections.ObjectModel;
@@ -7,138 +9,39 @@ using System.Runtime.CompilerServices;
 
 namespace Meal_Card.ViewModels
 {
-    public class DetalhesViewModel : INotifyPropertyChanged
+    public partial class DetalhesViewModel : AuthViewModel
     {
-        public event PropertyChangedEventHandler? PropertyChanged;
         public ObservableCollection<Produtos_Bar>? Produtos { get; } = new();
         public ObservableCollection<Favorito>? Favoritos { get; } = new();
         private readonly AuthService _authService;
         private readonly FavoritosService _favoritosService;
         private int id_produto;
-        private int _quantidade = 1;
 
-        public DetalhesViewModel(AuthService authService, FavoritosService favoritosService)
+
+        public DetalhesViewModel(AuthService authService, FavoritosService favoritosService) : base(authService)
         {
             _authService = authService ?? throw new ArgumentNullException(nameof(authService)); ;
             _favoritosService = favoritosService ?? throw new ArgumentNullException(nameof(favoritosService)); ;
         }
 
+        [ObservableProperty]
         private string? _btnFavorito = "not_favorito.png";
+        [ObservableProperty]
         private bool _isRefreshing;
+        [ObservableProperty]
         private string? _imagem;
+        [ObservableProperty]
         private string? _nome;
+        [ObservableProperty]
         private bool _isVisible;
+        [ObservableProperty]
         private string? _descricao;
+        [ObservableProperty]
         private decimal _preco;
-        private decimal _precototal;
-        public bool IsRefreshing
-        {
-            get => _isRefreshing;
-            set
-            {
-                _isRefreshing = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public string? Imagem
-        {
-            get => _imagem;
-            set
-            {
-                if (_imagem != value)
-                {
-                    _imagem = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        public bool IsVisible
-        {
-            get => _isVisible;
-            set
-            {
-                if (_isVisible != value)
-                {
-                    _isVisible = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        public string? Btn_favorito
-        {
-            get => _btnFavorito;
-            set
-            {
-                if (_btnFavorito != value)
-                {
-                    _btnFavorito = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        public string Nome
-        {
-            get => _nome!;
-            set
-            {
-                if (Nome != value)
-                {
-                    _nome = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        public string Descricao
-        {
-            get => _descricao!;
-            set
-            {
-                if (_descricao != value)
-                {
-                    _descricao = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        public decimal Preco
-        {
-            get => _preco;
-            set
-            {
-                if (_preco != value)
-                {
-                    _preco = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        public decimal PrecoTotal
-        {
-            get => _precototal;
-            set
-            {
-                _precototal = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public int Quantidade
-        {
-            get => _quantidade;
-            set
-            {
-                _quantidade = value;
-                OnPropertyChanged();
-                CalcularPrecoTotal();
-            }
-        }
+        [ObservableProperty]
+        private decimal _precoTotal;
+        [ObservableProperty]
+        private int _quantidade = 1;
 
         // Sessão atualizar
         public async Task RefreshDataAsync()
@@ -173,8 +76,12 @@ namespace Meal_Card.ViewModels
                 await AtualizarFacoritos();
 
                 int id_utilizador = Preferences.Get("id_utilizador", 0);
-                var favorito = await _favoritosService.ReadAsync(id_produto, id_utilizador);
-                Btn_favorito = favorito != null ? "favorito.png" : "not_favorito.png";
+                var (favorito, error) = await _authService.GetFavoritoAsync(id_produto);
+                if (error != null)
+                {
+                    await NotificationToast.MostarToast("Ocorreu um erro");
+                }
+                BtnFavorito = favorito != null ? "favorito.png" : "not_favorito.png";
             });
         }
 
@@ -188,13 +95,13 @@ namespace Meal_Card.ViewModels
 
                 if (ErrorMessage == "Unauthorized")
                 {
-                    await NotificationToast.ShowToastL(" Sessão Expirada. Por favor, faça login novamente...");
+                    await NotificationToast.MostarToast("Sessão Expirada. Por favor, faça login novamente...");
                     _authService.Logout();
                     return null!;
                 }
                 if (produto is null)
                 {
-                    await NotificationToast.ShowToastL(" Produto não encontrado...");
+                    await NotificationToast.MostarToast("Produto não encontrado...");
                     return null!;
                 }
 
@@ -208,7 +115,7 @@ namespace Meal_Card.ViewModels
                 }
                 else
                 {
-                    await NotificationToast.ShowToastL("Erro ao carregar os detalhes do produto.");
+                    await NotificationToast.MostarToast("Erro ao carregar os detalhes do produto.");
                     return null!;
                 }
                 return produto;
@@ -221,7 +128,7 @@ namespace Meal_Card.ViewModels
         }
 
         // Sessão obter adicinar ao carrinho
-        public async Task AdicionarAoCarrinho()
+        public async Task AdicionarAoCarrinho(int id_produto)
         {
             try
             {
@@ -235,16 +142,16 @@ namespace Meal_Card.ViewModels
                 var response = await _authService.AdicionarItemCarinho(carrinhoItem);
                 if (response.ErrorMessage != null)
                 {
-                    await NotificationToast.ShowToastL(" Falha ao adicionar o produto ao carrinho.");
+                    await NotificationToast.MostarToast("Falha ao adicionar o produto ao carrinho.");
                 }
                 if (response.Data)
                 {
-                    await NotificationToast.ShowToastS(" Produto adicionado ao carrinho com sucesso 🫡");
+                    await NotificationToast.MostarToast("Produto adicionado ao carrinho com sucesso 🫡");
                     await _authService.GetCarrinhoAsync();
                 }
                 else
                 {
-                    await NotificationToast.ShowToastL(" Falha ao adicionar o produto ao carrinho.");
+                    await NotificationToast.MostarToast("Falha ao adicionar o produto ao carrinho.");
                 }
             }
             catch (Exception ex)
@@ -272,20 +179,26 @@ namespace Meal_Card.ViewModels
 
         public void ReiniciarDados()
         {
+            Favoritos?.Clear();
             Quantidade = 1;
         }
 
         // Sessão Favoritos 
-        public async Task AddFacorito()
+        public async Task AddFacorito(int id_produto)
         {
             try
             {
-                int id_utilizador = Preferences.Get("id_utilizador", 0);
-                var favoritos = await _favoritosService.ReadAsync(id_produto, id_utilizador);
+                int id_utilizador = Preferences.Get("id", 0);
+                var (favoritos, error) = await _authService.GetFavoritoAsync(id_produto);
 
+                if (error != null)
+                {
+                    await Shell.Current.DisplayAlert("Not Found", "Produto não encontrado", "Ok");
+                    return;
+                }
                 if (favoritos is not null)
                 {
-                    await _favoritosService.DeleteAsync(favoritos);
+                    await _authService.RemoverFavorito(id_produto);
                 }
                 else
                 {
@@ -299,7 +212,7 @@ namespace Meal_Card.ViewModels
                         Preco = Preco,
                         CaminhoImagem = Imagem
                     };
-                    await _favoritosService.CreateAsync(produtoFavorito);
+                    await _authService.AdicionarFavorito(id_produto);
                 }
                 await AtualizarFacoritos();
             }
@@ -353,18 +266,13 @@ namespace Meal_Card.ViewModels
 
                 if (favorito is not null)
                 {
-                    Btn_favorito = "favorito.png";  // 💖 favoritado
+                    BtnFavorito = "favorito.png";  // 💖 favoritado
                 }
                 else
                 {
-                    Btn_favorito = "not_favorito.png"; // 💔 desfavoritado
+                    BtnFavorito = "not_favorito.png"; // 💔 desfavoritado
                 }
             });
-        }
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null!)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
     }

@@ -1,5 +1,4 @@
-﻿using Meal_Card.Controls;
-using Meal_Card.Models;
+﻿using Meal_Card.Models;
 using Meal_Card.Services;
 using System.Collections.ObjectModel;
 using System.ComponentModel;

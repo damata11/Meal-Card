@@ -1,15 +1,9 @@
 ﻿using Meal_Card.Controls;
 using Meal_Card.Models;
 using Meal_Card.Services;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Meal_Card.ViewModels
 {
@@ -82,14 +76,14 @@ namespace Meal_Card.ViewModels
                 if (ErrorMessage == "Unauthorized")
                 {
                     // Fazer logout
-                    await NotificationToast.ShowToastL("Sessão expirada.Sera redirecionado pars a tela de login, para fazer login novamente.");
+                    await NotificationToast.MostarToast("Sessão expirada.Sera redirecionado pars a tela de login, para fazer login novamente.");
                     _authService.Logout();
                     return null!;
                 }
 
                 if (carteira == null)
                 {
-                    // await ShowToast("Nenhuma informação encontrada 😑");
+                    // await MostarToast("Nenhuma informação encontrada 😑");
                     return null!;
                 }
                 return carteira;
@@ -111,14 +105,14 @@ namespace Meal_Card.ViewModels
                 if (ErrorMessage == "Unauthorized")
                 {
                     // Fazer logout
-                    //await NotificationToast.ShowToastL("Sessão expirada.Sera redirecionado pars a tela de login, para fazer login novamente.");
+                    //await NotificationToast.MostarToast("Sessão expirada.Sera redirecionado pars a tela de login, para fazer login novamente.");
                     //_authService.Logout();
                     return null!;
                 }
 
                 if (escola == null)
                 {
-                    // await ShowToast("Nenhuma informação encontrada 😑");
+                    // await MostarToast("Nenhuma informação encontrada 😑");
                     return null!;
                 }
                 Escola?.Add(escola);
@@ -139,7 +133,7 @@ namespace Meal_Card.ViewModels
 
                 if (ErrorMessage == "Unauthorized")
                 {
-                    //await NotificationToast.ShowToastL("Sessão expirada.Sera redirecionado pars a tela de login, para fazer login novamente.");
+                    //await NotificationToast.MostarToast("Sessão expirada.Sera redirecionado pars a tela de login, para fazer login novamente.");
                     //_authService.Logout();
                     return null!;
                 }

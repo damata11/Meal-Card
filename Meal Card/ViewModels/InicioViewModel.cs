@@ -8,7 +8,7 @@ using System.Diagnostics;
 
 namespace Meal_Card.ViewModels
 {
-    public partial class InicioViewModel : ObservableObject, IDisposable
+    public partial class InicioViewModel : AuthViewModel, IDisposable
     {
         private readonly AuthService _authService;
 
@@ -43,7 +43,7 @@ namespace Meal_Card.ViewModels
         private bool _hasLoadedOnce = false;
         private IDispatcherTimer? _timer;
 
-        public InicioViewModel(AuthService authService)
+        public InicioViewModel(AuthService authService) : base(authService)
         {
             _authService = authService;
             InicializarCarrossel();
@@ -65,23 +65,22 @@ namespace Meal_Card.ViewModels
         [RelayCommand]
         private async Task VerificarECarregarDadosAsync()
         {
-            var userId = Preferences.Get("user_id", string.Empty);
-            var isNewUser = userId != _currentUserId;
 
-            Debug.WriteLine($"Verificando: UserID atual={userId}, anterior={_currentUserId}, isNewUser={isNewUser}, hasLoaded={_hasLoadedOnce}");
+            var Id_user = Preferences.Get("id", string.Empty);
+            string Id = Id_user.ToString();
+            var isNewUser = Id != _currentUserId;
+
+            Debug.WriteLine($"Verificando: UserID atual={Id}, anterior={_currentUserId}, isNewUser={isNewUser}, hasLoaded={_hasLoadedOnce}");
 
             if (!_hasLoadedOnce || isNewUser)
             {
-                Debug.WriteLine("Carregando dados da API...");
                 await CarregarDadosApiAsync();
 
-                _currentUserId = userId;
+                _currentUserId = Id;
                 _hasLoadedOnce = true;
             }
-            else
-            {
-                Debug.WriteLine("Dados já carregados para este usuário, pulando...");
-            }
+
+            Debug.WriteLine("Dados já carregados para este usuário, pulando...");
 
             IniciarTimer();
         }
@@ -95,7 +94,6 @@ namespace Meal_Card.ViewModels
 
         public void ResetarParaNovoLogin()
         {
-            Debug.WriteLine("Resetando ViewModel para novo login");
 
             Categorias.Clear();
             ProdutosPlus.Clear();
@@ -134,7 +132,7 @@ namespace Meal_Card.ViewModels
             catch (Exception ex)
             {
                 Debug.WriteLine($"Erro ao carregar: {ex.Message}");
-                await NotificationToast.ShowToastL("Erro ao carregar dados");
+                await NotificationToast.MostarToast("Erro ao carregar dados");
             }
             finally
             {
@@ -145,50 +143,65 @@ namespace Meal_Card.ViewModels
 
         private async Task CarregarCategoriasAsync()
         {
-            var (dados, erro) = await _authService.GetCategorias("bar");
-
-            if (erro == "Unauthorized")
+            await MakeApiCall(async () =>
             {
-                await HandleUnauthorizedAsync();
-                return;
-            }
+                var (dados, erro) = await _authService.GetCategorias("bar");
 
-            if (dados?.Any() == true)
-            {
-                var lista = new ObservableCollection<Categoria>(dados);
-                MainThread.BeginInvokeOnMainThread(() => Categorias = lista);
-            }
+                if (erro == "Unauthorized")
+                {
+                    throw new UnauthorizedAccessException("Unauthorized");
+                }
+
+                if (dados?.Any() == true)
+                {
+                    var lista = new ObservableCollection<Categoria>(dados);
+                    MainThread.BeginInvokeOnMainThread(() => Categorias = lista);
+                }
+            });
+
         }
 
         private async Task CarregarProdutosPlusAsync()
         {
-            var (dados, erro) = await _authService.GetProdutosBar("plus", string.Empty);
-
-            if (erro == "Unauthorized") return;
-
-            if (dados?.Any() == true)
+            await MakeApiCall(async () =>
             {
-                var lista = new ObservableCollection<Produtos_Bar>(dados);
-                MainThread.BeginInvokeOnMainThread(() => ProdutosPlus = lista);
-            }
+                var (dados, erro) = await _authService.GetProdutosBar("plus", string.Empty);
+
+                if (erro == "Unauthorized")
+                {
+                    throw new UnauthorizedAccessException("Unauthorized");
+                }
+
+                if (dados?.Any() == true)
+                {
+                    var lista = new ObservableCollection<Produtos_Bar>(dados);
+                    MainThread.BeginInvokeOnMainThread(() => ProdutosPlus = lista);
+                }
+            });
         }
 
         private async Task CarregarProdutosPopularesAsync()
         {
-            var (dados, erro) = await _authService.GetProdutosBar("popular", string.Empty);
+            await MakeApiCall(async () =>
+             {
+                 var (dados, erro) = await _authService.GetProdutosBar("popular", string.Empty);
 
-            if (erro == "Unauthorized") return;
+                 if (erro == "Unauthorized")
+                 {
+                     throw new UnauthorizedAccessException("Unauthorized");
+                 }
 
-            if (dados?.Any() == true)
-            {
-                var lista = new ObservableCollection<Produtos_Bar>(dados);
-                MainThread.BeginInvokeOnMainThread(() => ProdutosPopulares = lista);
-            }
+                 if (dados?.Any() == true)
+                 {
+                     var lista = new ObservableCollection<Produtos_Bar>(dados);
+                     MainThread.BeginInvokeOnMainThread(() => ProdutosPopulares = lista);
+                 }
+             });
         }
 
         private async Task HandleUnauthorizedAsync()
         {
-            await NotificationToast.ShowToastL("Sessão expirada. Faça login novamente.");
+            await Shell.Current.DisplayAlert("Sessão expirada", "A sua sessão expirou, sera redirecionado para a tela de login", "OK");
             _authService.Logout();
         }
 
