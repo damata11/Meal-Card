@@ -57,7 +57,7 @@ public partial class ButtonControl : Border
     defaultBindingMode: BindingMode.OneWay,
     propertyChanged: IsInProgressPropertyChanged);
 
-    private static void IsInProgressPropertyChanged( BindableObject bindable, object oldValue, object newValue )
+    private static void IsInProgressPropertyChanged(BindableObject bindable, object oldValue, object newValue)
     {
         if (bindable is ButtonControl controls)
         {
@@ -125,7 +125,7 @@ nameof(FontFamily), typeof(string), typeof(ButtonControl), defaultValue: "", def
     public static readonly BindableProperty FontAttributesProperty = BindableProperty.Create(
 nameof(FontAttributes), typeof(FontAttributes), typeof(ButtonControl), defaultValue: FontAttributes.None, defaultBindingMode: BindingMode.TwoWay);
 
-    private void TapGestureRecognizer_Tapped( object sender, TappedEventArgs e )
+    private void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
     {
         if (this.IsInProgress)
         {
@@ -134,7 +134,7 @@ nameof(FontAttributes), typeof(FontAttributes), typeof(ButtonControl), defaultVa
 
         Clicked?.Invoke(sender, e);
     }
-    private void TapGestureRecognizer_Tapped_1( object sender, TappedEventArgs e )
+    private void TapGestureRecognizer_Tapped_1(object sender, TappedEventArgs e)
     {
         Tapped?.Invoke(sender, e);
     }
