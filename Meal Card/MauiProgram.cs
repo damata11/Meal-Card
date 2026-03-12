@@ -46,7 +46,7 @@ namespace Meal_Card
                  .AddTransient<DetalhesProdutos>();
 
             builder.Services.AddTransient<CantinaViewModel>()
-                 .AddTransient<Cantina>();
+                 .AddTransient<Refeitorio>();
 
             builder.Services.AddTransient<CarteiraViewModel>()
                   .AddTransient<Carteira>();
@@ -57,11 +57,16 @@ namespace Meal_Card
             builder.Services.AddTransient<HistoricoViewModel>()
                 .AddTransient<Historico>();
 
+            builder.Services.AddTransient<ProdutosViewModel>()
+                .AddTransient<Reserva>()
+                .AddTransient<Refeitorio>()
+                .AddTransient<ListaProdutos>();
+
             builder.Services.AddTransient<AccountViewModel>()
                 .AddTransient<ContaInfo>();
 
             builder.Services.AddTransient<NFCViewModel>()
-                .AddTransient<CarteiraPaymentNFC>();
+                .AddTransient<NFC>();
 
             builder.Services.AddTransient<Escola>();
             builder.Services.AddTransient<Categoria>();
@@ -70,7 +75,7 @@ namespace Meal_Card
             builder.Services.AddTransient<HistoricoList>();
             builder.Services.AddTransient<CarteiraModel>();
             builder.Services.AddTransient<Itens_Carrinho>();
-            builder.Services.AddTransient<MenuCantina>();
+            builder.Services.AddTransient<Refeicoes>();
 
 
 #if DEBUG
@@ -78,6 +83,7 @@ namespace Meal_Card
 #endif
             builder.Services.AddHttpClient();
             builder.Services.AddSingleton<AuthService>();
+            builder.Services.AddSingleton<AuthViewModel>();
             builder.Services.AddSingleton<FavoritosService>();
             builder.Services.AddTransient<LoadingPage>();
 

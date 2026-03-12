@@ -5,7 +5,6 @@
 		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net9.0-windows10.0.19041.0</TargetFrameworks>
 		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
 		<!-- <TargetFrameworks>$(TargetFrameworks);net9.0-tizen</TargetFrameworks> -->
-
 		<!-- Note for MacCatalyst:
 		The default runtime is maccatalyst-x64, except in Release config, in which case the default is maccatalyst-x64;maccatalyst-arm64.
 		When specifying both architectures, use the plural <RuntimeIdentifiers> instead of the singular <RuntimeIdentifier>.
@@ -14,13 +13,12 @@
 		<!-- For example: <RuntimeIdentifiers>maccatalyst-x64;maccatalyst-arm64</RuntimeIdentifiers> -->
 
 		<OutputType>Exe</OutputType>
-		<MauiEnableXamlCBindingWithSourceCompilation>true</MauiEnableXamlCBindingWithSourceCompilation>
 		<RootNamespace>Meal_Card</RootNamespace>
 		<UseMaui>true</UseMaui>
 		<SingleProject>true</SingleProject>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
-        <NoWarn>$(NoWarn);XC0022;XC0045;CS0169</NoWarn>
+
 		<!-- Display name -->
 		<ApplicationTitle>Meal Card</ApplicationTitle>
 
@@ -90,6 +88,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Pages\Refeitorio.xaml.cs">
+	    <DependentUpon>Refeitorio.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Pages\CortarImagem.xaml.cs">
 	    <DependentUpon>CortarImagem.xaml</DependentUpon>
 	  </Compile>
@@ -105,7 +106,7 @@
 	  <MauiXaml Update="Pages\Calendario.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Pages\Cantina.xaml">
+	  <MauiXaml Update="Pages\Refeitorio.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Pages\Carrinho.xaml">
@@ -150,6 +151,9 @@
 	  <MauiXaml Update="Pages\Login.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Pages\MarcarRefeicao.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Pages\Menu.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -186,7 +190,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Pages\NewFolder\" />
+	  <Folder Include="ViewModels\NewFolder\" />
 	</ItemGroup>
 
 </Project>
