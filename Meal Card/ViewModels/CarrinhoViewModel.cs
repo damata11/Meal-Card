@@ -10,12 +10,13 @@ namespace Meal_Card.ViewModels
 {
     public partial class CarrinhoViewModel : AuthViewModel
     {
-        public ObservableCollection<Itens_Carrinho>? _itensCarrinho = new();
+        private ObservableCollection<Itens_Carrinho>? _itensCarrinho = new();
         private readonly AuthService _authService;
 
         public CarrinhoViewModel(AuthService authService) : base(authService)
         {
             _authService = authService;
+            ItensCarrinho = new ObservableCollection<Itens_Carrinho>();
         }
 
         [ObservableProperty]
@@ -25,17 +26,10 @@ namespace Meal_Card.ViewModels
         [ObservableProperty]
         private decimal _valorTotal;
 
-        public ObservableCollection<Itens_Carrinho>? Carrinho
+        public ObservableCollection<Itens_Carrinho>? ItensCarrinho
         {
             get => _itensCarrinho;
-            set
-            {
-                if (_itensCarrinho != value)
-                {
-                    _itensCarrinho = value;
-                    OnPropertyChanged(nameof(Carrinho));
-                }
-            }
+            set => SetProperty(ref _itensCarrinho, value);
         }
 
         public async Task Initialize()
@@ -46,7 +40,6 @@ namespace Meal_Card.ViewModels
             }
             catch (Exception)
             {
-
                 System.Diagnostics.Debug.WriteLine(" Erro ao carregar carrinho ");
             }
         }
@@ -82,11 +75,15 @@ namespace Meal_Card.ViewModels
                 }
 
                 IsVisible = false;
-                Carrinho?.Clear();
 
-                foreach (var item in pedidos)
+                if (ItensCarrinho != null)
                 {
-                    Carrinho?.Add(item);
+                    ItensCarrinho.Clear();
+
+                    foreach (var item in pedidos)
+                    {
+                        ItensCarrinho.Add(item);
+                    }
                 }
 
                 AtualizarTotal();
@@ -95,7 +92,6 @@ namespace Meal_Card.ViewModels
             }
             catch (TimeoutException)
             {
-
                 return await RetryGetCarrinho(3);
             }
             catch (Exception ex)
@@ -122,12 +118,11 @@ namespace Meal_Card.ViewModels
             return Enumerable.Empty<Itens_Carrinho>();
         }
 
-
         public void AtualizarTotal()
         {
             try
             {
-                var total = Carrinho?.Sum(p => p.Preco * p.Quantidade) ?? 0m;
+                var total = ItensCarrinho?.Sum(p => p.Preco * p.Quantidade) ?? 0m;
 
                 if (ValorTotal != total)
                 {
@@ -146,15 +141,18 @@ namespace Meal_Card.ViewModels
         {
             try
             {
-                if (Carrinho!.Any())
+                if (ItensCarrinho!.Any())
                 {
                     var response = await _authService.CriarPedido();
 
                     if (!response.HasError && response.Data)
                     {
-                        await Initialize();
-                        await NotificationToast.MostarToast($" Pedido criado com sucesso 🫡 ");
+
+                        ItensCarrinho?.Clear();
+                        ValorTotal = 0;
                         IsVisible = true;
+
+                        await NotificationToast.MostarToast($" Pedido criado com sucesso 🫡 ");
                     }
                     else
                     {
@@ -177,7 +175,7 @@ namespace Meal_Card.ViewModels
         {
             try
             {
-                var item = Carrinho?.FirstOrDefault(p => p.Id_pedido_itens == id_item);
+                var item = ItensCarrinho?.FirstOrDefault(p => p.Id_pedido_itens == id_item);
                 if (item != null)
                 {
                     item.Quantidade++;
@@ -198,7 +196,7 @@ namespace Meal_Card.ViewModels
         {
             try
             {
-                var item = Carrinho?.FirstOrDefault(p => p.Id_pedido_itens == id_item);
+                var item = ItensCarrinho?.FirstOrDefault(p => p.Id_pedido_itens == id_item);
                 if (item == null) return;
 
                 if (item.Quantidade > 1)
@@ -208,7 +206,7 @@ namespace Meal_Card.ViewModels
                 }
                 else
                 {
-                    Carrinho!.Remove(item);
+                    ItensCarrinho!.Remove(item);
                     await _authService.GerenciarCarrinho(id_item, "eliminar");
                 }
 

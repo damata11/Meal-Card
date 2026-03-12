@@ -25,23 +25,23 @@ namespace Meal_Card.ViewModels
         }
 
         [ObservableProperty]
-        private string? _btnFavorito = "not_favorito.png";
+        private string? _Btn_Favorito = "not_favorito.png";
         [ObservableProperty]
-        private bool _isRefreshing;
+        private bool _IsRefreshing;
         [ObservableProperty]
-        private string? _imagem;
+        private string? _Imagem;
         [ObservableProperty]
-        private string? _nome;
+        private string? _Nome;
         [ObservableProperty]
-        private bool _isVisible;
+        private bool _IsVisible;
         [ObservableProperty]
-        private string? _descricao;
+        private string? _Descricao;
         [ObservableProperty]
-        private decimal _preco;
+        private decimal _Preco;
         [ObservableProperty]
-        private decimal _precoTotal;
+        private decimal _PrecoTotal;
         [ObservableProperty]
-        private int _quantidade = 1;
+        private int _Quantidade = 1;
 
         // Sessão atualizar
         public async Task RefreshDataAsync()
@@ -81,7 +81,7 @@ namespace Meal_Card.ViewModels
                 {
                     await NotificationToast.MostarToast("Ocorreu um erro");
                 }
-                BtnFavorito = favorito != null ? "favorito.png" : "not_favorito.png";
+                Btn_Favorito = favorito != null ? "favorito.png" : "not_favorito.png";
             });
         }
 
@@ -140,6 +140,7 @@ namespace Meal_Card.ViewModels
                 };
 
                 var response = await _authService.AdicionarItemCarinho(carrinhoItem);
+
                 if (response.ErrorMessage != null)
                 {
                     await NotificationToast.MostarToast("Falha ao adicionar o produto ao carrinho.");
@@ -164,12 +165,14 @@ namespace Meal_Card.ViewModels
         public void IncrementarQuantidade()
         {
             Quantidade++;
+            CalcularPrecoTotal();
         }
 
         public void DecrementarQuantidade()
         {
             if (Quantidade > 1)
                 Quantidade--;
+            CalcularPrecoTotal();
         }
 
         private void CalcularPrecoTotal()
@@ -180,6 +183,8 @@ namespace Meal_Card.ViewModels
         public void ReiniciarDados()
         {
             Favoritos?.Clear();
+            id_produto = 0;
+            Nome = null;
             Quantidade = 1;
         }
 
@@ -188,33 +193,43 @@ namespace Meal_Card.ViewModels
         {
             try
             {
-                int id_utilizador = Preferences.Get("id", 0);
+                var Id = Preferences.Get("id", string.Empty);
+                var Id_utilizador = int.Parse(Id);
                 var (favoritos, error) = await _authService.GetFavoritoAsync(id_produto);
-
                 if (error != null)
                 {
-                    await Shell.Current.DisplayAlert("Not Found", "Produto não encontrado", "Ok");
-                    return;
-                }
+   
                 if (favoritos is not null)
                 {
                     await _authService.RemoverFavorito(id_produto);
                 }
                 else
                 {
-                    var produtoFavorito = new Favorito()
-                    {
-                        Id_utilizador = id_utilizador,
-                        Id_produto = id_produto,
-                        Isfavorito = true,
-                        Nome = Nome,
-                        Descricao = Descricao,
-                        Preco = Preco,
-                        CaminhoImagem = Imagem
-                    };
-                    await _authService.AdicionarFavorito(id_produto);
-                }
+                        /*  var produtoFavorito = new Favorito()
+                          {
+                              Id_utilizador = Id_utilizador,
+                              Id_produto = id_produto,
+                              Isfavorito = true,
+                              Nome = Nome,
+                              Descricao = Descricao,
+                              Preco = Preco,
+                              CaminhoImagem = Imagem
+                          };*/
+
+                        var New_Favorito = new Favorito()
+                        {
+                            Id_produto = id_produto
+                        };
+
+                    await _authService.AdicionarFavorito(New_Favorito);
+                 }
                 await AtualizarFacoritos();
+                }
+                else
+                {
+                   await NotificationToast.MostarToast("Esse produto ja se encontra na lista de favoritos");
+                }
+
             }
             catch (Exception ex)
 
@@ -266,11 +281,11 @@ namespace Meal_Card.ViewModels
 
                 if (favorito is not null)
                 {
-                    BtnFavorito = "favorito.png";  // 💖 favoritado
+                    Btn_Favorito = "favorito.png";  // 💖 favoritado
                 }
                 else
                 {
-                    BtnFavorito = "not_favorito.png"; // 💔 desfavoritado
+                    Btn_Favorito = "not_favorito.png"; // 💔 desfavoritado
                 }
             });
         }

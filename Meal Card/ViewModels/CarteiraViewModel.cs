@@ -2,6 +2,7 @@
 using Meal_Card.Controls;
 using Meal_Card.Models;
 using Meal_Card.Services;
+using SQLitePCL;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -187,88 +188,97 @@ namespace Meal_Card.ViewModels
 
         private async Task<CarteiraModel?> GetCarteira()
         {
-            try
+           return await MakeListApiCall(async () =>
             {
-                var (carteira, errorMessage) = await _authService.GetCarteira();
 
-                if (errorMessage == "Unauthorized")
+                try
                 {
-                    await MainThread.InvokeOnMainThreadAsync(async () =>
+                    var (carteira, errorMessage) = await _authService.GetCarteira();
+
+                    if (errorMessage == "Unauthorized")
                     {
-                        await NotificationToast.MostarToast("Sessão expirada. Será redirecionado para a tela de login.");
-                        _authService.Logout();
-                    });
+                        await MainThread.InvokeOnMainThreadAsync(async () =>
+                        {
+                            await NotificationToast.MostarToast("Sessão expirada. Será redirecionado para a tela de login.");
+                            _authService.Logout();
+                        });
+                        return null;
+                    }
+
+                    if (!string.IsNullOrEmpty(errorMessage))
+                    {
+                        System.Diagnostics.Debug.WriteLine($"Carteira erro: {errorMessage}");
+                    }
+
+                    System.Diagnostics.Debug.WriteLine($"Carteira: {(carteira != null ? "OK" : "NULL")}");
+                    return carteira;
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine($" ERRO GetCarteira: {ex.Message}");
                     return null;
                 }
-
-                if (!string.IsNullOrEmpty(errorMessage))
-                {
-                    System.Diagnostics.Debug.WriteLine($"Carteira erro: {errorMessage}");
-                }
-
-                System.Diagnostics.Debug.WriteLine($"Carteira: {(carteira != null ? "OK" : "NULL")}");
-                return carteira;
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine($" ERRO GetCarteira: {ex.Message}");
-                return null;
-            }
+            });
         }
 
         private async Task<Escola?> GetEscola()
         {
-            try
+           return await MakeListApiCall(async () =>
             {
-                System.Diagnostics.Debug.WriteLine("Buscando escola...");
-                var (escola, errorMessage) = await _authService.GetEscolaInfo();
-
-                if (errorMessage == "Unauthorized")
+                try
                 {
+                    System.Diagnostics.Debug.WriteLine("Buscando escola...");
+                    var (escola, errorMessage) = await _authService.GetEscolaInfo();
+
+                    if (errorMessage == "Unauthorized")
+                    {
+                        throw new UnauthorizedAccessException("Unauthorized");
+                    }
+
+                    if (!string.IsNullOrEmpty(errorMessage))
+                    {
+                        System.Diagnostics.Debug.WriteLine($"Escola erro: {errorMessage}");
+                    }
+
+                    System.Diagnostics.Debug.WriteLine($"Escola: {(escola != null ? "OK" : "NULL")}");
+                    return escola;
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine($" ERRO GetEscola: {ex.Message}");
                     return null;
                 }
-
-                if (!string.IsNullOrEmpty(errorMessage))
-                {
-                    System.Diagnostics.Debug.WriteLine($"Escola erro: {errorMessage}");
-                }
-
-                System.Diagnostics.Debug.WriteLine($"Escola: {(escola != null ? "OK" : "NULL")}");
-                return escola;
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine($" ERRO GetEscola: {ex.Message}");
-                return null;
-            }
+            });
         }
 
         private async Task<Utilizador?> GetUtilizador()
         {
-            try
+           return await MakeListApiCall(async () =>
             {
-                System.Diagnostics.Debug.WriteLine("Buscando utilizador...");
-                var (utilizador, errorMessage) = await _authService.GetUserInfo();
-
-                if (errorMessage == "Unauthorized")
+                try
                 {
-                    System.Diagnostics.Debug.WriteLine("Utilizador: Unauthorized");
+                    System.Diagnostics.Debug.WriteLine("Buscando utilizador...");
+                    var (utilizador, errorMessage) = await _authService.GetUserInfo();
+
+                    if (errorMessage == "Unauthorized")
+                    {
+                       throw new UnauthorizedAccessException("Unauthorized");
+                    }
+
+                    if (!string.IsNullOrEmpty(errorMessage))
+                    {
+                        System.Diagnostics.Debug.WriteLine($"Utilizador erro: {errorMessage}");
+                    }
+
+                    System.Diagnostics.Debug.WriteLine($"Utilizador: {(utilizador != null ? "OK" : "NULL")}");
+                    return utilizador;
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine($" ERRO GetUtilizador: {ex.Message}");
                     return null;
                 }
-
-                if (!string.IsNullOrEmpty(errorMessage))
-                {
-                    System.Diagnostics.Debug.WriteLine($"Utilizador erro: {errorMessage}");
-                }
-
-                System.Diagnostics.Debug.WriteLine($"Utilizador: {(utilizador != null ? "OK" : "NULL")}");
-                return utilizador;
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine($" ERRO GetUtilizador: {ex.Message}");
-                return null;
-            }
+            });
         }
     }
 }

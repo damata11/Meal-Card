@@ -165,7 +165,7 @@ namespace Meal_Card.ViewModels
         {
             await MakeApiCall(async () =>
             {
-                var (dados, erro) = await _authService.GetProdutosBar("plus", string.Empty);
+                var (dados, erro) = await _authService.GetProdutosBar("plus", null);
 
                 if (erro == "Unauthorized")
                 {
@@ -184,7 +184,7 @@ namespace Meal_Card.ViewModels
         {
             await MakeApiCall(async () =>
              {
-                 var (dados, erro) = await _authService.GetProdutosBar("popular", string.Empty);
+                 var (dados, erro) = await _authService.GetProdutosBar("popular", null);
 
                  if (erro == "Unauthorized")
                  {
@@ -199,12 +199,12 @@ namespace Meal_Card.ViewModels
              });
         }
 
-        private async Task HandleUnauthorizedAsync()
+/*        private async Task HandleUnauthorizedAsync()
         {
             await Shell.Current.DisplayAlert("Sessão expirada", "A sua sessão expirou, sera redirecionado para a tela de login", "OK");
             _authService.Logout();
         }
-
+*/
         public void OnPageAppearing()
         {
             IniciarTimer();

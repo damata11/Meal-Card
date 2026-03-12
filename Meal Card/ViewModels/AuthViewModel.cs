@@ -57,7 +57,7 @@ namespace Meal_Card.ViewModels
             }
         }
 
-        protected async Task<T?> MakeApiCall<T>(Func<Task<T>> apiCall)
+        protected async Task<T?> MakeListApiCall<T>(Func<Task<T>> apiCall)
         {
             //if (IsBusy) return;
             IsBusy = true;
@@ -96,7 +96,7 @@ namespace Meal_Card.ViewModels
             }
         }
 
-        private async Task TratarUnauthorized()
+        public async Task TratarUnauthorized()
         {
             if (_isHandlingUnauthorized)
                 return;
