@@ -1,5 +1,6 @@
 ﻿using Meal_Card.Controls;
 using Meal_Card.Models;
+using Meal_Card.Models.Enums;
 using Microsoft.Extensions.Logging;
 using ServiceStack;
 using System.Diagnostics;
@@ -73,8 +74,12 @@ namespace Meal_Card.Services
 
                 var accesstoken = result!.AccessToken;
                 _accessToken = accesstoken;
+                var expireSecondes = result.Expires_in;
+
+                var data_espiracao = DateTime.UtcNow.AddSeconds(expireSecondes);
 
                 await SecureStorage.Default.SetAsync("accesstoken", accesstoken!.ToString());
+                Preferences.Set("data_expiracao",  data_espiracao);
 
                 var utilizador = result.Utilizador;
                 Preferences.Set("id", utilizador!.Id.ToString());
@@ -92,7 +97,7 @@ namespace Meal_Card.Services
             }
         }
 
-        public async Task<ApiResponse<bool>> PostNovaSenha(string senhaCorrente, string novaSenha)
+        public async Task<ApiResponse<bool>> AlterarSenha(string senhaCorrente, string novaSenha)
         {
             var UpdateSenha = new UpdateSenha
             {
@@ -153,6 +158,34 @@ namespace Meal_Card.Services
             }
         }
 
+        public async Task<ApiResponse<bool>> MarcarRefeicao(CriarReserva reserva)
+        {
+
+            try
+            {
+                var json = JsonSerializer.Serialize(reserva, _serializerOptions);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                var response = await PostRequest("api/Pedidos/criar", content);
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    _logger.LogError($"Erro ao enviar requisição HTTP: {response.StatusCode}");
+                    return new ApiResponse<bool>
+                    {
+                        ErrorMessage = $"Erro ao enviar requisição HTTP: {response.StatusCode}"
+                    };
+                }
+
+                return new ApiResponse<bool> { Data = true };
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Erro ao finalizar o pedido: {ex.Message}");
+                return new ApiResponse<bool> { ErrorMessage = ex.Message };
+            }
+        }
+
         public async Task<ApiResponse<bool>> GerenciarCarrinho(int id_item, string acao)
         {
 
@@ -188,7 +221,7 @@ namespace Meal_Card.Services
                 var json = JsonSerializer.Serialize(carinho_Itens, _serializerOptions);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-                var response = await PostRequest("api/PedidoItens/bar/adicionar", content);
+                var response = await PostRequest("api/PedidoItens/adicionar", content);
 
                 if (!response.IsSuccessStatusCode)
                 {
@@ -208,11 +241,11 @@ namespace Meal_Card.Services
             }
         }
 
-        public async Task<ApiResponse<bool>> AdicionarFavorito(int id_produto)
+        public async Task<ApiResponse<bool>> AdicionarFavorito(Favorito favorito)
         {
             try
             {
-                var json = JsonSerializer.Serialize(id_produto, _serializerOptions);
+                var json = JsonSerializer.Serialize(favorito, _serializerOptions);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
 
                 var response = await PostRequest("api/Favoritos/criar-favorito", content);
@@ -328,9 +361,9 @@ namespace Meal_Card.Services
         }
 
 
-        public async Task<(List<Produtos_Bar>? Produtos, string? ErrorMessage)> GetProdutosBar(string tipoProduto, string categoriaId)
+        public async Task<(List<Produtos_Bar>? Produtos, string? ErrorMessage)> GetProdutosBar(string Tipo_Produto, int? Id_categoria)
         {
-            string endpoint = $"api/Bar?tipoProduto={tipoProduto}&categoriaId={categoriaId}";
+            string endpoint = $"api/Bar?tipoProduto={Tipo_Produto}&categoriaId={Id_categoria}";
             return await GetAsync<List<Produtos_Bar>>(endpoint);
         }
 
@@ -356,15 +389,24 @@ namespace Meal_Card.Services
             return await GetAsync<Produtos_Bar>(endpoint);
         }
 
-        public async Task<(List<MenuCantina>? Produtos, string? ErrorMessage)> GetRefeicoes(string tipoRefeicao, string categoriaId)
+        public async Task<(Calendario? Calendarios, string? ErrorMessage)> GetCalendarioAsync(int? ano_atual, int? mes_atual)
         {
-            string endpoint = $"api/Cantina/produtos/tipoRefeicao/{tipoRefeicao}/categoriaId/{categoriaId}";
-            return await GetAsync<List<MenuCantina>>(endpoint);
+            return await GetAsync<Calendario>($"api/Calendario/mes/{ano_atual}/{mes_atual}");
+        }
+
+        public async Task<(List<Refeicoes>? refeicoes, string? ErrorMessage)> GetRefeicoesAsync()
+        {
+            return await GetAsync<List<Refeicoes>>("api/Refeicao/produtos");
+        }
+
+        public async Task<(List<Notificacao>? notificacaos, string? ErrorMessage)> GetNotificacoesAsync()
+        {
+            return await GetAsync<List<Notificacao>>("api/Notifications?page=1&pageSize=10");
         }
 
         public async Task<(List<Produtos_Bar>? Produtos, string? ErrorMessage)> GetAllTransacoes()
         {
-            return await GetAsync<List<Produtos_Bar>>("api/Bar/produtos");
+            return await GetAsync<List<Produtos_Bar>>("api/Transacao/utilizador");
         }
 
         public async Task<(Utilizador? Utilizadores, string? ErrorMessage)> GetUserInfo()
